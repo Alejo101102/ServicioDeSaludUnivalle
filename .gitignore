@@ -1,0 +1,22 @@
+# Carpetas de construcciones #
+/build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Carpeta de compilacion #
+/dist/
+
+# Otras carpetas #
+/nbproject/private
+/nbproject/Makefile-*.mk
+/nbproject/Package-*.bash
+
+# Paquetes #
+*.jar
+*.war
+*.ear
+
+# Archivos desconocidos #
+/desktop.ini
