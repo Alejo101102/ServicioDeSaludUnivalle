@@ -2,7 +2,7 @@ package hospital;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
- *    Laboratorio #
+ *    Laboratorio # 3
  *    Profesor: Luis Romo Portilla 
  *
  *    Archivo:  Servicio.java

@@ -2,7 +2,7 @@ package hospital;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
- *    Laboratorio #
+ *    Laboratorio # 3
  *    Profesor: Luis Romo Portilla 
  *
  *    Archivo:  Especialista.java
@@ -21,9 +21,9 @@ public class Especialista extends Persona{
     /**
      * Constructor de la clase Especialista
      * @see Persona.java - Clase de la que hereda
-     * @param id El numero del documento de identificacion de la persona (int)
-     * @param nombre Los nombre y apelligos de la persona (String)
-     * @param idServicio El id del servicio que ofrece el especialista
+     * @param id El numero del documento de identificacion del especialista (int)
+     * @param nombre Los nombre y apelligos del especialista (String)
+     * @param idServicio El id del servicio que ofrece el especialista (int)
      */
     Especialista(int id, String nombre, int idServicio){
         super(id, nombre);

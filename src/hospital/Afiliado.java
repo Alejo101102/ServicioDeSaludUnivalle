@@ -2,7 +2,7 @@ package hospital;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
- *    Laboratorio #
+ *    Laboratorio # 3
  *    Profesor: Luis Romo Portilla 
  *
  *    Archivo:  Afiliado.java
@@ -20,8 +20,8 @@ public class Afiliado extends Persona{
     /**
      * Constructor de la clase Afiliado
      * @see Persona.java - Clase de la que hereda
-     * @param id El numero del documento de identificacion de la persona (int)
-     * @param nombre Los nombre y apelligos de la persona (String)
+     * @param id El numero del documento de identificacion del afiliado (int)
+     * @param nombre Los nombre y apelligos del afiliado (String)
      */
     Afiliado(int id, String nombre){
         super(id, nombre);
