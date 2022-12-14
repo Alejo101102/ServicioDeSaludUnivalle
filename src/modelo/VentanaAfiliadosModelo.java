@@ -15,6 +15,44 @@ package modelo;
  * 
 */
 
-public class VentanaAfiliadosModelo {
+import hospital.*;
 
+public class VentanaAfiliadosModelo {
+    BDManager bdmanager = new BDManager(); 
+    
+    public VentanaAfiliadosModelo(BDManager bdmanager){
+        this.bdmanager = bdmanager;
+    }
+    
+    //Recibe
+    private int id;
+    private String nombre;
+
+    public int getId(int numero) {
+        return bdmanager.getIdAfiliado(numero);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre(int numero) {
+        return bdmanager.getNombreAfiliado(numero);
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public void agregarAfiliado(){
+        bdmanager.addAfiliado(id, nombre);
+    }
+    
+    public int getCantidadAfiliados(){
+        return bdmanager.getCantidadAfiliados();
+    }
+
+    public BDManager getBDManager() {
+        return bdmanager;
+    }
 }
