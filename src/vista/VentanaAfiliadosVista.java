@@ -4,11 +4,11 @@ import java.awt.*;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
- *    Laboratorio # 3
- *    Profesor: Luis Romo Portilla 
- *
- *    Archivo:  VentanaAfiliadoVista.java
- *    Licencia: GNU-GPL 
+    Laboratorio # 3
+    Profesor: Luis Romo Portilla 
+
+    Archivo:  VentanaAfiliadosVista.java
+    Licencia: GNU-GPL 
  *    @version  1.0
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
@@ -17,14 +17,14 @@ import java.awt.*;
  * 
 */
 
-public class VentanaAfiliadoVista extends javax.swing.JFrame {
+public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
     /**
      * Creates new form ventanaAfiliado
      */
 
         
-    public VentanaAfiliadoVista() {
+    public VentanaAfiliadosVista() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -115,21 +115,23 @@ public class VentanaAfiliadoVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAfiliadoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAfiliadosVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAfiliadoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAfiliadosVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAfiliadoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAfiliadosVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAfiliadoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAfiliadosVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaAfiliadoVista().setVisible(true);
+                new VentanaAfiliadosVista().setVisible(true);
             }
         });
     }
