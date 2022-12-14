@@ -18,34 +18,38 @@ package modelo;
 import vista.*;
 import controlador.*;
 
+import hospital.*;
+
 public class VentanaPrincipalModelo {
+    BDManager bdmanager = new BDManager();
     
-    public VentanaPrincipalModelo(){
+    public VentanaPrincipalModelo(BDManager bdmanager){
+        this.bdmanager = bdmanager;
     }
     
     public void iniciarVentanaServicios(){
 //        VentanaServiciosVista vsv = new VentanaServiciosVista();
-//        VentanaServiciosModelo vsm = new VentanaServiciosModelo();
+//        VentanaServiciosModelo vsm = new VentanaServiciosModelo(bdmanager);
 //        VentanaServiciosControlador vsc = new VentanaServiciosControlador(vsm, vsv);
     }
     public void iniciarVentanaEspecialistas(){
 //        VentanaEspecialistasVista vev = new VentanaEspecialistasVista();
-//        VentanaEspecialistasModelo vem = new VentanaEspecialistasModelo();
+//        VentanaEspecialistasModelo vem = new VentanaEspecialistasModelo(bdmanager);
 //        VentanaEspecialistasControlador vec = new VentanaEspecialistasControlador(vem, vev);
     }
     public void iniciarVentanaAfiliados(){
         VentanaAfiliadosVista vav = new VentanaAfiliadosVista();
-        VentanaAfiliadosModelo vam = new VentanaAfiliadosModelo();
+        VentanaAfiliadosModelo vam = new VentanaAfiliadosModelo(bdmanager);
         VentanaAfiliadosControlador vac = new VentanaAfiliadosControlador(vam, vav);
     }
     public void iniciarVentanaConsultorios(){
 //        VentanaConsultoriosVista vconv = new VentanaConsultoriosVista();
-//        VentanaConsultoriosModelo vconm = new VentanaConsultoriosModelo();
+//        VentanaConsultoriosModelo vconm = new VentanaConsultoriosModelo(bdmanager);
 //        VentanaConsultoriosControlador vconc = new VentanaConsultoriosControlador(vcm, vconv);
     }
     public void iniciarVentanaCitas(){
 //        VentanaCitasVista vcv = new VentanaCitasVista();
-//        VentanaCitasModelo vcm = new VentanaCitasModelo();
+//        VentanaCitasModelo vcm = new VentanaCitasModelo(bdmanager);
 //        VentanaCitasControlador vcc = new VentanaCitasControlador(vcm, vcv);
     }
     
