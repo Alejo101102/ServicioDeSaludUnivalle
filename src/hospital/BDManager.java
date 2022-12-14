@@ -25,7 +25,7 @@ public class BDManager {
     /**
      * Constructor de la clase BDManager
      */
-    BDManager(){
+    public BDManager(){
     }
     
     /**
@@ -137,5 +137,31 @@ public class BDManager {
                 servicios.remove(servicioActual);
             }
         }
-    }    
+    } 
+    
+    /**
+     * Obtiene el id de un afiliado de la lista de afiliados
+     * @param numero La posicion del afiliado en el vector
+     * @return El ID del afiliado (int)
+     */
+    public int getIdAfiliado(int numero){
+        return afiliados.get(numero).getId();
+    }
+    
+    /**
+     * Obtiene el nombre de un afiliado de la lista de afiliados
+     * @param numero La posicion del afiliado en el vector
+     * @return El nombre completo del afiliado (String)
+     */
+    public String getNombreAfiliado(int numero){
+        return afiliados.get(numero).getNombre();
+    }
+    
+    /**
+     * Obtiene la cantidad de afiliados
+     * @return El numero de afiliados del vector de afiliados (int)
+     */
+    public int getCantidadAfiliados(){        
+        return afiliados.size();
+    }
 }
