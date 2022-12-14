@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.ActionListener;
+
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
     Laboratorio # 3
@@ -36,80 +38,96 @@ public class VentanaPrincipalVista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btn_servicios = new javax.swing.JButton();
         btn_especialistas = new javax.swing.JButton();
-        btn_afiliado = new javax.swing.JButton();
+        btn_afiliados = new javax.swing.JButton();
         lbl_titulo = new javax.swing.JLabel();
         btn_citas = new javax.swing.JButton();
         btn_consultorios = new javax.swing.JButton();
+        lbl_titulo2 = new javax.swing.JLabel();
+        btn_restaurarBackup = new javax.swing.JButton();
+        btn_realizarBackup = new javax.swing.JButton();
+        lbl_gestionar = new javax.swing.JLabel();
+        lbl_herramientas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(520, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 82, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(520, 301));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 0, 82, -1));
-
+        btn_servicios.setBackground(new java.awt.Color(255, 0, 51));
         btn_servicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_servicios.setForeground(new java.awt.Color(255, 255, 255));
         btn_servicios.setText("Servicios");
-        getContentPane().add(btn_servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jPanel1.add(btn_servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 120, -1));
 
+        btn_especialistas.setBackground(new java.awt.Color(255, 0, 51));
         btn_especialistas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_especialistas.setForeground(new java.awt.Color(255, 255, 255));
         btn_especialistas.setText("Especialistas");
-        btn_especialistas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_especialistasActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_especialistas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
+        jPanel1.add(btn_especialistas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 120, -1));
 
-        btn_afiliado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_afiliado.setText("Afiliados");
-        btn_afiliado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_afiliadoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_afiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
+        btn_afiliados.setBackground(new java.awt.Color(255, 0, 51));
+        btn_afiliados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_afiliados.setForeground(new java.awt.Color(255, 255, 255));
+        btn_afiliados.setText("Afiliados");
+        jPanel1.add(btn_afiliados, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 120, -1));
 
-        lbl_titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_titulo.setText("Servicio de Salud Univalle");
-        getContentPane().add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, 60));
+        lbl_titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_titulo.setText("   Servicio de Salud Universidad del Valle"); // NOI18N
+        jPanel1.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 470, 40));
 
+        btn_citas.setBackground(new java.awt.Color(255, 0, 51));
         btn_citas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_citas.setForeground(new java.awt.Color(255, 255, 255));
         btn_citas.setText("Citas");
-        btn_citas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_citasActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_citas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
+        jPanel1.add(btn_citas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 120, -1));
 
+        btn_consultorios.setBackground(new java.awt.Color(255, 0, 51));
         btn_consultorios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_consultorios.setForeground(new java.awt.Color(255, 255, 255));
         btn_consultorios.setText("Consultorios");
-        getContentPane().add(btn_consultorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 120, -1));
+        jPanel1.add(btn_consultorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 120, -1));
+
+        lbl_titulo2.setBackground(new java.awt.Color(255, 0, 51));
+        lbl_titulo2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_titulo2.setForeground(new java.awt.Color(255, 0, 0));
+        lbl_titulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_titulo2.setOpaque(true);
+        jPanel1.add(lbl_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 60));
+
+        btn_restaurarBackup.setBackground(new java.awt.Color(255, 0, 0));
+        btn_restaurarBackup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_restaurarBackup.setForeground(new java.awt.Color(255, 255, 255));
+        btn_restaurarBackup.setText("Restaurar Backup");
+        jPanel1.add(btn_restaurarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 160, -1));
+
+        btn_realizarBackup.setBackground(new java.awt.Color(255, 0, 0));
+        btn_realizarBackup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_realizarBackup.setForeground(new java.awt.Color(255, 255, 255));
+        btn_realizarBackup.setText("Realizar Backup");
+        jPanel1.add(btn_realizarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 160, -1));
+
+        lbl_gestionar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_gestionar.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_gestionar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_gestionar.setText("Gestionar");
+        jPanel1.add(lbl_gestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 80, -1));
+
+        lbl_herramientas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_herramientas.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_herramientas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_herramientas.setText("Herramientas");
+        jPanel1.add(lbl_herramientas, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 100, 20));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_afiliadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_afiliadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_afiliadoActionPerformed
-
-    private void btn_citasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_citasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_citasActionPerformed
-
-    private void btn_especialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_especialistasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_especialistasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,13 +165,44 @@ public class VentanaPrincipalVista extends javax.swing.JFrame {
         });
     }
 
+    public void addServiciosListener(ActionListener listener){
+        btn_servicios.addActionListener(listener);
+    }
+    public void addEspecialistasListener(ActionListener listener){
+        btn_especialistas.addActionListener(listener);
+    }
+    public void addAfiliadosListener(ActionListener listener){
+        btn_afiliados.addActionListener(listener);
+    }
+    public void addConsultoriosListener(ActionListener listener){
+        btn_consultorios.addActionListener(listener);
+    }
+    public void addCitasListener(ActionListener listener){
+        btn_citas.addActionListener(listener);
+    }
+    public void addRealizarBackupListener(ActionListener listener){
+        btn_realizarBackup.addActionListener(listener);
+    }
+    public void addRestaurarBackupListener(ActionListener listener){
+        btn_restaurarBackup.addActionListener(listener);
+    }
+    
+    public void cerrar(){
+        dispose();
+    }   
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_afiliado;
+    private javax.swing.JButton btn_afiliados;
     private javax.swing.JButton btn_citas;
     private javax.swing.JButton btn_consultorios;
     private javax.swing.JButton btn_especialistas;
+    private javax.swing.JButton btn_realizarBackup;
+    private javax.swing.JButton btn_restaurarBackup;
     private javax.swing.JButton btn_servicios;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_gestionar;
+    private javax.swing.JLabel lbl_herramientas;
     private javax.swing.JLabel lbl_titulo;
+    private javax.swing.JLabel lbl_titulo2;
     // End of variables declaration//GEN-END:variables
 }
