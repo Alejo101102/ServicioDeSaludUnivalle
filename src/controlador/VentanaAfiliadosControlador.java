@@ -66,6 +66,7 @@ public class VentanaAfiliadosControlador {
                     modelo.setNombre(nombre);
                     modelo.agregarAfiliado();
                     vista.nuevaFilaAfiliado(id, nombre);
+                    vista.limpiarCampos();
                 }
 
             } catch (NumberFormatException e) {
