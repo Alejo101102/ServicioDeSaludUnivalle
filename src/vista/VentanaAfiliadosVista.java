@@ -1,6 +1,10 @@
 package vista;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
@@ -19,14 +23,15 @@ import java.awt.*;
 
 public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
+    private DefaultTableModel modeloTabla = new DefaultTableModel();
+    
     /**
      * Creates new form ventanaAfiliado
-     */
-
-        
+     */  
     public VentanaAfiliadosVista() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        table_Afiliados.setModel(modeloTabla);
+        configurarTabla();
     }
 
     /**
@@ -45,33 +50,35 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         txtF_cedulaAfiliado = new javax.swing.JTextField();
         txtF_nombreAfiliado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_Afiliado = new javax.swing.JTable();
-        btn_afiliadoAgregar = new javax.swing.JButton();
-        btn_afiliadoActualizar = new javax.swing.JButton();
-        btn_afiliadoVerLista = new javax.swing.JButton();
+        table_Afiliados = new javax.swing.JTable();
+        btn_agregar = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
+        btn_afiliadoActualizar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 700));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setPreferredSize(new java.awt.Dimension(400, 500));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         lbl_tituloAfiliado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_tituloAfiliado.setForeground(new java.awt.Color(0, 0, 0));
         lbl_tituloAfiliado.setText("Afiliados");
-        getContentPane().add(lbl_tituloAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel1.add(lbl_tituloAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         lbl_cedulaAfiliado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_cedulaAfiliado.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cedulaAfiliado.setText("Cédula");
-        getContentPane().add(lbl_cedulaAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+        jPanel1.add(lbl_cedulaAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         lbl_nombreAfiliado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_nombreAfiliado.setForeground(new java.awt.Color(0, 0, 0));
         lbl_nombreAfiliado.setText("Nombre completo");
-        getContentPane().add(lbl_nombreAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
-        getContentPane().add(txtF_cedulaAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 160, -1));
-        getContentPane().add(txtF_nombreAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 160, -1));
+        jPanel1.add(lbl_nombreAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        jPanel1.add(txtF_cedulaAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 190, -1));
+        jPanel1.add(txtF_nombreAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 190, -1));
 
-        table_Afiliado.setModel(new javax.swing.table.DefaultTableModel(
+        table_Afiliados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -79,21 +86,32 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(table_Afiliado);
+        jScrollPane1.setViewportView(table_Afiliados);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 330, 190));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 340, 220));
 
-        btn_afiliadoAgregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_afiliadoAgregar.setText("Agregar");
-        getContentPane().add(btn_afiliadoAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 90, -1));
+        btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_agregar.setText("Agregar");
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 90, -1));
 
-        btn_afiliadoActualizar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_afiliadoActualizar.setText("Actualizar");
-        getContentPane().add(btn_afiliadoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, -1, -1));
+        btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_volver.setText("Volver");
+        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
 
-        btn_afiliadoVerLista.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_afiliadoVerLista.setText("Ver Lista");
-        getContentPane().add(btn_afiliadoVerLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, -1, -1));
+        btn_afiliadoActualizar1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_afiliadoActualizar1.setText("Modificar");
+        jPanel1.add(btn_afiliadoActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -136,16 +154,76 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         });
     }
 
+    public String getCedula(){        
+        return txtF_cedulaAfiliado.getText();
+    }
+
+    public void setTxtF_cedulaAfiliado(JTextField txtF_cedulaAfiliado) {
+        this.txtF_cedulaAfiliado = txtF_cedulaAfiliado;
+    }
+
+    public boolean getTxtFState(){
+        return txtF_nombreAfiliado.getText().isEmpty();
+    }
+    public String getNombre() {
+        return txtF_nombreAfiliado.getText();
+    }
+
+    public void setTxtF_nombreAfiliado(JTextField txtF_nombreAfiliado) {
+        this.txtF_nombreAfiliado = txtF_nombreAfiliado;
+    }
+    
+    /**
+     * Crea los titulos de la tabla 
+     */
+    public void configurarTabla(){
+        String[] titulosTabla = new String[]{"ID", "NOMBRE COMPLETO"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);
+    }
+    
+    /**
+     * Añade una nueva fila con los datos de un nuevo afiliado
+     * @param Id El Id del nuevo afiliado
+     * @param nombreCompleto El nombre completo del nuevo afiliado
+     */
+    public void nuevaFilaAfiliado(int Id, String nombreCompleto){
+        modeloTabla.addRow(new Object[]{
+            Id, nombreCompleto
+        });
+    }
+    
+    /**
+     * Elimina todas las filas de la tabla para dejarla vacia
+     */
+    public void limpiarTabla(){
+        int filasTabla = modeloTabla.getRowCount();
+        for(int i = 0; i < filasTabla; i++){
+            modeloTabla.removeRow(0);
+        }
+    }
+    
+    public void cerrar(){
+        dispose();
+    }
+    
+    public void addAgregarListener(ActionListener listener){
+        btn_agregar.addActionListener(listener);
+    }
+    
+    public void addVolverListener(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_afiliadoActualizar;
-    private javax.swing.JButton btn_afiliadoAgregar;
-    private javax.swing.JButton btn_afiliadoVerLista;
+    private javax.swing.JButton btn_afiliadoActualizar1;
+    private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_cedulaAfiliado;
     private javax.swing.JLabel lbl_nombreAfiliado;
     private javax.swing.JLabel lbl_tituloAfiliado;
-    private javax.swing.JTable table_Afiliado;
+    private javax.swing.JTable table_Afiliados;
     private javax.swing.JTextField txtF_cedulaAfiliado;
     private javax.swing.JTextField txtF_nombreAfiliado;
     // End of variables declaration//GEN-END:variables
