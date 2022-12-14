@@ -46,43 +46,50 @@ public class VentanaCitasVista extends javax.swing.JFrame {
         txtF_citasHora = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_citas = new javax.swing.JTable();
-        btn_citasAgregar = new javax.swing.JButton();
         btn_citasActualizar = new javax.swing.JButton();
+        btn_citasAgregar = new javax.swing.JButton();
         btn_citasVerLista = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(360, 385));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setPreferredSize(new java.awt.Dimension(400, 500));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_citas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_citas.setForeground(new java.awt.Color(0, 0, 0));
         lbl_citas.setText("Citas");
         jPanel1.add(lbl_citas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         lbl_citasAlifiado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_citasAlifiado.setForeground(new java.awt.Color(0, 0, 0));
         lbl_citasAlifiado.setText("Afiliado");
         jPanel1.add(lbl_citasAlifiado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
         jPanel1.add(txtF_citasAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 160, -1));
 
         lbl_citasMedico.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_citasMedico.setForeground(new java.awt.Color(0, 0, 0));
         lbl_citasMedico.setText("Médico");
         jPanel1.add(lbl_citasMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
         jPanel1.add(txtF_citasMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 160, -1));
 
         lbl_citasServicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_citasServicios.setForeground(new java.awt.Color(0, 0, 0));
         lbl_citasServicios.setText("Servicio");
         jPanel1.add(lbl_citasServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
         jPanel1.add(txtF_citasServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 160, -1));
 
         lbl_citasFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_citasFecha.setForeground(new java.awt.Color(0, 0, 0));
         lbl_citasFecha.setText("Fecha");
         jPanel1.add(lbl_citasFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
         jPanel1.add(txtF_citasFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 160, -1));
 
         lbl_citasHora.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_citasHora.setForeground(new java.awt.Color(0, 0, 0));
         lbl_citasHora.setText("Hora");
         jPanel1.add(lbl_citasHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
         jPanel1.add(txtF_citasHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 160, -1));
@@ -99,19 +106,28 @@ public class VentanaCitasVista extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 340, 200));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 430));
+        btn_citasActualizar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_citasActualizar.setText("Actualizar");
+        jPanel1.add(btn_citasActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, -1, -1));
 
         btn_citasAgregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_citasAgregar.setText("Agregar");
-        getContentPane().add(btn_citasAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
-
-        btn_citasActualizar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_citasActualizar.setText("Actualizar");
-        getContentPane().add(btn_citasActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, -1, -1));
+        jPanel1.add(btn_citasAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
 
         btn_citasVerLista.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_citasVerLista.setText("Ver Lista");
-        getContentPane().add(btn_citasVerLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
+        jPanel1.add(btn_citasVerLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
