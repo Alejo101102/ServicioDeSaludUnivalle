@@ -33,9 +33,9 @@ public class VentanaPrincipalModelo {
 //        VentanaServiciosControlador vsc = new VentanaServiciosControlador(vsm, vsv);
     }
     public void iniciarVentanaEspecialistas(){
-//        VentanaEspecialistasVista vev = new VentanaEspecialistasVista();
-//        VentanaEspecialistasModelo vem = new VentanaEspecialistasModelo(bdmanager);
-//        VentanaEspecialistasControlador vec = new VentanaEspecialistasControlador(vem, vev);
+        VentanaEspecialistasVista vev = new VentanaEspecialistasVista();
+        VentanaEspecialistasModelo vem = new VentanaEspecialistasModelo(bdmanager);
+        VentanaEspecialistasControlador vec = new VentanaEspecialistasControlador(vem, vev);
     }
     public void iniciarVentanaAfiliados(){
         VentanaAfiliadosVista vav = new VentanaAfiliadosVista();
