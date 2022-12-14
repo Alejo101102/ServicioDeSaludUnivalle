@@ -19,10 +19,14 @@ import modelo.*;
 import vista.*;
 import controlador.*;
 
+import hospital.*;
+
 public class main {
     public static void main(String[] args) {
+        BDManager bdmanager = new BDManager();
+        
         VentanaPrincipalVista vpv = new VentanaPrincipalVista();
-        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo();
+        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(bdmanager);
         VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
     } 
 }
