@@ -14,16 +14,15 @@ package main;
  *    @author   Juan David Loaiza Santiago        (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">}
  * 
 */
+
+import modelo.*;
 import vista.*;
+import controlador.*;
 
 public class main {
     public static void main(String[] args) {
         VentanaPrincipalVista vpv = new VentanaPrincipalVista();
-        VentanaAfiliadoVista vav = new VentanaAfiliadoVista();
-        VentanaCitasVista vcitv = new VentanaCitasVista();
-        VentanaConsultoriosVista vconv = new VentanaConsultoriosVista();
-        VentanaServiciosVista vsv = new VentanaServiciosVista();
-        
-    }
-    
+        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo();
+        VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
+    } 
 }
