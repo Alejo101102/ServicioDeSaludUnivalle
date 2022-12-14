@@ -17,7 +17,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 import modelo.*;
 import vista.*;
 
@@ -50,12 +49,14 @@ public class VentanaPrincipalControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             modelo.iniciarVentanaServicios();
+            //vista.cerrar();
         }
     };  
     ActionListener oyenteEspecialistas = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
             modelo.iniciarVentanaEspecialistas();
+            vista.cerrar();
         }
     };  
     ActionListener oyenteAfiliados = new ActionListener() {
@@ -69,12 +70,14 @@ public class VentanaPrincipalControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             modelo.iniciarVentanaConsultorios();
+            //vista.cerrar();
         }
     };  
     ActionListener oyenteCitas = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
             modelo.iniciarVentanaCitas();
+            //vista.cerrar();
         }
     };  
     ActionListener oyenteRealizarBackup = new ActionListener() {
