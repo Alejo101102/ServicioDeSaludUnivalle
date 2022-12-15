@@ -52,5 +52,14 @@ public class VentanaPrincipalModelo {
 //        VentanaCitasModelo vcm = new VentanaCitasModelo(bdmanager);
 //        VentanaCitasControlador vcc = new VentanaCitasControlador(vcm, vcv);
     }
+    public void exportarAfiliados(){
+        bdmanager.exportarAfiliados();
+    }
+    public void realizarBackup(){
+        bdmanager.realizarBackup();
+    }
+    public void restaurarBackup(){
+        bdmanager.restaurarBackup();
+    }
     
 }

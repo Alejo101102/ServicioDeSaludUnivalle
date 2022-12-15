@@ -37,7 +37,8 @@ public class VentanaPrincipalControlador {
         vista.addEspecialistasListener(oyenteEspecialistas);    
         vista.addAfiliadosListener(oyenteAfiliados);    
         vista.addConsultoriosListener(oyenteConsultorios);    
-        vista.addCitasListener(oyenteCitas);    
+        vista.addCitasListener(oyenteCitas);   
+        vista.addExportarAfiliadosListener(oyenteExportarAfiliados);   
         vista.addRealizarBackupListener(oyenteRealizarBackup);    
         vista.addRestaurarBackupListener(oyenteRestaurarBackup);    
     }
@@ -80,16 +81,22 @@ public class VentanaPrincipalControlador {
             //vista.cerrar();
         }
     };  
+    ActionListener oyenteExportarAfiliados = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            modelo.exportarAfiliados();
+        }
+    };  
     ActionListener oyenteRealizarBackup = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            // No hacer nada
+            modelo.realizarBackup();
         }
     };  
     ActionListener oyenteRestaurarBackup = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            // No hacer nada
+            modelo.restaurarBackup();
         }
     };  
 }

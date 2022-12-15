@@ -1,6 +1,7 @@
 package hospital;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
@@ -248,5 +249,17 @@ public class BDManager {
      */
     public int getCantidadServicios() {
         return servicios.size();
+    }
+    
+    public void exportarAfiliados(){
+        JOptionPane.showMessageDialog(null, "Aqui se exportan los afiliados");
+    }
+    
+    public void realizarBackup(){
+        JOptionPane.showMessageDialog(null, "Aqui se realiza un backup");
+    }
+    
+    public void restaurarBackup(){
+        JOptionPane.showMessageDialog(null, "Aqui se restaura un backup");
     }
 }

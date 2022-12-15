@@ -1,12 +1,5 @@
 package vista;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
     Laboratorio # 3
@@ -14,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
     Archivo:  VentanaAfiliadosVista.java
     Licencia: GNU-GPL 
- *    @version  1.0
+ *    @version  1.1
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -22,12 +15,24 @@ import javax.swing.table.DefaultTableModel;
  * 
 */
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import javax.swing.table.DefaultTableModel;
+
 public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
-    private DefaultTableModel modeloTabla = new DefaultTableModel();
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
     
     /**
-     * Creates new form ventanaAfiliado
+     * Constructor de la clase VentanaAfiliadosVista
      */  
     public VentanaAfiliadosVista() {
         initComponents();
@@ -57,6 +62,7 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         btn_modificar = new javax.swing.JButton();
         btn_limpiar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
+        lbl_textoGuia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(400, 500));
@@ -109,6 +115,7 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_limpiar.setText("Limpiar");
+        btn_limpiar.setEnabled(false);
         jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 90, -1));
 
         btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
@@ -116,12 +123,13 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
         btn_eliminar.setText("Eliminar");
         btn_eliminar.setEnabled(false);
-        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 90, -1));
+
+        lbl_textoGuia.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lbl_textoGuia.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_textoGuia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_textoGuia.setText("Seleccione afiliados en la tabla para modificarlos");
+        jPanel1.add(lbl_textoGuia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 380, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,10 +144,6 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,120 +183,211 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         });
     }
 
-    public String getCedula(){        
+    /**
+     * Obtiene la cedula
+     *
+     * @return El texto en el campo de cedulaAfiliado (String)
+     */
+    public String getCedula() {
         return txtF_cedulaAfiliado.getText();
     }
 
+    /**
+     * Muestra una cedula
+     *
+     * @param text La cedula que aparecerá en el campo de texto
+     */
     public void setCedulaAfiliado(String text) {
         txtF_cedulaAfiliado.setText(text);
     }
 
-    public boolean getTxtFState(){
-        return txtF_nombreAfiliado.getText().isEmpty();
-    }
+    /**
+     * Obtiene el nombre
+     *
+     * @return El texto en el campo de nombre completo (String)
+     */
     public String getNombre() {
         return txtF_nombreAfiliado.getText();
     }
 
+    /**
+     * Muestra un nombre
+     *
+     * @param text El nombre que aparecera en el campo de texto
+     */
     public void setNombreAfiliado(String text) {
         txtF_nombreAfiliado.setText(text);
     }
-    
+
     /**
-     * Crea los titulos de la tabla 
+     * Crea los titulos de la tabla
      */
-    public void configurarTabla(){
+    public void configurarTabla() {
         String[] titulosTabla = new String[]{"ID", "NOMBRE COMPLETO"};
         modeloTabla.setColumnIdentifiers(titulosTabla);
     }
-    
+
     /**
      * Añade una nueva fila con los datos de un nuevo afiliado
+     *
      * @param Id El Id del nuevo afiliado
      * @param nombreCompleto El nombre completo del nuevo afiliado
      */
-    public void nuevaFilaAfiliado(int Id, String nombreCompleto){
+    public void nuevaFilaAfiliado(int Id, String nombreCompleto) {
         modeloTabla.addRow(new Object[]{
             Id, nombreCompleto
         });
     }
-    
-    public void habilitarAgregar(){
-        btn_agregar.setEnabled(true);
-    }
-    
-    public void deshabilitarAgregar(){
-        btn_agregar.setEnabled(false);
-    }
-    
-    public void habilitarModificar(){
-        btn_modificar.setEnabled(true);
-    }
-    
-    public void deshabilitarModificar(){
-        btn_modificar.setEnabled(false);
-    }
-    
-    public void habilitarEliminar(){
-        btn_eliminar.setEnabled(true);
-        btn_eliminar.setBackground(new java.awt.Color(255, 0, 51));
-    }
-    
-    public void deshabilitarEliminar(){
-        btn_eliminar.setEnabled(false);
-        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
-    }
-    
+
     /**
-     * Elimina todas las filas de la tabla para dejarla vacia
+     * Establece un texto para instruir en el modo Registrar
      */
-    public void limpiarTabla(){
+    public void setGuiaRegistrar() {
+        lbl_textoGuia.setText("Modifique los campos arriba o presione LIMPIAR para volver al modo registro");
+    }
+
+    /**
+     * Establece un texto para instruir en el modo Modificar
+     */
+    public void setGuiaModificar() {
+        lbl_textoGuia.setText("Seleccione afiliados en la tabla para modificarlos");
+    }
+
+    /**
+     * Cierra la ventana actual
+     */
+    public void cerrar() {
+        dispose();
+    }
+
+    
+    //              FUNCIONES DE LIMPIEZA                   //
+    /**
+     * Elimina todas las filas de la tabla
+     */
+    public void limpiarTabla() {
         int filasTabla = modeloTabla.getRowCount();
-        for(int i = 0; i < filasTabla; i++){
+        for (int i = 0; i < filasTabla; i++) {
             modeloTabla.removeRow(0);
         }
     }
-    
+
     /**
-     * Elimina todas las filas de la tabla para dejarla vacia
+     * Elimina una fila específica de la tabla
+     *
+     * @param fila La Fila a eliminar
      */
-    public void eliminarFilaTabla(int fila){
+    public void eliminarFilaTabla(int fila) {
         modeloTabla.removeRow(fila);
     }
-    
-    public void limpiarCampos(){
+
+    /**
+     * Vacía los textos en los campos de cedula y nombre
+     */
+    public void limpiarCampos() {
         txtF_cedulaAfiliado.setText("");
         txtF_nombreAfiliado.setText("");
     }
+
     
-    public void cerrar(){
-        dispose();
+    //              HABILITAR/DESHABILITAR BOTONES          //
+    public void habilitarLimpiar() {
+        btn_limpiar.setEnabled(true);
     }
+
+    public void deshabilitarLimpiar() {
+        btn_limpiar.setEnabled(false);
+    }
+
+    public void habilitarAgregar() {
+        btn_agregar.setEnabled(true);
+    }
+
+    public void deshabilitarAgregar() {
+        btn_agregar.setEnabled(false);
+    }
+
+    public void habilitarModificar() {
+        btn_modificar.setEnabled(true);
+    }
+
+    public void deshabilitarModificar() {
+        btn_modificar.setEnabled(false);
+    }
+
+    /**
+     * Habilita btn_eliminar y configura su color en rojo
+     */
+    public void habilitarEliminar() {
+        btn_eliminar.setEnabled(true);
+        btn_eliminar.setBackground(new java.awt.Color(255, 0, 51));
+    }
+
+    /**
+     * Deshabilita btn_eliminar y configura su color en gris
+     */
+    public void deshabilitarEliminar() {
+        btn_eliminar.setEnabled(false);
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+    }
+
     
-    public void addAgregarListener(ActionListener listener){
+    //                  LISTENERS                       //
+    /**
+     * Agrega un ActionListener al btn_agregar
+     *
+     * @param listener El ActionListener
+     */
+    public void addAgregarListener(ActionListener listener) {
         btn_agregar.addActionListener(listener);
     }
-    
-    public void addModificarListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_modificar
+     *
+     * @param listener El ActionListener
+     */
+    public void addModificarListener(ActionListener listener) {
         btn_modificar.addActionListener(listener);
     }
-    
-    public void addEliminarListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_eliminar
+     *
+     * @param listener El ActionListener
+     */
+    public void addEliminarListener(ActionListener listener) {
         btn_eliminar.addActionListener(listener);
     }
-    
-    public void addVolverListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_volver
+     *
+     * @param listener El ActionListener
+     */
+    public void addVolverListener(ActionListener listener) {
         btn_volver.addActionListener(listener);
     }
-    
-    public void addLimpiarListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_limpiar
+     *
+     * @param listener El ActionListener
+     */
+    public void addLimpiarListener(ActionListener listener) {
         btn_limpiar.addActionListener(listener);
     }
-    
-    public void addTableListener(MouseListener listener){
+
+    /**
+     * Agrega un MouseListener al btn_agregar
+     *
+     * @param listener El MouseListener
+     */
+    public void addTableListener(MouseListener listener) {
         table_afiliados.addMouseListener(listener);
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
@@ -303,6 +398,7 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_cedulaAfiliado;
     private javax.swing.JLabel lbl_nombreAfiliado;
+    private javax.swing.JLabel lbl_textoGuia;
     private javax.swing.JLabel lbl_tituloAfiliado;
     private javax.swing.JTable table_afiliados;
     private javax.swing.JTextField txtF_cedulaAfiliado;
