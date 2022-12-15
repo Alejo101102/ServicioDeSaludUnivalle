@@ -44,10 +44,10 @@ public class VentanaEspecialistasModelo {
     }
 
     /**
-     * Obtiene el id de un afiliado en especifico
+     * Obtiene el id de un especialista en especifico
      *
-     * @param numero La posicion del afiliado en el arreglo
-     * @return id El id del afiliado (int)
+     * @param numero La posicion del especialista en el arreglo
+     * @return id El id del especialista (int)
      */
     public int getId(int numero) {
         return bdmanager.getIdEspecialista(numero);
@@ -56,17 +56,17 @@ public class VentanaEspecialistasModelo {
     /**
      * Asigna el id del modelo
      *
-     * @param id El id de un afiliado (int)
+     * @param id El id de un especialista (int)
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Obtiene el nombre de un afiliado específico
+     * Obtiene el nombre de un especialista específico
      *
-     * @param numero La posicion del afiliado en el arreglo
-     * @return El nombre del afiliado(String)
+     * @param numero La posicion del especialista en el arreglo
+     * @return El nombre del especialista(String)
      */
     public String getNombre(int numero) {
         return bdmanager.getNombreEspecialista(numero);
@@ -75,24 +75,24 @@ public class VentanaEspecialistasModelo {
     /**
      * Asigna un nombre completo al modelo
      *
-     * @param nombre El nombre completo de un afiliado (String)
+     * @param nombre El nombre completo de un especialista (String)
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Obtiene el id de servicio de un afiliado en especifico
+     * Obtiene el id de servicio de un especialista en especifico
      *
-     * @param numero La posicion del afiliado en el arreglo
-     * @return id El id del afiliado (int)
+     * @param numero La posicion del especialista en el arreglo
+     * @return id El id del especialista (int)
      */
     public int getIdServicioEspecialista(int numero) {
         return bdmanager.getIdServicioEspecialista(numero);
     }
 
     /**
-     * Obtiene el nombre de un afiliado específico
+     * Obtiene el nombre de un especialista específico
      *
      * @param idServicioEspecialista El id del servicio del especialista
      */
@@ -101,34 +101,34 @@ public class VentanaEspecialistasModelo {
     }
 
     /**
-     * Crea un nuevo afiliado en bdmanager usando sus atributos
+     * Crea un nuevo especialista en bdmanager usando sus atributos
      */
     public void agregarEspecialista() {
         bdmanager.addEspecialista(id, nombre, idServicioEspecialista);
     }
 
     /**
-     * Modifica un afiliado en bdmanager usando sus atributos
+     * Modifica un especialista en bdmanager usando sus atributos
      *
-     * @param idActual El idActual del afiliado que se quiere modificar
+     * @param idActual El idActual del especialista que se quiere modificar
      */
     public void modificarEspecialista(int idActual) {
         bdmanager.modEspecialista(idActual, id, nombre, idServicioEspecialista);
     }
 
     /**
-     * Elimina un afiliado del bdmanager
+     * Elimina un especialista del bdmanager
      *
-     * @param id El id del afiliado que se quiere eliminar
+     * @param id El id del especialista que se quiere eliminar
      */
     public void eliminarEspecialista(int id) {
         bdmanager.delAfiliado(id);
     }
 
     /**
-     * Obtiene la cantidad de afiliados que hay
+     * Obtiene la cantidad de especialistas que hay
      *
-     * @return La cantidad de afiliados en el arreglo de bdmanager (int)
+     * @return La cantidad de especialistas en el arreglo de bdmanager (int)
      */
     public int getCantidadEspecialistas() {
         return bdmanager.getCantidadEspecialistas();
