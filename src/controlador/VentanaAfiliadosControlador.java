@@ -50,6 +50,7 @@ public class VentanaAfiliadosControlador {
 
         vista.setVisible(true);
         vista.setLocationRelativeTo(null);
+        vista.setResizable(false);
 
         vista.addLimpiarListener(oyenteLimpiar);
         vista.addAgregarListener(oyenteAgregar);
