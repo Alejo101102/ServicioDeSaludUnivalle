@@ -43,9 +43,9 @@ public class VentanaPrincipalModelo {
         VentanaAfiliadosControlador vac = new VentanaAfiliadosControlador(vam, vav);
     }
     public void iniciarVentanaConsultorios(){
-//        VentanaConsultoriosVista vconv = new VentanaConsultoriosVista();
-//        VentanaConsultoriosModelo vconm = new VentanaConsultoriosModelo(bdmanager);
-//        VentanaConsultoriosControlador vconc = new VentanaConsultoriosControlador(vcm, vconv);
+        VentanaConsultoriosVista vconv = new VentanaConsultoriosVista();
+        VentanaConsultoriosModelo vconm = new VentanaConsultoriosModelo(bdmanager);
+        VentanaConsultoriosControlador vconc = new VentanaConsultoriosControlador(vconm, vconv);
     }
     public void iniciarVentanaCitas(){
 //        VentanaCitasVista vcv = new VentanaCitasVista();
