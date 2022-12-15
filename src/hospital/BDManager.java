@@ -23,13 +23,15 @@ public class BDManager {
     private java.util.List<Afiliado> afiliados = new ArrayList<>();
     private java.util.List<Especialista> especialistas = new ArrayList<>();
     private java.util.List<Servicio> servicios = new ArrayList<>();
+    private java.util.List<Consultorio> consultorios = new ArrayList<>();
 
     /**
      * Constructor de la clase BDManager
      */
     public BDManager() {
     }
-
+    
+    //              MANEJO DE AFILIADOS             //
     /**
      * Añade un nuevo afiliado
      *
@@ -39,29 +41,7 @@ public class BDManager {
     public void addAfiliado(int id, String nombre) {
         afiliados.add(new Afiliado(id, nombre));
     }
-
-    /**
-     * Añade un nuevo especialista
-     *
-     * @param id El numero del documento de identificacion del especialista
-     * (int)
-     * @param nombre Los nombre y apelligos del especialista (String)
-     * @param idServicio El id del servicio que ofrece el especialista (int)
-     */
-    public void addEspecialista(int id, String nombre, int idServicio) {
-        especialistas.add(new Especialista(id, nombre, idServicio));
-    }
-
-    /**
-     * Añade un nuevo servicio
-     *
-     * @param idServicio El id por el que se identificará el servicio (int)
-     * @param nombreServicio El nombre del servicio (String)
-     */
-    public void addServicio(int idServicio, String nombreServicio) {
-        servicios.add(new Servicio(idServicio, nombreServicio));
-    }
-
+    
     /**
      * Modifica los datos de un afiliado
      *
@@ -80,42 +60,6 @@ public class BDManager {
     }
 
     /**
-     * Modifica los datos de un especialista
-     *
-     * @param id El numero del documento de identificacion actual del
-     * especialista que se va a modificar (int)
-     * @param nuevoId El NUEVO numero del documento de identificacion (int)
-     * @param nuevoNombre Los NUEVOS nombre y apelligos (String)
-     * @param nuevoIdServicio El NUEVO id del servicio que ofrece (int)
-     */
-    public void modEspecialista(int id, int nuevoId, String nuevoNombre, int nuevoIdServicio) {
-        for (Especialista especialistaActual : especialistas) {
-            if (especialistaActual.getId() == id) {
-                especialistaActual.setId(nuevoId);
-                especialistaActual.setNombre(nuevoNombre);
-                especialistaActual.setIdServicio(nuevoIdServicio);
-            }
-        }
-    }
-
-    /**
-     * Modifica los datos de un servicio
-     *
-     * @param idServicio El id actual del servicio que se va a modicar
-     * @param nuevoIdServicio El NUEVO id por el que se identificará el servicio
-     * (int)
-     * @param nuevoNombreServicio El NUEVO nombre del servicio (String)
-     */
-    public void modServicio(int idServicio, int nuevoIdServicio, String nuevoNombreServicio) {
-        for (Servicio servicioActual : servicios) {
-            if (servicioActual.getIdServicio() == idServicio) {
-                servicioActual.setIdServicio(nuevoIdServicio);
-                servicioActual.setNombreServicio(nuevoNombreServicio);
-            }
-        }
-    }
-
-    /**
      * Elimina un afiliado
      *
      * @param id El id actual del afiliado que se va a eliminar (int)
@@ -126,33 +70,7 @@ public class BDManager {
                 afiliados.remove(afiliadoActual);
             }
         }
-    }
-
-    /**
-     * Elimina un especialista
-     *
-     * @param id El id actual del especialista que se va a eliminar (int)
-     */
-    public void delEspecialista(int id) {
-        for (Especialista especialistaActual : especialistas) {
-            if (especialistaActual.getId() == id) {
-                especialistas.remove(especialistaActual);
-            }
-        }
-    }
-
-    /**
-     * Elimina un servicio
-     *
-     * @param idServicio El id actual del servicio que se va a eliminar (int)
-     */
-    public void delServicio(int idServicio) {
-        for (Servicio servicioActual : servicios) {
-            if (servicioActual.getIdServicio() == idServicio) {
-                servicios.remove(servicioActual);
-            }
-        }
-    }
+    }    
 
     /**
      * Obtiene el id de un afiliado de la lista de afiliados
@@ -181,6 +99,52 @@ public class BDManager {
      */
     public int getCantidadAfiliados() {
         return afiliados.size();
+    }    
+   
+    
+    //              MANEJO DE ESPECIALISTAS         //
+    /**
+     * Añade un nuevo especialista
+     *
+     * @param id El numero del documento de identificacion del especialista
+     * (int)
+     * @param nombre Los nombre y apelligos del especialista (String)
+     * @param idServicio El id del servicio que ofrece el especialista (int)
+     */
+    public void addEspecialista(int id, String nombre, int idServicio) {
+        especialistas.add(new Especialista(id, nombre, idServicio));
+    }
+
+    /**
+     * Modifica los datos de un especialista
+     *
+     * @param id El numero del documento de identificacion actual del
+     * especialista que se va a modificar (int)
+     * @param nuevoId El NUEVO numero del documento de identificacion (int)
+     * @param nuevoNombre Los NUEVOS nombre y apelligos (String)
+     * @param nuevoIdServicio El NUEVO id del servicio que ofrece (int)
+     */
+    public void modEspecialista(int id, int nuevoId, String nuevoNombre, int nuevoIdServicio) {
+        for (Especialista especialistaActual : especialistas) {
+            if (especialistaActual.getId() == id) {
+                especialistaActual.setId(nuevoId);
+                especialistaActual.setNombre(nuevoNombre);
+                especialistaActual.setIdServicio(nuevoIdServicio);
+            }
+        }
+    }
+
+    /**
+     * Elimina un especialista
+     *
+     * @param id El id actual del especialista que se va a eliminar (int)
+     */
+    public void delEspecialista(int id) {
+        for (Especialista especialistaActual : especialistas) {
+            if (especialistaActual.getId() == id) {
+                especialistas.remove(especialistaActual);
+            }
+        }
     }
 
     /**
@@ -221,6 +185,48 @@ public class BDManager {
     public int getCantidadEspecialistas() {
         return especialistas.size();
     }
+    
+    
+    //              MANEJO DE SERVICIOS         //
+    /**
+     * Añade un nuevo servicio
+     *
+     * @param idServicio El id por el que se identificará el servicio (int)
+     * @param nombreServicio El nombre del servicio (String)
+     */
+    public void addServicio(int idServicio, String nombreServicio) {
+        servicios.add(new Servicio(idServicio, nombreServicio));
+    }
+
+    /**
+     * Modifica los datos de un servicio
+     *
+     * @param idServicio El id actual del servicio que se va a modicar
+     * @param nuevoIdServicio El NUEVO id por el que se identificará el servicio
+     * (int)
+     * @param nuevoNombreServicio El NUEVO nombre del servicio (String)
+     */
+    public void modServicio(int idServicio, int nuevoIdServicio, String nuevoNombreServicio) {
+        for (Servicio servicioActual : servicios) {
+            if (servicioActual.getIdServicio() == idServicio) {
+                servicioActual.setIdServicio(nuevoIdServicio);
+                servicioActual.setNombreServicio(nuevoNombreServicio);
+            }
+        }
+    }
+
+    /**
+     * Elimina un servicio
+     *
+     * @param idServicio El id actual del servicio que se va a eliminar (int)
+     */
+    public void delServicio(int idServicio) {
+        for (Servicio servicioActual : servicios) {
+            if (servicioActual.getIdServicio() == idServicio) {
+                servicios.remove(servicioActual);
+            }
+        }
+    }
 
     /**
      * Obtiene el id de un servicio de la lista de servicios
@@ -251,8 +257,78 @@ public class BDManager {
         return servicios.size();
     }
     
+    //              MANEJO DE CONSULTORIOS             //
+    /**
+     * Añade un nuevo consultorio
+     *
+     * @param numeroConsultorio El numero del consultorio (int)
+     * @param especialistaAsociado El especialista asociado al consultorio (String)
+     */
+    public void addConsultorio(int numeroConsultorio, String especialistaAsociado) {
+        consultorios.add(new Consultorio(numeroConsultorio, especialistaAsociado));        
+    }
+    
+    /**
+     * Modifica los datos de un consultorio
+     *
+     * @param numeroConsultorio El numero del consultorio que se va a modificar (int)
+     * @param nuevoId El NUEVO numero del consultorio (int)
+     * @param nuevoNombre El NUEVO especialista asociado (String)
+     */
+    public void modConsultorio(int numeroConsultorio, int nuevoId, String nuevoNombre) {
+        for (Consultorio consultorioActual : consultorios) {
+            if (consultorioActual.getNumeroConsultorio() == numeroConsultorio) {
+                consultorioActual.setId(nuevoId);
+                consultorioActual.setNombre(nuevoNombre);
+            }
+        }
+    }
+
+    /**
+     * Elimina un consultorio
+     *
+     * @param numeroConsultorio El numero actual del consultorio que se va a eliminar (int)
+     */
+    public void delConsultorio(int numeroConsultorio) {
+        for (Consultorio consultorioActual : consultorios) {
+            if (consultorioActual.getNumeroConsultorio() == numeroConsultorio) {
+                consultorios.remove(consultorioActual);
+            }
+        }
+    }    
+
+    /**
+     * Obtiene el numero de un consultorio de la lista de consultorios
+     *
+     * @param numero La posicion del consultorio en el vector
+     * @return El numero del consultorio (int)
+     */
+    public int getNumeroConsultorio(int numero) {
+        return consultorios.get(numero).getNumeroConsultorio();
+    }
+
+    /**
+     * Obtiene el especialista asociado de un consultorio de la lista de consultorios
+     *
+     * @param numero La posicion del consultorio en el vector
+     * @return El nombre del especialista asociado  del consultorio (String)
+     */
+    public String getEspecialistaAsociadoConsultorio(int numero) {
+        return consultorios.get(numero).getNombre();
+    }
+
+    /**
+     * Obtiene la cantidad de consultorios
+     *
+     * @return El numero de consultorios del vector de consultorios (int)
+     */
+    public int getCantidadConsultorios() {
+        return consultorios.size();
+    }  
+
+
+    //              MANEJO DE ARCHIVOS         //
     public void exportarAfiliados(){
-        JOptionPane.showMessageDialog(null, "Aqui se exportan los afiliados");
     }
     
     public void realizarBackup(){
