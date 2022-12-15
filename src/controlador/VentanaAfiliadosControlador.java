@@ -15,9 +15,13 @@ package controlador;
  * 
 */
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import modelo.*;
 import vista.*;
 
@@ -39,6 +43,8 @@ public class VentanaAfiliadosControlador {
 
         vista.addAgregarListener(oyenteAgregar);
         vista.addVolverListener(oyenteVolver);
+        vista.addLimpiarListener(oyenteLimpiar);
+        vista.addTableListener(oyenteFila);
 
         cargarAfiliados();
     }
@@ -83,5 +89,42 @@ public class VentanaAfiliadosControlador {
             vista.cerrar();
         }
     };
+    ActionListener oyenteLimpiar = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            vista.limpiarCampos();
+            vista.deshabilitarModificar();
+            vista.habilitarAgregar();
+        }
+    };
+    MouseListener oyenteFila = new MouseListener() {
+        @Override
+        public void mousePressed(MouseEvent Mouse_evt) {
+            JTable table = (JTable) Mouse_evt.getSource();
+            Point point = Mouse_evt.getPoint();
+            int row = table.rowAtPoint(point);
+            if (Mouse_evt.getClickCount() == 1) {
+                vista.setCedulaAfiliado(table.getValueAt(table.getSelectedRow(), 0).toString());
+                vista.setNombreAfiliado(table.getValueAt(table.getSelectedRow(), 1).toString());
+                vista.deshabilitarAgregar();
+                vista.habilitarModificar();
+            }
+        }
 
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };            
 }

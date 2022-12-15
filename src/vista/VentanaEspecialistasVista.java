@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +31,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
      */  
     public VentanaEspecialistasVista() {
         initComponents();
-        table_Especialistas.setModel(modeloTabla);
+        table_especialistas.setModel(modeloTabla);
         configurarTabla();
     }
 
@@ -50,12 +51,13 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         txtF_cedulaEspecialista = new javax.swing.JTextField();
         txtF_nombreEspecialista = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_Especialistas = new javax.swing.JTable();
+        table_especialistas = new javax.swing.JTable();
         btn_agregar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         lbl_idServicioEspecialista = new javax.swing.JLabel();
         txtF_idServicioEspecialista = new javax.swing.JTextField();
+        btn_limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(400, 500));
@@ -82,7 +84,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         jPanel1.add(txtF_cedulaEspecialista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 190, -1));
         jPanel1.add(txtF_nombreEspecialista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 190, -1));
 
-        table_Especialistas.setModel(new javax.swing.table.DefaultTableModel(
+        table_especialistas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -90,7 +92,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(table_Especialistas);
+        jScrollPane1.setViewportView(table_especialistas);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 340, 220));
 
@@ -104,6 +106,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
 
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_modificar.setText("Modificar");
+        btn_modificar.setEnabled(false);
         jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, -1, -1));
 
         lbl_idServicioEspecialista.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -111,6 +114,10 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         lbl_idServicioEspecialista.setText("ID Servicio");
         jPanel1.add(lbl_idServicioEspecialista, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
         jPanel1.add(txtF_idServicioEspecialista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 190, -1));
+
+        btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_limpiar.setText("Limpiar");
+        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,24 +179,24 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         return txtF_cedulaEspecialista.getText();
     }
 
-    public void setCedulaEspecialista(JTextField txtF_cedulaEspecialista) {
-        this.txtF_cedulaEspecialista = txtF_cedulaEspecialista;
+    public void setCedulaEspecialista(String text) {
+        txtF_cedulaEspecialista.setText(text);
     }
 
     public String getNombre() {
         return txtF_nombreEspecialista.getText();
     }
 
-    public void setNombreEspecialista(JTextField txtF_nombreEspecialista) {
-        this.txtF_nombreEspecialista = txtF_nombreEspecialista;
+    public void setNombreEspecialista(String text) {
+        txtF_nombreEspecialista.setText(text);
     }
     
     public String getIdServicioEspecialista(){        
         return txtF_idServicioEspecialista.getText();
     }
 
-    public void setIdServicioEspecialista(JTextField txtF_cedulaEspecialista) {
-        this.txtF_idServicioEspecialista = txtF_cedulaEspecialista;
+    public void setIdServicioEspecialista(String text) {
+        txtF_idServicioEspecialista.setText(text);
     }
 
     
@@ -211,6 +218,22 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         modeloTabla.addRow(new Object[]{
             Id, nombreCompleto, IdServicio
         });
+    }
+    
+    public void habilitarAgregar(){
+        btn_agregar.setEnabled(true);
+    }
+    
+    public void deshabilitarAgregar(){
+        btn_agregar.setEnabled(false);
+    }
+    
+    public void habilitarModificar(){
+        btn_modificar.setEnabled(true);
+    }
+    
+    public void deshabilitarModificar(){
+        btn_modificar.setEnabled(false);
     }
     
     /**
@@ -240,9 +263,18 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
     public void addVolverListener(ActionListener listener){
         btn_volver.addActionListener(listener);
     }
+    
+    public void addLimpiarListener(ActionListener listener){
+        btn_limpiar.addActionListener(listener);
+    }
+    
+    public void addTableListener(MouseListener listener){
+        table_especialistas.addMouseListener(listener);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_volver;
     private javax.swing.JPanel jPanel1;
@@ -251,7 +283,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_idServicioEspecialista;
     private javax.swing.JLabel lbl_nombreEspecialista;
     private javax.swing.JLabel lbl_tituloEspecialistas;
-    private javax.swing.JTable table_Especialistas;
+    private javax.swing.JTable table_especialistas;
     private javax.swing.JTextField txtF_cedulaEspecialista;
     private javax.swing.JTextField txtF_idServicioEspecialista;
     private javax.swing.JTextField txtF_nombreEspecialista;
