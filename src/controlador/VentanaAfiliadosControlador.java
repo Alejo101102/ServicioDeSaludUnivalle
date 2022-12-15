@@ -32,6 +32,9 @@ public class VentanaAfiliadosControlador {
 
     private int id;
     private String nombre;
+    
+    private int selectedRow;
+    private int selectedID;
 
     public VentanaAfiliadosControlador(VentanaAfiliadosModelo modelo, VentanaAfiliadosVista vista) {
 
@@ -41,9 +44,10 @@ public class VentanaAfiliadosControlador {
         vista.setVisible(true);
         vista.setLocationRelativeTo(null);
 
-        vista.addAgregarListener(oyenteAgregar);
-        vista.addVolverListener(oyenteVolver);
         vista.addLimpiarListener(oyenteLimpiar);
+        vista.addAgregarListener(oyenteAgregar);
+        vista.addEliminarListener(oyenteEliminar);
+        vista.addVolverListener(oyenteVolver);
         vista.addTableListener(oyenteFila);
 
         cargarAfiliados();
@@ -94,6 +98,18 @@ public class VentanaAfiliadosControlador {
         public void actionPerformed(ActionEvent evt) {
             vista.limpiarCampos();
             vista.deshabilitarModificar();
+            vista.deshabilitarEliminar();
+            vista.habilitarAgregar();
+        }
+    };
+    ActionListener oyenteEliminar = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            modelo.eliminarAfiliado(selectedID);
+            vista.eliminarFilaTabla(selectedRow);
+            vista.limpiarCampos();
+            vista.deshabilitarModificar();
+            vista.deshabilitarEliminar();
             vista.habilitarAgregar();
         }
     };
@@ -101,6 +117,13 @@ public class VentanaAfiliadosControlador {
         @Override
         public void mousePressed(MouseEvent Mouse_evt) {
             JTable table = (JTable) Mouse_evt.getSource();
+            selectedRow = table.getSelectedRow();
+            try{
+            selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+            }
+            catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error: Error inesperado, salga al Menu Principal e intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             Point point = Mouse_evt.getPoint();
             int row = table.rowAtPoint(point);
             if (Mouse_evt.getClickCount() == 1) {
@@ -108,6 +131,7 @@ public class VentanaAfiliadosControlador {
                 vista.setNombreAfiliado(table.getValueAt(table.getSelectedRow(), 1).toString());
                 vista.deshabilitarAgregar();
                 vista.habilitarModificar();
+                vista.habilitarEliminar();
             }
         }
 
