@@ -122,7 +122,7 @@ public class VentanaEspecialistasModelo {
      * @param id El id del especialista que se quiere eliminar
      */
     public void eliminarEspecialista(int id) {
-        bdmanager.delAfiliado(id);
+        bdmanager.delEspecialista(id);
     }
 
     /**
