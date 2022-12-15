@@ -7,7 +7,7 @@ package vista;
 
     Archivo:  VentanaServiciosVista.java
     Licencia: GNU-GPL 
- *    @version  1.0
+ *    @version  1.1
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -15,16 +15,25 @@ package vista;
  * 
 */
 
-import java.awt.*;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import java.awt.event.MouseListener;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaServiciosVista extends javax.swing.JFrame {
 
-    private DefaultTableModel modeloTabla = new DefaultTableModel();
-    /** Creates new form ventanaServicios */
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Constructor de la clase VentanaServiciosVista
+     */
     public VentanaServiciosVista() {
         initComponents();
         table_servicios.setModel(modeloTabla);
@@ -43,7 +52,7 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbl_serviciosTitulo = new javax.swing.JLabel();
         lbl_nombreServicios = new javax.swing.JLabel();
-        txtF_nombreServicios = new javax.swing.JTextField();
+        txtF_nombreServicio = new javax.swing.JTextField();
         lbl_codigoServicios = new javax.swing.JLabel();
         txtF_idServicio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -52,6 +61,8 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         btn_modificar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
+        btn_limpiar = new javax.swing.JButton();
+        lbl_textoGuia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -66,20 +77,20 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         jPanel1.add(lbl_serviciosTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         lbl_nombreServicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_nombreServicios.setText("Servicios");
-        jPanel1.add(lbl_nombreServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
-
-        txtF_nombreServicios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtF_nombreServiciosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtF_nombreServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 150, -1));
+        lbl_nombreServicios.setText("Nombre del servicio");
+        jPanel1.add(lbl_nombreServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+        jPanel1.add(txtF_nombreServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 180, -1));
 
         lbl_codigoServicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_codigoServicios.setText("ID Servicio");
-        jPanel1.add(lbl_codigoServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
-        jPanel1.add(txtF_idServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 150, -1));
+        jPanel1.add(lbl_codigoServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+
+        txtF_idServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtF_idServicioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtF_idServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 180, -1));
 
         table_servicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,32 +102,44 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table_servicios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 340, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 350, 220));
 
         btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_agregar.setText("Agregar");
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
 
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_modificar.setText("Modificar");
-        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, -1, -1));
+        btn_modificar.setEnabled(false);
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
 
         btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_volver.setText("Volver");
-        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
+        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, -1, -1));
 
         btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_eliminar.setText("Eliminar");
-        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, -1, -1));
+        btn_eliminar.setEnabled(false);
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, -1));
+
+        btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_limpiar.setText("Limpiar");
+        btn_limpiar.setEnabled(false);
+        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 90, -1));
+
+        lbl_textoGuia.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lbl_textoGuia.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_textoGuia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lbl_textoGuia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 380, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtF_nombreServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_nombreServiciosActionPerformed
+    private void txtF_idServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_idServicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtF_nombreServiciosActionPerformed
+    }//GEN-LAST:event_txtF_idServicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,20 +177,36 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         });
     }
     
-    public String getNombreServicios(){        
-        return txtF_nombreServicios.getText();
-    }
-
-    public void setNombreServicios(JTextField txtF_nombreServicios) {
-        this.txtF_nombreServicios = txtF_nombreServicios;
-    }
-
-    public String getIdServicio() {
+    /**
+     * Obtiene el ID del servicio
+     * @return El contenido del campo idServicio (string)
+     */
+    public String getId() {
         return txtF_idServicio.getText();
     }
 
-    public void setgetIdServicio(JTextField txtF_idServicio) {
-        this.txtF_idServicio = txtF_idServicio;
+    /**
+     * Escribe un id en el campo
+     * @param nuevoID El texto que se escribira (String)
+     */
+    public void setIdServicio(String nuevoID) {
+        txtF_idServicio.setText(nuevoID);
+    }
+    
+    /**
+     * Obtiene el nombre del servicio
+     * @return El contenido del campo nombreServicio (string)
+     */
+    public String getNombre(){        
+        return txtF_nombreServicio.getText();
+    }
+
+    /**
+     * * Escribe un nombre en el campo
+     * @param nuevoNombre El texto que se escribira (String)
+     */
+    public void setNombreServicio(String nuevoNombre) {
+        txtF_nombreServicio.setText(nuevoNombre);
     }
 
     /**
@@ -188,7 +227,30 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
             Id, nombreServicio
         });
     }
+ 
+    /**
+     * Establece un texto para instruir en el modo Registrar
+     */
+    public void setGuiaRegistrar() {
+        lbl_textoGuia.setText("Modifique los campos arriba o presione LIMPIAR para volver al modo registro");
+    }
+
+    /**
+     * Establece un texto para instruir en el modo Modificar
+     */
+    public void setGuiaModificar() {
+        lbl_textoGuia.setText("Seleccione servicios en la tabla (si los hay) para modificarlos");
+    }
     
+    /**
+     * Cierra la ventana actual
+     */
+    public void cerrar(){
+        dispose();
+    }
+    
+    
+    //               FUNCIONES DE LIMPIEZA                 // 
     /**
      * Elimina todas las filas de la tabla para dejarla vacia
      */
@@ -199,34 +261,125 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         }
     }
     
-    public void limpiarCampos(){
-        txtF_nombreServicios.setText("");
+    /**
+     * Elimina una fila específica de la tabla
+     *
+     * @param fila La Fila a eliminar
+     */
+    public void eliminarFilaTabla(int fila) {
+        modeloTabla.removeRow(fila);
+    }
+    
+    /**
+     * Vacía los textos en los campos de id y nombre
+     */
+    public void limpiarCampos() {
         txtF_idServicio.setText("");
+        txtF_nombreServicio.setText("");
     }
     
-    public void cerrar(){
-        dispose();
+    
+    //              HABILITAR/DESHABILITAR BOTONES          //
+    public void habilitarLimpiar() {
+        btn_limpiar.setEnabled(true);
+    }
+
+    public void deshabilitarLimpiar() {
+        btn_limpiar.setEnabled(false);
+    }
+
+    public void habilitarAgregar() {
+        btn_agregar.setEnabled(true);
+    }
+
+    public void deshabilitarAgregar() {
+        btn_agregar.setEnabled(false);
+    }
+
+    public void habilitarModificar() {
+        btn_modificar.setEnabled(true);
+    }
+
+    public void deshabilitarModificar() {
+        btn_modificar.setEnabled(false);
+    }
+
+    /**
+     * Habilita btn_eliminar y configura su color en rojo
+     */
+    public void habilitarEliminar() {
+        btn_eliminar.setEnabled(true);
+        btn_eliminar.setBackground(new java.awt.Color(255, 0, 51));
+    }
+
+    /**
+     * Deshabilita btn_eliminar y configura su color en gris
+     */
+    public void deshabilitarEliminar() {
+        btn_eliminar.setEnabled(false);
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
     }
     
-    public void addAgregarListener(ActionListener listener){
+    
+    //                  LISTENERS                       //
+    /**
+     * Agrega un ActionListener al btn_agregar
+     *
+     * @param listener El ActionListener
+     */
+    public void addAgregarListener(ActionListener listener) {
         btn_agregar.addActionListener(listener);
     }
-    
-    public void addModificarListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_modificar
+     *
+     * @param listener El ActionListener
+     */
+    public void addModificarListener(ActionListener listener) {
         btn_modificar.addActionListener(listener);
     }
-    
-    public void addEliminarListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_eliminar
+     *
+     * @param listener El ActionListener
+     */
+    public void addEliminarListener(ActionListener listener) {
         btn_eliminar.addActionListener(listener);
     }
-    
-    public void addVolverListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_volver
+     *
+     * @param listener El ActionListener
+     */
+    public void addVolverListener(ActionListener listener) {
         btn_volver.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_limpiar
+     *
+     * @param listener El ActionListener
+     */
+    public void addLimpiarListener(ActionListener listener) {
+        btn_limpiar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un MouseListener al btn_agregar
+     *
+     * @param listener El MouseListener
+     */
+    public void addTableListener(MouseListener listener) {
+        table_servicios.addMouseListener(listener);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_volver;
     private javax.swing.JPanel jPanel1;
@@ -234,9 +387,10 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_codigoServicios;
     private javax.swing.JLabel lbl_nombreServicios;
     private javax.swing.JLabel lbl_serviciosTitulo;
+    private javax.swing.JLabel lbl_textoGuia;
     private javax.swing.JTable table_servicios;
     private javax.swing.JTextField txtF_idServicio;
-    private javax.swing.JTextField txtF_nombreServicios;
+    private javax.swing.JTextField txtF_nombreServicio;
     // End of variables declaration//GEN-END:variables
 
 }
