@@ -33,12 +33,13 @@ public class VentanaAfiliadosControlador {
 
     private int id;
     private String nombre;
-    
+
     private int selectedRow;
     private int selectedID;
 
     /**
      * Constructor de la clase VentanaAfiliadosControlador
+     *
      * @param modelo El modelo de la clase
      * @param vista La vista o GUI de la clase
      */
@@ -70,7 +71,7 @@ public class VentanaAfiliadosControlador {
             vista.nuevaFilaAfiliado(id, nombre);
         }
     }
-    
+
     /**
      * Elimina el afiliado seleccionado en la tabla
      */
@@ -80,19 +81,20 @@ public class VentanaAfiliadosControlador {
         vista.limpiarCampos();
         modoRegistrar();
     }
-    
+
     /**
      * Instancia una VentanaPrincipal
      */
-    public void volverAlMenu(){
+    public void volverAlMenu() {
         VentanaPrincipalVista vpv = new VentanaPrincipalVista();
         VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
         VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
         vista.cerrar();
     }
-    
+
     /**
-     * Habilita y deshabilita elementos en la interfaz para REGISTRAR NUEVOS AFILIADOS
+     * Habilita y deshabilita elementos en la interfaz para REGISTRAR NUEVOS
+     * AFILIADOS
      */
     public void modoRegistrar() {
         vista.setGuiaModificar();
@@ -101,11 +103,12 @@ public class VentanaAfiliadosControlador {
         vista.deshabilitarEliminar();
         vista.habilitarAgregar();
     }
-    
+
     /**
-     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES EN AFILIADOS EXISTENTES (Modificar datos y eliminar)
+     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES
+     * EN AFILIADOS EXISTENTES (Modificar datos y eliminar)
      */
-    public void modoModificar(){
+    public void modoModificar() {
         vista.setGuiaRegistrar();
         vista.deshabilitarAgregar();
         vista.habilitarModificar();
@@ -113,7 +116,6 @@ public class VentanaAfiliadosControlador {
         vista.habilitarLimpiar();
     }
 
-    
     //              LISTENERS               //
     /**
      * Registra un nuevo afiliado
@@ -140,7 +142,7 @@ public class VentanaAfiliadosControlador {
             }
         }
     };
-    
+
     /**
      * Modifica un afiliado seleccionado que ya debe existir
      */
@@ -158,9 +160,9 @@ public class VentanaAfiliadosControlador {
                     modelo.setNombre(nombre);
 
                     modelo.modificarAfiliado(selectedID);
-                    vista.limpiarCampos();                    
+                    vista.limpiarCampos();
                     vista.limpiarTabla();
-                    
+
                     modoRegistrar();
                     cargarAfiliados();
                 }
@@ -169,7 +171,7 @@ public class VentanaAfiliadosControlador {
             }
         }
     };
-    
+
     /**
      * Regresa al Menu Principal
      */
@@ -179,8 +181,8 @@ public class VentanaAfiliadosControlador {
             volverAlMenu();
         }
     };
-    
-    /** 
+
+    /**
      * Limpia los campos de texto y vuelve al modo de registrar
      */
     ActionListener oyenteLimpiar = new ActionListener() {
@@ -190,23 +192,23 @@ public class VentanaAfiliadosControlador {
             modoRegistrar();
         }
     };
-    
+
     /**
      * Llama a la función eliminarAfiliado atrapando una excepción
+     *
      * @see eliminarAfiliado
      */
     ActionListener oyenteEliminar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            try{
+            try {
                 eliminarAfiliado();
-            }
-            catch (ConcurrentModificationException e) {
+            } catch (ConcurrentModificationException e) {
                 eliminarAfiliado();
             }
         }
     };
-    
+
     /**
      * Gestiona los clics en las filas de Afiliados
      */
@@ -215,13 +217,12 @@ public class VentanaAfiliadosControlador {
         public void mousePressed(MouseEvent Mouse_evt) {
             JTable table = (JTable) Mouse_evt.getSource();
             selectedRow = table.getSelectedRow();
-            try{
-            selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
-            }
-            catch (NumberFormatException e) {
+            try {
+                selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: No se debe modificar directamente la tabla, guardando datos y redirigiendo...", "Error crítico", JOptionPane.ERROR_MESSAGE);
                 volverAlMenu();
-            }            
+            }
             Point point = Mouse_evt.getPoint();
             int row = table.rowAtPoint(point);
             if (Mouse_evt.getClickCount() == 1) {
@@ -232,12 +233,19 @@ public class VentanaAfiliadosControlador {
         }
 
         @Override
-        public void mouseClicked(MouseEvent e) {}
+        public void mouseClicked(MouseEvent e) {
+        }
+
         @Override
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {
+        }
+
         @Override
-        public void mouseEntered(MouseEvent e) {}
+        public void mouseEntered(MouseEvent e) {
+        }
+
         @Override
-        public void mouseExited(MouseEvent e) {}
-    };   
+        public void mouseExited(MouseEvent e) {
+        }
+    };
 }
