@@ -48,6 +48,10 @@ public class VentanaAfiliadosModelo {
         bdmanager.addAfiliado(id, nombre);
     }
     
+    public void modificarAfiliado(int idActual){
+        bdmanager.modAfiliado(idActual, id, nombre);
+    }
+    
     public void eliminarAfiliado(int id){
         bdmanager.delAfiliado(id);
     }

@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ConcurrentModificationException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import modelo.*;
@@ -46,6 +47,7 @@ public class VentanaAfiliadosControlador {
 
         vista.addLimpiarListener(oyenteLimpiar);
         vista.addAgregarListener(oyenteAgregar);
+        vista.addModificarListener(oyenteModificar);
         vista.addEliminarListener(oyenteEliminar);
         vista.addVolverListener(oyenteVolver);
         vista.addTableListener(oyenteFila);
@@ -60,6 +62,41 @@ public class VentanaAfiliadosControlador {
             vista.nuevaFilaAfiliado(id, nombre);
         }
 
+    }
+    
+    public void modificarAfiliado() {
+        try {
+            id = Integer.parseInt(vista.getCedula());
+            if (vista.getNombre().isBlank()) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                nombre = vista.getNombre();
+                
+                modelo.setId(id);
+                modelo.setNombre(nombre);
+                
+                modelo.modificarAfiliado(selectedID);
+                                
+                vista.limpiarCampos();
+                vista.deshabilitarModificar();
+                vista.deshabilitarEliminar();
+                vista.habilitarAgregar();
+                vista.limpiarTabla();
+                cargarAfiliados();
+            }
+        } 
+        catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void eliminarAfiliado() {
+        modelo.eliminarAfiliado(selectedID);
+        vista.eliminarFilaTabla(selectedRow);
+        vista.limpiarCampos();
+        vista.deshabilitarModificar();
+        vista.deshabilitarEliminar();
+        vista.habilitarAgregar();
     }
 
     ActionListener oyenteAgregar = new ActionListener() {
@@ -76,12 +113,20 @@ public class VentanaAfiliadosControlador {
                     modelo.setNombre(nombre);
                     modelo.agregarAfiliado();
                     vista.nuevaFilaAfiliado(id, nombre);
+                    JOptionPane.showMessageDialog(null, "Afiliado registrado exitosamente!");
                     vista.limpiarCampos();
                 }
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    };
+    ActionListener oyenteModificar = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            modificarAfiliado();
+            JOptionPane.showMessageDialog(null, "Modificación exitosa!");
         }
     };
     ActionListener oyenteVolver = new ActionListener() {
@@ -105,12 +150,13 @@ public class VentanaAfiliadosControlador {
     ActionListener oyenteEliminar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            modelo.eliminarAfiliado(selectedID);
-            vista.eliminarFilaTabla(selectedRow);
-            vista.limpiarCampos();
-            vista.deshabilitarModificar();
-            vista.deshabilitarEliminar();
-            vista.habilitarAgregar();
+            try{
+                eliminarAfiliado();
+            }
+            catch (ConcurrentModificationException e) {
+                eliminarAfiliado();
+                JOptionPane.showMessageDialog(null, "Afiliado eliminado exitosamente!");
+            }
         }
     };
     MouseListener oyenteFila = new MouseListener() {
@@ -123,7 +169,7 @@ public class VentanaAfiliadosControlador {
             }
             catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Error inesperado, salga al Menu Principal e intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            }            
             Point point = Mouse_evt.getPoint();
             int row = table.rowAtPoint(point);
             if (Mouse_evt.getClickCount() == 1) {
@@ -150,5 +196,5 @@ public class VentanaAfiliadosControlador {
         @Override
         public void mouseExited(MouseEvent e) {
         }
-    };            
+    };   
 }
