@@ -1,5 +1,10 @@
 package vista;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
     Laboratorio # 3
@@ -17,10 +22,22 @@ package vista;
 
 public class VentanaConsultoriosVista extends javax.swing.JFrame {
 
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
     /** Creates new form ventanaConsultorios */
     public VentanaConsultoriosVista() {
         initComponents();
         this.setLocationRelativeTo(null);
+        table_consultorios.setModel(modeloTabla);
+        configurarTabla();
     }
 
     /** This method is called from within the constructor to
@@ -35,14 +52,17 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbl_tituloConsultorios = new javax.swing.JLabel();
         lbl_consultoriosNumero = new javax.swing.JLabel();
-        txtF_consultoriosNumero = new javax.swing.JTextField();
+        txtF_numeroConsultorio = new javax.swing.JTextField();
         lbl_consultoriosMedico = new javax.swing.JLabel();
-        txtF_consultoriosMedico = new javax.swing.JTextField();
+        txtF_especialistaAsociado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btn_consultoriosAgregar = new javax.swing.JButton();
-        btn_consultoriosActualizar = new javax.swing.JButton();
-        btn_consultoriosVerLista = new javax.swing.JButton();
+        table_consultorios = new javax.swing.JTable();
+        btn_eliminar = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
+        btn_agregar = new javax.swing.JButton();
+        btn_limpiar = new javax.swing.JButton();
+        lbl_textoGuia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,15 +76,15 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
 
         lbl_consultoriosNumero.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_consultoriosNumero.setText("Número de consultorio");
-        jPanel1.add(lbl_consultoriosNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
-        jPanel1.add(txtF_consultoriosNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 120, -1));
+        jPanel1.add(lbl_consultoriosNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        jPanel1.add(txtF_numeroConsultorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 180, -1));
 
         lbl_consultoriosMedico.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_consultoriosMedico.setText("Médico");
-        jPanel1.add(lbl_consultoriosMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
-        jPanel1.add(txtF_consultoriosMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 190, -1));
+        lbl_consultoriosMedico.setText("Especialista Asociado");
+        jPanel1.add(lbl_consultoriosMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPanel1.add(txtF_especialistaAsociado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 180, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_consultorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -72,21 +92,39 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table_consultorios);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 340, 140));
 
-        btn_consultoriosAgregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_consultoriosAgregar.setText("Agregar");
-        jPanel1.add(btn_consultoriosAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.setEnabled(false);
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 90, -1));
 
-        btn_consultoriosActualizar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_consultoriosActualizar.setText("Actualizar");
-        jPanel1.add(btn_consultoriosActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, -1));
+        btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_modificar.setText("Modificar");
+        btn_modificar.setEnabled(false);
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, -1, -1));
 
-        btn_consultoriosVerLista.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_consultoriosVerLista.setText("Ver Lista");
-        jPanel1.add(btn_consultoriosVerLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
+        btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_volver.setText("Volver");
+        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
+
+        btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_agregar.setText("Agregar");
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 90, -1));
+
+        btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_limpiar.setText("Limpiar");
+        btn_limpiar.setEnabled(false);
+        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 90, -1));
+
+        lbl_textoGuia.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lbl_textoGuia.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_textoGuia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lbl_textoGuia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 380, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 410));
 
@@ -128,19 +166,205 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
             }
         });
     }
+    
+    public String getEspecialistaAsociado() {
+        return txtF_especialistaAsociado.getText();
+    }
+
+    public void setEspecialistaAsociado(String especialistaAsociado) {
+        txtF_especialistaAsociado.setText(especialistaAsociado);
+    }
+
+    public String getNumeroConsultorio() {
+        return txtF_numeroConsultorio.getText();
+    }
+
+    public void setNumeroConsultorio(String numero) {
+        txtF_numeroConsultorio.setText(numero);
+    }
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        String[] titulosTabla = new String[]{"CONSULTORIO", "ESPECIALISTA"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);
+    }
+
+    /**
+     * Añade una nueva fila con los datos de un nuevo afiliado
+     *
+     * @param Id El Id del nuevo afiliado
+     * @param nombreCompleto El nombre completo del nuevo afiliado
+     */
+    public void nuevaFilaConsultorio(int Id, String nombreCompleto) {
+        modeloTabla.addRow(new Object[]{
+            Id, nombreCompleto
+        });
+    }
+
+    /**
+     * Establece un texto para instruir en el modo Registrar
+     */
+    public void setGuiaRegistrar() {
+        lbl_textoGuia.setText("Modifique los campos arriba o presione LIMPIAR para volver al modo registro");
+    }
+
+    /**
+     * Establece un texto para instruir en el modo Modificar
+     */
+    public void setGuiaModificar() {
+        lbl_textoGuia.setText("Seleccione consultorios en la tabla (si los hay) para modificarlos");
+    }
+
+    /**
+     * Cierra la ventana actual
+     */
+    public void cerrar() {
+        dispose();
+    }
+    
+    
+    //              FUNCIONES DE LIMPIEZA                   //
+    /**
+     * Elimina todas las filas de la tabla
+     */
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
+    }
+
+    /**
+     * Elimina una fila específica de la tabla
+     *
+     * @param fila La Fila a eliminar
+     */
+    public void eliminarFilaTabla(int fila) {
+        modeloTabla.removeRow(fila);
+    }
+
+    /**
+     * Vacía los textos en los campos de cedula y nombre
+     */
+    public void limpiarCampos() {
+        txtF_numeroConsultorio.setText("");
+        txtF_especialistaAsociado.setText("");
+    }
+
+    //              HABILITAR/DESHABILITAR BOTONES          //
+    public void habilitarLimpiar() {
+        btn_limpiar.setEnabled(true);
+    }
+
+    public void deshabilitarLimpiar() {
+        btn_limpiar.setEnabled(false);
+    }
+
+    public void habilitarAgregar() {
+        btn_agregar.setEnabled(true);
+    }
+
+    public void deshabilitarAgregar() {
+        btn_agregar.setEnabled(false);
+    }
+
+    public void habilitarModificar() {
+        btn_modificar.setEnabled(true);
+    }
+
+    public void deshabilitarModificar() {
+        btn_modificar.setEnabled(false);
+    }
+
+    /**
+     * Habilita btn_eliminar y configura su color en rojo
+     */
+    public void habilitarEliminar() {
+        btn_eliminar.setEnabled(true);
+        btn_eliminar.setBackground(new java.awt.Color(255, 0, 51));
+    }
+
+    /**
+     * Deshabilita btn_eliminar y configura su color en gris
+     */
+    public void deshabilitarEliminar() {
+        btn_eliminar.setEnabled(false);
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+    }
+
+    
+    //                  LISTENERS                       //
+    /**
+     * Agrega un ActionListener al btn_agregar
+     *
+     * @param listener El ActionListener
+     */
+    public void addAgregarListener(ActionListener listener) {
+        btn_agregar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_modificar
+     *
+     * @param listener El ActionListener
+     */
+    public void addModificarListener(ActionListener listener) {
+        btn_modificar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_eliminar
+     *
+     * @param listener El ActionListener
+     */
+    public void addEliminarListener(ActionListener listener) {
+        btn_eliminar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_volver
+     *
+     * @param listener El ActionListener
+     */
+    public void addVolverListener(ActionListener listener) {
+        btn_volver.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_limpiar
+     *
+     * @param listener El ActionListener
+     */
+    public void addLimpiarListener(ActionListener listener) {
+        btn_limpiar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un MouseListener al btn_agregar
+     *
+     * @param listener El MouseListener
+     */
+    public void addTableListener(MouseListener listener) {
+        table_consultorios.addMouseListener(listener);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_consultoriosActualizar;
-    private javax.swing.JButton btn_consultoriosAgregar;
-    private javax.swing.JButton btn_consultoriosVerLista;
+    private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_limpiar;
+    private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_consultoriosMedico;
     private javax.swing.JLabel lbl_consultoriosNumero;
+    private javax.swing.JLabel lbl_textoGuia;
     private javax.swing.JLabel lbl_tituloConsultorios;
-    private javax.swing.JTextField txtF_consultoriosMedico;
-    private javax.swing.JTextField txtF_consultoriosNumero;
+    private javax.swing.JTable table_consultorios;
+    private javax.swing.JTextField txtF_especialistaAsociado;
+    private javax.swing.JTextField txtF_numeroConsultorio;
     // End of variables declaration//GEN-END:variables
 
 }
