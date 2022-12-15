@@ -1,12 +1,5 @@
 package vista;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
     Laboratorio # 3
@@ -14,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
     Archivo:  VentanaEspecialistasVista.java
     Licencia: GNU-GPL 
- *    @version  1.0
+ *    @version  1.1
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -22,12 +15,24 @@ import javax.swing.table.DefaultTableModel;
  * 
 */
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import javax.swing.table.DefaultTableModel;
+
 public class VentanaEspecialistasVista extends javax.swing.JFrame {
 
-    private DefaultTableModel modeloTabla = new DefaultTableModel();
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
     
     /**
-     * Creates new form ventanaEspecialista
+     * Constructor de la clase VentanaEspecialistasVista
      */  
     public VentanaEspecialistasVista() {
         initComponents();
@@ -58,6 +63,8 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         lbl_idServicioEspecialista = new javax.swing.JLabel();
         txtF_idServicioEspecialista = new javax.swing.JTextField();
         btn_limpiar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
+        lbl_textoGuia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(400, 500));
@@ -98,16 +105,16 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
 
         btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_agregar.setText("Agregar");
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 90, -1));
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 90, -1));
 
         btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_volver.setText("Volver");
-        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, -1, -1));
+        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, -1, -1));
 
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_modificar.setText("Modificar");
         btn_modificar.setEnabled(false);
-        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, -1, -1));
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
 
         lbl_idServicioEspecialista.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_idServicioEspecialista.setForeground(new java.awt.Color(0, 0, 0));
@@ -117,7 +124,21 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_limpiar.setText("Limpiar");
+        btn_limpiar.setEnabled(false);
         jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 90, -1));
+
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.setEnabled(false);
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, -1));
+
+        lbl_textoGuia.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lbl_textoGuia.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_textoGuia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_textoGuia.setText("Seleccione afiliados en la tabla para modificarlos");
+        jPanel1.add(lbl_textoGuia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 380, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,7 +220,6 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         txtF_idServicioEspecialista.setText(text);
     }
 
-    
     /**
      * Crea los titulos de la tabla 
      */
@@ -220,22 +240,26 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         });
     }
     
-    public void habilitarAgregar(){
-        btn_agregar.setEnabled(true);
+     /**
+     * Establece un texto para instruir en el modo Registrar
+     */
+    public void setGuiaRegistrar() {
+        lbl_textoGuia.setText("Modifique los campos arriba o presione LIMPIAR para volver al modo registro");
+    }
+
+    /**
+     * Establece un texto para instruir en el modo Modificar
+     */
+    public void setGuiaModificar() {
+        lbl_textoGuia.setText("Seleccione especialistas en la tabla para modificarlos");
     }
     
-    public void deshabilitarAgregar(){
-        btn_agregar.setEnabled(false);
+    public void cerrar(){
+        dispose();
     }
     
-    public void habilitarModificar(){
-        btn_modificar.setEnabled(true);
-    }
     
-    public void deshabilitarModificar(){
-        btn_modificar.setEnabled(false);
-    }
-    
+    //               FUNCIONES DE LIMPIEZA                 // 
     /**
      * Elimina todas las filas de la tabla para dejarla vacia
      */
@@ -246,34 +270,121 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Elimina una fila específica de la tabla
+     *
+     * @param fila La Fila a eliminar
+     */
+    public void eliminarFilaTabla(int fila) {
+        modeloTabla.removeRow(fila);
+    }
+    
     public void limpiarCampos(){
         txtF_cedulaEspecialista.setText("");
         txtF_nombreEspecialista.setText("");
         txtF_idServicioEspecialista.setText("");
     }
     
-    public void cerrar(){
-        dispose();
+    
+    //              HABILITAR/DESHABILITAR BOTONES          //
+    public void habilitarLimpiar() {
+        btn_limpiar.setEnabled(true);
+    }
+
+    public void deshabilitarLimpiar() {
+        btn_limpiar.setEnabled(false);
+    }
+
+    public void habilitarAgregar() {
+        btn_agregar.setEnabled(true);
+    }
+
+    public void deshabilitarAgregar() {
+        btn_agregar.setEnabled(false);
+    }
+
+    public void habilitarModificar() {
+        btn_modificar.setEnabled(true);
+    }
+
+    public void deshabilitarModificar() {
+        btn_modificar.setEnabled(false);
+    }
+
+    /**
+     * Habilita btn_eliminar y configura su color en rojo
+     */
+    public void habilitarEliminar() {
+        btn_eliminar.setEnabled(true);
+        btn_eliminar.setBackground(new java.awt.Color(255, 0, 51));
+    }
+
+    /**
+     * Deshabilita btn_eliminar y configura su color en gris
+     */
+    public void deshabilitarEliminar() {
+        btn_eliminar.setEnabled(false);
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
     }
     
-    public void addAgregarListener(ActionListener listener){
+    //                  LISTENERS                       //
+    /**
+     * Agrega un ActionListener al btn_agregar
+     *
+     * @param listener El ActionListener
+     */
+    public void addAgregarListener(ActionListener listener) {
         btn_agregar.addActionListener(listener);
     }
-    
-    public void addVolverListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_modificar
+     *
+     * @param listener El ActionListener
+     */
+    public void addModificarListener(ActionListener listener) {
+        btn_modificar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_eliminar
+     *
+     * @param listener El ActionListener
+     */
+    public void addEliminarListener(ActionListener listener) {
+        btn_eliminar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_volver
+     *
+     * @param listener El ActionListener
+     */
+    public void addVolverListener(ActionListener listener) {
         btn_volver.addActionListener(listener);
     }
-    
-    public void addLimpiarListener(ActionListener listener){
+
+    /**
+     * Agrega un ActionListener al btn_limpiar
+     *
+     * @param listener El ActionListener
+     */
+    public void addLimpiarListener(ActionListener listener) {
         btn_limpiar.addActionListener(listener);
     }
-    
-    public void addTableListener(MouseListener listener){
+
+    /**
+     * Agrega un MouseListener al btn_agregar
+     *
+     * @param listener El MouseListener
+     */
+    public void addTableListener(MouseListener listener) {
         table_especialistas.addMouseListener(listener);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_volver;
@@ -282,6 +393,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_cedulaEspecialista;
     private javax.swing.JLabel lbl_idServicioEspecialista;
     private javax.swing.JLabel lbl_nombreEspecialista;
+    private javax.swing.JLabel lbl_textoGuia;
     private javax.swing.JLabel lbl_tituloEspecialistas;
     private javax.swing.JTable table_especialistas;
     private javax.swing.JTextField txtF_cedulaEspecialista;
