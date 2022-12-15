@@ -50,7 +50,7 @@ public class VentanaPrincipalControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             modelo.iniciarVentanaServicios();
-            //vista.cerrar();
+            vista.cerrar();
         }
     };  
     ActionListener oyenteEspecialistas = new ActionListener() {
