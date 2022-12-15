@@ -74,9 +74,13 @@ public class VentanaEspecialistasControlador {
                         JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         nombre = vista.getNombre();
+                        
                         modelo.setId(id);
                         modelo.setNombre(nombre);
+                        modelo.setIdServicioEspecialista(idServicioEspecialista);
+                        
                         modelo.agregarEspecialista();
+                        
                         vista.nuevaFilaEspecialista(id, nombre, idServicioEspecialista);
                         vista.limpiarCampos();
                         vista.deshabilitarAgregar();
