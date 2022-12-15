@@ -61,6 +61,7 @@ public class VentanaEspecialistasControlador {
         vista.addTableListener(oyenteFila);
 
         cargarEspecialistas();
+        vista.setGuiaModificar();
     }
 
     /**
