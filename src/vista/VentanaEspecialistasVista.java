@@ -137,7 +137,6 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         lbl_textoGuia.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lbl_textoGuia.setForeground(new java.awt.Color(0, 102, 102));
         lbl_textoGuia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_textoGuia.setText("Seleccione afiliados en la tabla para modificarlos");
         jPanel1.add(lbl_textoGuia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 380, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,7 +250,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
      * Establece un texto para instruir en el modo Modificar
      */
     public void setGuiaModificar() {
-        lbl_textoGuia.setText("Seleccione especialistas en la tabla para modificarlos");
+        lbl_textoGuia.setText("Seleccione especialistas en la tabla (si los hay) para modificarlos");
     }
     
     public void cerrar(){
