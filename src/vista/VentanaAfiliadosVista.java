@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +31,7 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
      */  
     public VentanaAfiliadosVista() {
         initComponents();
-        table_Afiliados.setModel(modeloTabla);
+        table_afiliados.setModel(modeloTabla);
         configurarTabla();
     }
 
@@ -50,10 +51,12 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         txtF_cedulaAfiliado = new javax.swing.JTextField();
         txtF_nombreAfiliado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_Afiliados = new javax.swing.JTable();
+        table_afiliados = new javax.swing.JTable();
         btn_agregar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
+        btn_limpiar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(400, 500));
@@ -79,7 +82,7 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         jPanel1.add(txtF_cedulaAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 190, -1));
         jPanel1.add(txtF_nombreAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 190, -1));
 
-        table_Afiliados.setModel(new javax.swing.table.DefaultTableModel(
+        table_afiliados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -87,21 +90,38 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(table_Afiliados);
+        jScrollPane1.setViewportView(table_afiliados);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 340, 220));
 
         btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_agregar.setText("Agregar");
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 90, -1));
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 90, -1));
 
         btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_volver.setText("Volver");
-        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, -1, -1));
+        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, -1, -1));
 
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btn_modificar.setText("Modificar");
-        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, -1, -1));
+        btn_modificar.setEnabled(false);
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
+
+        btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_limpiar.setText("Limpiar");
+        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 90, -1));
+
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.setEnabled(false);
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,6 +136,10 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,8 +183,8 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         return txtF_cedulaAfiliado.getText();
     }
 
-    public void setTxtF_cedulaAfiliado(JTextField txtF_cedulaAfiliado) {
-        this.txtF_cedulaAfiliado = txtF_cedulaAfiliado;
+    public void setCedulaAfiliado(String text) {
+        txtF_cedulaAfiliado.setText(text);
     }
 
     public boolean getTxtFState(){
@@ -170,8 +194,8 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         return txtF_nombreAfiliado.getText();
     }
 
-    public void setTxtF_nombreAfiliado(JTextField txtF_nombreAfiliado) {
-        this.txtF_nombreAfiliado = txtF_nombreAfiliado;
+    public void setNombreAfiliado(String text) {
+        txtF_nombreAfiliado.setText(text);
     }
     
     /**
@@ -193,6 +217,32 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         });
     }
     
+    public void habilitarAgregar(){
+        btn_agregar.setEnabled(true);
+    }
+    
+    public void deshabilitarAgregar(){
+        btn_agregar.setEnabled(false);
+    }
+    
+    public void habilitarModificar(){
+        btn_modificar.setEnabled(true);
+    }
+    
+    public void deshabilitarModificar(){
+        btn_modificar.setEnabled(false);
+    }
+    
+    public void habilitarEliminar(){
+        btn_eliminar.setEnabled(true);
+        btn_eliminar.setBackground(new java.awt.Color(255, 0, 51));
+    }
+    
+    public void deshabilitarEliminar(){
+        btn_eliminar.setEnabled(false);
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+    }
+    
     /**
      * Elimina todas las filas de la tabla para dejarla vacia
      */
@@ -201,6 +251,13 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         for(int i = 0; i < filasTabla; i++){
             modeloTabla.removeRow(0);
         }
+    }
+    
+    /**
+     * Elimina todas las filas de la tabla para dejarla vacia
+     */
+    public void eliminarFilaTabla(int fila){
+        modeloTabla.removeRow(fila);
     }
     
     public void limpiarCampos(){
@@ -216,12 +273,30 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         btn_agregar.addActionListener(listener);
     }
     
+    public void addModificarListener(ActionListener listener){
+        btn_modificar.addActionListener(listener);
+    }
+    
+    public void addEliminarListener(ActionListener listener){
+        btn_eliminar.addActionListener(listener);
+    }
+    
     public void addVolverListener(ActionListener listener){
         btn_volver.addActionListener(listener);
+    }
+    
+    public void addLimpiarListener(ActionListener listener){
+        btn_limpiar.addActionListener(listener);
+    }
+    
+    public void addTableListener(MouseListener listener){
+        table_afiliados.addMouseListener(listener);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_volver;
     private javax.swing.JPanel jPanel1;
@@ -229,7 +304,7 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_cedulaAfiliado;
     private javax.swing.JLabel lbl_nombreAfiliado;
     private javax.swing.JLabel lbl_tituloAfiliado;
-    private javax.swing.JTable table_Afiliados;
+    private javax.swing.JTable table_afiliados;
     private javax.swing.JTextField txtF_cedulaAfiliado;
     private javax.swing.JTextField txtF_nombreAfiliado;
     // End of variables declaration//GEN-END:variables

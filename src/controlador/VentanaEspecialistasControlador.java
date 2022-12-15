@@ -15,9 +15,13 @@ package controlador;
  * 
 */
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import modelo.*;
 import vista.*;
 
@@ -40,6 +44,8 @@ public class VentanaEspecialistasControlador {
 
         vista.addAgregarListener(oyenteAgregar);
         vista.addVolverListener(oyenteVolver);
+        vista.addLimpiarListener(oyenteLimpiar);
+        vista.addTableListener(oyenteFila);
 
         cargarEspecialistas();
     }
@@ -68,11 +74,17 @@ public class VentanaEspecialistasControlador {
                         JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         nombre = vista.getNombre();
+                        
                         modelo.setId(id);
                         modelo.setNombre(nombre);
+                        modelo.setIdServicioEspecialista(idServicioEspecialista);
+                        
                         modelo.agregarEspecialista();
+                        
                         vista.nuevaFilaEspecialista(id, nombre, idServicioEspecialista);
                         vista.limpiarCampos();
+                        vista.deshabilitarAgregar();
+                        vista.habilitarAgregar();
                     }
                 }
                 catch (NumberFormatException e){
@@ -93,5 +105,42 @@ public class VentanaEspecialistasControlador {
             vista.cerrar();
         }
     };
+    ActionListener oyenteLimpiar = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            vista.limpiarCampos();
+        }
+    };
+    MouseListener oyenteFila = new MouseListener() {
+        @Override
+        public void mousePressed(MouseEvent Mouse_evt) {
+            JTable table = (JTable) Mouse_evt.getSource();
+            Point point = Mouse_evt.getPoint();
+            int row = table.rowAtPoint(point);
+            if (Mouse_evt.getClickCount() == 1) {
+                vista.setCedulaEspecialista(table.getValueAt(table.getSelectedRow(), 0).toString());
+                vista.setNombreEspecialista(table.getValueAt(table.getSelectedRow(), 1).toString());
+                vista.setIdServicioEspecialista(table.getValueAt(table.getSelectedRow(), 2).toString());
+                vista.deshabilitarAgregar();
+                vista.habilitarModificar();
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };  
 
 }
