@@ -44,13 +44,14 @@ public class VentanaPrincipalVista extends javax.swing.JFrame {
         btn_consultorios = new javax.swing.JButton();
         lbl_titulo2 = new javax.swing.JLabel();
         btn_restaurarBackup = new javax.swing.JButton();
+        btn_exportarAfiliados = new javax.swing.JButton();
+        lbl_herramientas = new javax.swing.JLabel();
+        lbl_backup = new javax.swing.JLabel();
         btn_realizarBackup = new javax.swing.JButton();
         lbl_gestionar = new javax.swing.JLabel();
-        lbl_herramientas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(520, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -104,13 +105,36 @@ public class VentanaPrincipalVista extends javax.swing.JFrame {
         btn_restaurarBackup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_restaurarBackup.setForeground(new java.awt.Color(255, 255, 255));
         btn_restaurarBackup.setText("Restaurar Backup");
-        jPanel1.add(btn_restaurarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 160, -1));
+        jPanel1.add(btn_restaurarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 160, -1));
+
+        btn_exportarAfiliados.setBackground(new java.awt.Color(255, 0, 0));
+        btn_exportarAfiliados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_exportarAfiliados.setForeground(new java.awt.Color(255, 255, 255));
+        btn_exportarAfiliados.setText("Exportar afiliados");
+        btn_exportarAfiliados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_exportarAfiliadosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_exportarAfiliados, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 160, -1));
+
+        lbl_herramientas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_herramientas.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_herramientas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_herramientas.setText("Herramientas");
+        jPanel1.add(lbl_herramientas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 110, -1));
+
+        lbl_backup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_backup.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_backup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_backup.setText("Copia de seguridad y restauracion");
+        jPanel1.add(lbl_backup, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 260, 20));
 
         btn_realizarBackup.setBackground(new java.awt.Color(255, 0, 0));
         btn_realizarBackup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_realizarBackup.setForeground(new java.awt.Color(255, 255, 255));
         btn_realizarBackup.setText("Realizar Backup");
-        jPanel1.add(btn_realizarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 160, -1));
+        jPanel1.add(btn_realizarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 160, -1));
 
         lbl_gestionar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_gestionar.setForeground(new java.awt.Color(0, 0, 0));
@@ -118,16 +142,14 @@ public class VentanaPrincipalVista extends javax.swing.JFrame {
         lbl_gestionar.setText("Gestionar");
         jPanel1.add(lbl_gestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 80, -1));
 
-        lbl_herramientas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_herramientas.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_herramientas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_herramientas.setText("Herramientas");
-        jPanel1.add(lbl_herramientas, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 100, 20));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_exportarAfiliadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportarAfiliadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_exportarAfiliadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,6 +202,9 @@ public class VentanaPrincipalVista extends javax.swing.JFrame {
     public void addCitasListener(ActionListener listener){
         btn_citas.addActionListener(listener);
     }
+    public void addExportarAfiliadosListener(ActionListener listener){
+        btn_exportarAfiliados.addActionListener(listener);
+    }
     public void addRealizarBackupListener(ActionListener listener){
         btn_realizarBackup.addActionListener(listener);
     }
@@ -196,10 +221,12 @@ public class VentanaPrincipalVista extends javax.swing.JFrame {
     private javax.swing.JButton btn_citas;
     private javax.swing.JButton btn_consultorios;
     private javax.swing.JButton btn_especialistas;
+    private javax.swing.JButton btn_exportarAfiliados;
     private javax.swing.JButton btn_realizarBackup;
     private javax.swing.JButton btn_restaurarBackup;
     private javax.swing.JButton btn_servicios;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_backup;
     private javax.swing.JLabel lbl_gestionar;
     private javax.swing.JLabel lbl_herramientas;
     private javax.swing.JLabel lbl_titulo;
