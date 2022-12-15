@@ -60,6 +60,7 @@ public class VentanaAfiliadosControlador {
         vista.addTableListener(oyenteFila);
 
         cargarAfiliados();
+        vista.setGuiaModificar();
     }
 
     /**
