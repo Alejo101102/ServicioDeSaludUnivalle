@@ -1,5 +1,10 @@
 package vista;
 
+import java.awt.*;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
  *    Laboratorio # 3
@@ -17,9 +22,12 @@ package vista;
 
 public class VentanaCitasVista extends javax.swing.JFrame {
 
+    private DefaultTableModel modeloTabla = new DefaultTableModel();
     /** Creates new form ventanaCitas */
     public VentanaCitasVista() {
         initComponents();
+        table_citas.setModel(modeloTabla);
+        //configurarTabla();
     }
 
     /** This method is called from within the constructor to
@@ -167,6 +175,8 @@ public class VentanaCitasVista extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_citasActualizar;

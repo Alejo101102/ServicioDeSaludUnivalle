@@ -15,11 +15,20 @@ package vista;
  * 
 */
 
+import java.awt.*;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 public class VentanaServiciosVista extends javax.swing.JFrame {
 
+    private DefaultTableModel modeloTabla = new DefaultTableModel();
     /** Creates new form ventanaServicios */
     public VentanaServiciosVista() {
         initComponents();
+        table_servicios.setModel(modeloTabla);
+        configurarTabla();
     }
 
     /** This method is called from within the constructor to
@@ -36,16 +45,20 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         lbl_nombreServicios = new javax.swing.JLabel();
         txtF_nombreServicios = new javax.swing.JTextField();
         lbl_codigoServicios = new javax.swing.JLabel();
-        txtF_codigoServicios = new javax.swing.JTextField();
+        txtF_idServicio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_servicios = new javax.swing.JTable();
-        btn_agregarServicios = new javax.swing.JButton();
-        btn_serviciosActualizar = new javax.swing.JButton();
-        btn_serviciosVerLista = new javax.swing.JButton();
+        btn_agregar = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(400, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_serviciosTitulo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -64,9 +77,9 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         jPanel1.add(txtF_nombreServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 150, -1));
 
         lbl_codigoServicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_codigoServicios.setText("Código de servicio");
-        jPanel1.add(lbl_codigoServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
-        jPanel1.add(txtF_codigoServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 130, -1));
+        lbl_codigoServicios.setText("ID Servicio");
+        jPanel1.add(lbl_codigoServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jPanel1.add(txtF_idServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 150, -1));
 
         table_servicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,21 +91,25 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table_servicios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 340, 170));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 340, 240));
 
-        btn_agregarServicios.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_agregarServicios.setText("Agregar");
-        jPanel1.add(btn_agregarServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_agregar.setText("Agregar");
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
-        btn_serviciosActualizar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_serviciosActualizar.setText("Actualizar");
-        jPanel1.add(btn_serviciosActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, -1, -1));
+        btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_modificar.setText("Modificar");
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, -1, -1));
 
-        btn_serviciosVerLista.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_serviciosVerLista.setText("Ver Lista");
-        jPanel1.add(btn_serviciosVerLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, -1, -1));
+        btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_volver.setText("Volver");
+        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 410));
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_eliminar.setText("Eliminar");
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -136,18 +153,89 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
             }
         });
     }
+    
+    public String getNombreServicios(){        
+        return txtF_nombreServicios.getText();
+    }
+
+    public void setNombreServicios(JTextField txtF_nombreServicios) {
+        this.txtF_nombreServicios = txtF_nombreServicios;
+    }
+
+    public String getIdServicio() {
+        return txtF_idServicio.getText();
+    }
+
+    public void setgetIdServicio(JTextField txtF_idServicio) {
+        this.txtF_idServicio = txtF_idServicio;
+    }
+
+    /**
+     * Crea los titulos de la tabla 
+     */
+    public void configurarTabla(){
+        String[] titulosTabla = new String[]{"ID", "SERVICIO"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);
+    }
+    
+    /**
+     * Añade una nueva fila con el id de un nuevo servicio
+     * @param Id El Id del servicio
+     * @param nombreServicio El servicio de salud 
+     */
+    public void nuevaFilaServicio(int Id, String nombreServicio){
+        modeloTabla.addRow(new Object[]{
+            Id, nombreServicio
+        });
+    }
+    
+    /**
+     * Elimina todas las filas de la tabla para dejarla vacia
+     */
+    public void limpiarTabla(){
+        int filasTabla = modeloTabla.getRowCount();
+        for(int i = 0; i < filasTabla; i++){
+            modeloTabla.removeRow(0);
+        }
+    }
+    
+    public void limpiarCampos(){
+        txtF_nombreServicios.setText("");
+        txtF_idServicio.setText("");
+    }
+    
+    public void cerrar(){
+        dispose();
+    }
+    
+    public void addAgregarListener(ActionListener listener){
+        btn_agregar.addActionListener(listener);
+    }
+    
+    public void addModificarListener(ActionListener listener){
+        btn_modificar.addActionListener(listener);
+    }
+    
+    public void addEliminarListener(ActionListener listener){
+        btn_eliminar.addActionListener(listener);
+    }
+    
+    public void addVolverListener(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_agregarServicios;
-    private javax.swing.JButton btn_serviciosActualizar;
-    private javax.swing.JButton btn_serviciosVerLista;
+    private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_codigoServicios;
     private javax.swing.JLabel lbl_nombreServicios;
     private javax.swing.JLabel lbl_serviciosTitulo;
     private javax.swing.JTable table_servicios;
-    private javax.swing.JTextField txtF_codigoServicios;
+    private javax.swing.JTextField txtF_idServicio;
     private javax.swing.JTextField txtF_nombreServicios;
     // End of variables declaration//GEN-END:variables
 
