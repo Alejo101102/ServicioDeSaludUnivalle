@@ -18,30 +18,33 @@ package modelo;
 import hospital.*;
 
 public class VentanaAfiliadosModelo {
-    
-    BDManager bdmanager = new BDManager(); 
-   
+
+    BDManager bdmanager = new BDManager();
+
     private int id;
     private String nombre;
-    
+
     /**
      * Constructor de clase VentanaAfiliadosModelo
+     *
      * @param bdmanager La clase que simula una base de datos
      */
-    public VentanaAfiliadosModelo(BDManager bdmanager){
+    public VentanaAfiliadosModelo(BDManager bdmanager) {
         this.bdmanager = bdmanager;
     }
 
     /**
      * Obtiene su propio bdmanager
+     *
      * @return El bdmanager donde tiene todos sus datos
      */
     public BDManager getBDManager() {
         return bdmanager;
     }
-    
+
     /**
      * Obtiene el id de un afiliado en especifico
+     *
      * @param numero La posicion del afiliado en el arreglo
      * @return id El id del afiliado (int)
      */
@@ -51,6 +54,7 @@ public class VentanaAfiliadosModelo {
 
     /**
      * Asigna el id del modelo
+     *
      * @param id El id de un afiliado (int)
      */
     public void setId(int id) {
@@ -59,8 +63,9 @@ public class VentanaAfiliadosModelo {
 
     /**
      * Obtiene el nombre de un afiliado específico
+     *
      * @param numero La posicion del afiliado en el arreglo
-     * @return  El nombre del afiliado(String)
+     * @return El nombre del afiliado(String)
      */
     public String getNombre(int numero) {
         return bdmanager.getNombreAfiliado(numero);
@@ -68,40 +73,44 @@ public class VentanaAfiliadosModelo {
 
     /**
      * Asigna un nombre completo al modelo
+     *
      * @param nombre El nombre completo de un afiliado (String)
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     /**
      * Crea un nuevo afiliado en bdmanager usando sus atributos
      */
-    public void agregarAfiliado(){
+    public void agregarAfiliado() {
         bdmanager.addAfiliado(id, nombre);
     }
-    
+
     /**
      * Modifica un afiliado en bdmanager usando sus atributos
+     *
      * @param idActual El idActual del afiliado que se quiere modificar
      */
-    public void modificarAfiliado(int idActual){
+    public void modificarAfiliado(int idActual) {
         bdmanager.modAfiliado(idActual, id, nombre);
     }
-    
+
     /**
      * Elimina un afiliado del bdmanager
+     *
      * @param id El id del afiliado que se quiere eliminar
      */
-    public void eliminarAfiliado(int id){
+    public void eliminarAfiliado(int id) {
         bdmanager.delAfiliado(id);
     }
-    
+
     /**
      * Obtiene la cantidad de afiliados que hay
+     *
      * @return La cantidad de afiliados en el arreglo de bdmanager (int)
      */
-    public int getCantidadAfiliados(){
+    public int getCantidadAfiliados() {
         return bdmanager.getCantidadAfiliados();
     }
 }
