@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  *    Archivo:  BDManager.java
  *    Licencia: GNU-GPL 
- *    @version  1.3
+ *    @version  1.4
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -492,6 +492,9 @@ public class BDManager {
     
 
     //              MANEJO DE ARCHIVOS         //
+    /**
+     * Exporta el ID y nombre de cada afiliado en un archivo .txt separado por punto y coma
+     */
     public void exportarAfiliados(){
         for (Afiliado afiliadoActual: afiliados){ 
             String Id;
