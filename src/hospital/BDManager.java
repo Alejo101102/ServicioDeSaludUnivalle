@@ -100,6 +100,32 @@ public class BDManager {
     public int getCantidadAfiliados() {
         return afiliados.size();
     }    
+    
+    public void alteracionEnAfiliado(int id){
+        String nombreAfiliado = buscarNombreAfiliado(id);
+        
+        if(nombreAfiliado != "EMPTY"){
+            //ELIMINACION EN CITAS
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    citaActual.setEspecialista("NO ECONTRADO");
+//                }
+//            }        
+        }
+    }
+    
+    public String buscarNombreAfiliado(int id){
+        String nombreAfiliado = "EMPTY";
+        
+        for (Afiliado afiliadoActual : afiliados) {
+            if (afiliadoActual.getId() == id) {
+                nombreAfiliado = afiliadoActual.getNombre();
+                break;
+            }
+        }
+        
+        return nombreAfiliado;
+    }
    
     
     //              MANEJO DE ESPECIALISTAS         //
@@ -109,10 +135,10 @@ public class BDManager {
      * @param id El numero del documento de identificacion del especialista
      * (int)
      * @param nombre Los nombre y apelligos del especialista (String)
-     * @param idServicio El id del servicio que ofrece el especialista (int)
+     * @param nombreServicio El nombre del servicio que ofrece el especialista (String)
      */
-    public void addEspecialista(int id, String nombre, int idServicio) {
-        especialistas.add(new Especialista(id, nombre, idServicio));
+    public void addEspecialista(int id, String nombre, String nombreServicio) {
+        especialistas.add(new Especialista(id, nombre, nombreServicio));
     }
 
     /**
@@ -122,14 +148,28 @@ public class BDManager {
      * especialista que se va a modificar (int)
      * @param nuevoId El NUEVO numero del documento de identificacion (int)
      * @param nuevoNombre Los NUEVOS nombre y apelligos (String)
-     * @param nuevoIdServicio El NUEVO id del servicio que ofrece (int)
+     * @param nuevoNombreServicio El NUEVO nombre del servicio que ofrece (String)
      */
-    public void modEspecialista(int id, int nuevoId, String nuevoNombre, int nuevoIdServicio) {
+    public void modEspecialista(int id, int nuevoId, String nuevoNombre, String nuevoNombreServicio) {
         for (Especialista especialistaActual : especialistas) {
             if (especialistaActual.getId() == id) {
                 especialistaActual.setId(nuevoId);
                 especialistaActual.setNombre(nuevoNombre);
-                especialistaActual.setIdServicio(nuevoIdServicio);
+                especialistaActual.setNombreServicio(nuevoNombreServicio);
+            }
+        }
+    }
+    
+    /**
+     * Declara el servicio de un especialista como NO ENCONTRADO
+     *
+     * @param id El numero del documento de identificacion actual del
+     * especialista que se va a modificar (int)
+     */
+    public void serEliminadoEspecialista(int id) {
+        for (Especialista especialistaActual : especialistas) {
+            if (especialistaActual.getId() == id) {
+                especialistaActual.setNombreServicio("NO ENCONTRADO");
             }
         }
     }
@@ -173,8 +213,8 @@ public class BDManager {
      * @param numero La posicion del especialistas en el vector
      * @return El nombre completo del especialistas (String)
      */
-    public int getIdServicioEspecialista(int numero) {
-        return especialistas.get(numero).getIdServicio();
+    public String getNombreServicioEspecialista(int numero) {
+        return especialistas.get(numero).getNombreServicio();
     }
 
     /**
@@ -184,6 +224,40 @@ public class BDManager {
      */
     public int getCantidadEspecialistas() {
         return especialistas.size();
+    }
+    
+    public void alteracionEnEspecialista(int id){
+        String nombreEspecialista = buscarNombreEspecialista(id);
+         
+        if(nombreEspecialista != "EMPTY"){
+            //ELIMINACION EN CONSULTORIOS
+            for (Consultorio consultorioActual : consultorios) {
+                if (consultorioActual.getNombre() == nombreEspecialista) {
+                    alteracionEnConsultorio(consultorioActual.getNombre());
+                    consultorioActual.setNombre("NO ENCONTRADO");
+                    
+                }
+            }
+
+            //ELIMINACION EN CITAS
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    citaActual.setEspecialista("NO ENCONTRADO");
+//                }
+//            }        
+        }
+    }
+    
+    public String buscarNombreEspecialista(int id){
+        String nombreEspecialista = "EMPTY";
+        
+        for (Especialista especialistaActual : especialistas) {
+            if (especialistaActual.getId() == id) {
+                nombreEspecialista = especialistaActual.getNombre();
+                break;
+            }
+        }
+        return nombreEspecialista;
     }
     
     
@@ -257,6 +331,39 @@ public class BDManager {
         return servicios.size();
     }
     
+    public void alteracionEnServicios(int id){
+        String nombreServicio = buscarNombreServicio(id);
+        
+        if(nombreServicio != "EMPTY"){
+            //ELIMINACION EN ESPECIALISTAS
+            for (Especialista especialistaActual : especialistas) {
+                if (especialistaActual.getNombreServicio() == nombreServicio) {
+                    especialistaActual.setNombreServicio("NO ENCONTRADO");
+                }
+            } 
+            
+            //ELIMINACION EN CITAS
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    citaActual.setEspecialista("NO ENCONTRADO");
+//                }
+//            }
+        }
+    }
+    
+    public String buscarNombreServicio(int id){
+        String nombreServicio = "EMPTY";
+        
+        for (Servicio servicioActual : servicios) {
+            if (servicioActual.getIdServicio() == id) {
+                nombreServicio = servicioActual.getNombreServicio();
+                break;
+            }
+        }
+        return nombreServicio;
+    }
+    
+    
     //              MANEJO DE CONSULTORIOS             //
     /**
      * Añade un nuevo consultorio
@@ -325,7 +432,33 @@ public class BDManager {
     public int getCantidadConsultorios() {
         return consultorios.size();
     }  
-
+    
+    public void alteracionEnConsultorio(String nombreEspecialista){
+        String numeroConsultorio = buscarNumeroConsultorio(nombreEspecialista);
+        
+        if(numeroConsultorio != "EMPTY"){
+            //ELIMINACION EN CITAS
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getConsultorio() == numeroConsultorio) {
+//                    citaActual.setNumeroConsultorio("NO ENCONTRADO");
+//                }
+//            }        
+        }
+    }
+    
+    public String buscarNumeroConsultorio(String nombreEspecialista){
+        String numeroConsultorio = "EMPTY";
+        
+        for (Consultorio consultorioActual : consultorios) {
+            if (consultorioActual.getNombre() == nombreEspecialista) {
+                numeroConsultorio = Integer.toString(consultorioActual.getNumeroConsultorio());
+                break;
+            }
+        }
+        
+        return numeroConsultorio;
+    }
+    
 
     //              MANEJO DE ARCHIVOS         //
     public void exportarAfiliados(){
