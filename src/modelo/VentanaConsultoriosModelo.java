@@ -1,6 +1,7 @@
 package modelo;
 
 import hospital.BDManager;
+import java.util.ArrayList;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
@@ -9,7 +10,7 @@ import hospital.BDManager;
  *
  *    Archivo:  VentanaConsultoriosModelo.java
  *    Licencia: GNU-GPL 
- *    @version  1.0
+ *    @version  1.1
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -23,6 +24,8 @@ public class VentanaConsultoriosModelo {
 
     private int numeroConsultorio;
     private String especialistaAsociado;
+    
+    private java.util.List<String> especialistas = new ArrayList();
 
     /**
      * Constructor de clase VentanaConsultoriosModelo
@@ -31,6 +34,7 @@ public class VentanaConsultoriosModelo {
      */
     public VentanaConsultoriosModelo(BDManager bdmanager) {
         this.bdmanager = bdmanager;
+        cargarEspecialistas();
     }
 
     /**
@@ -112,5 +116,33 @@ public class VentanaConsultoriosModelo {
      */
     public int getCantidadConsultorios() {
         return bdmanager.getCantidadConsultorios();
+    }
+    
+    /**
+     * Obtiene la cantidad de especialistas en total
+     * @return La cantidad de especialistas (int)
+     */
+    public int getCantidadEspecialistas() {
+        return bdmanager.getCantidadEspecialistas();
+    }
+    
+    /**
+     * Hace una copia de los nombres de los especialistas en un ArrayList local
+     */
+    public void cargarEspecialistas(){
+        if(bdmanager.getCantidadEspecialistas()>0){
+            for(int i = 0; i < bdmanager.getCantidadEspecialistas(); i++){
+                especialistas.add(bdmanager.getNombreEspecialista(i));
+            }
+        }
+    }
+    
+    /**
+     * Obtiene el nombre de un especialista en una posición del arreglo
+     * @param numero El indice del que se obtendra el nombre (int)
+     * @return El nombre del especialista  (String)
+     */
+    public String getEspecialista(int numero){
+        return especialistas.get(numero);
     }
 }
