@@ -219,7 +219,7 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
      * Establece un texto para instruir en el modo Registrar
      */
     public void setGuiaRegistrar() {
-        lbl_textoGuia.setText("Modifique los campos arriba o presione LIMPIAR para volver al modo registro");
+        lbl_textoGuia.setText("Modifique los campos arriba o presione Nuevo para volver al modo registro");
     }
 
     /**
