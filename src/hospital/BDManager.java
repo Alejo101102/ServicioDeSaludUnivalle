@@ -1,5 +1,6 @@
 package hospital;
 
+import java.io.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -252,7 +253,24 @@ public class BDManager {
     }
     
     public void exportarAfiliados(){
-        JOptionPane.showMessageDialog(null, "Aqui se exportan los afiliados");
+        for (Afiliado afiliadoActual: afiliados){ 
+            String Isd;
+            try{
+                FileWriter exportar = new FileWriter("src/backup/archivoAfiliados.txt");
+                BufferedWriter bw = new BufferedWriter(exportar);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.print(Isd=Integer.toString(afiliadoActual.getId()));
+                pw.println("; "+afiliadoActual.getNombre()+"\r\n");
+                pw.close();
+                //JOptionPane.showMessageDialog(null, "Se exportaron con éxito los datos");
+                System.out.println(Isd);
+                System.out.println(afiliadoActual.getNombre());
+                
+            }catch(Exception x){
+                JOptionPane.showMessageDialog(null, "No se ha podido exportar");
+            }
+            JOptionPane.showMessageDialog(null, "Aqui se exportan los afiliados");
+        }
     }
     
     public void realizarBackup(){
