@@ -228,6 +228,36 @@ public class BDManager {
         return especialistas.size();
     }
     
+    public boolean hayEspecialistaParaServicio(String servicio) {
+        boolean resultado = false;
+        
+        for (Especialista especialistaActual : especialistas) {
+            
+            if (especialistaActual.getNombreServicio() == servicio) {
+                resultado = true;
+                break;
+            }
+            
+        }
+        
+        return resultado;
+    }
+
+    public java.util.List especialistasPara(String servicio) {
+        
+        java.util.List<String> resultado = new ArrayList();
+        
+        for (Especialista especialistaActual : especialistas) {
+            
+            if (especialistaActual.getNombreServicio() == servicio) {
+                
+                resultado.add(especialistaActual.getNombre());
+                
+            }
+        }        
+        return resultado;
+    }
+    
     /**
      * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Especialista
      * @param id El ID del especialista que sufrió una alteracion (int)
@@ -656,7 +686,6 @@ public class BDManager {
     public String getServicioCita(int indice) {
         return citas.get(indice).getServicio();
     }
-    
     
     /**
      * 
