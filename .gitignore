@@ -8,6 +8,8 @@ nbdist/
 # Carpeta de compilacion #
 /dist/
 
+
+
 # Otras carpetas #
 /nbproject/private
 /nbproject/Makefile-*.mk
@@ -17,6 +19,9 @@ nbdist/
 *.jar
 *.war
 *.ear
+
+# Archivos .txt #
+*.txt
 
 # Archivos desconocidos #
 /desktop.ini
