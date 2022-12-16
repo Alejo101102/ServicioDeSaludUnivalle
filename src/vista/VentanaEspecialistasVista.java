@@ -7,7 +7,7 @@ package vista;
 
     Archivo:  VentanaEspecialistasVista.java
     Licencia: GNU-GPL 
- *    @version  1.1
+ *    @version  1.2
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -17,7 +17,6 @@ package vista;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaEspecialistasVista extends javax.swing.JFrame {
@@ -196,22 +195,42 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Obtiene el texto en el campo de cedulaEspecialista
+     * @return La cedula del especialista (String)
+     */
     public String getCedula(){        
         return txtF_cedulaEspecialista.getText();
     }
 
+    /**
+     * Asigna un texto al campo de cedulaEspecialista
+     * @param text El texto en el campo (String)
+     */
     public void setCedulaEspecialista(String text) {
         txtF_cedulaEspecialista.setText(text);
     }
 
+    /**
+     * Obtiene el texto en el campo de nombreEspecialista
+     * @return El nombre del especialista (String)
+     */
     public String getNombre() {
         return txtF_nombreEspecialista.getText();
     }
 
+    /**
+     * Asigna un texto al campo de nombre Especialista
+     * @param text El texto en el campo (String)
+     */
     public void setNombreEspecialista(String text) {
         txtF_nombreEspecialista.setText(text);
     }
     
+    /**
+     * Obtiene el objeto seleccionado del combo box
+     * @return El texto del servicio (string)
+     */
     public String getNombreServicio(){ 
         return box_servicio.getSelectedItem().toString(); 
     }
@@ -258,6 +277,9 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         lbl_textoGuia.setText("Seleccione especialistas en la tabla (si los hay) para modificarlos");
     }
     
+    /**
+     * Cierra la ventana
+     */
     public void cerrar(){
         dispose();
     }
@@ -283,6 +305,9 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         modeloTabla.removeRow(fila);
     }
     
+    /**
+     * Limpia los JTextField
+     */
     public void limpiarCampos(){
         txtF_cedulaEspecialista.setText("");
         txtF_nombreEspecialista.setText("");
