@@ -114,8 +114,13 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
         jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_limpiar.setText("Limpiar");
+        btn_limpiar.setText("Nuevo");
         btn_limpiar.setEnabled(false);
+        btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpiarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 90, -1));
 
         btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
@@ -143,6 +148,10 @@ public class VentanaAfiliadosVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_limpiarActionPerformed
 
     /**
      * @param args the command line arguments

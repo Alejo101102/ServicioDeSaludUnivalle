@@ -123,7 +123,7 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, -1));
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_limpiar.setText("Limpiar");
+        btn_limpiar.setText("Nuevo");
         btn_limpiar.setEnabled(false);
         jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 90, -1));
 

@@ -115,7 +115,7 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
         jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 90, -1));
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_limpiar.setText("Limpiar");
+        btn_limpiar.setText("Nuevo");
         btn_limpiar.setEnabled(false);
         jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 90, -1));
 

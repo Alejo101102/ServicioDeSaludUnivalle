@@ -189,7 +189,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Limpiar"/>
+            <Property name="text" type="java.lang.String" value="Nuevo"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Constraints>

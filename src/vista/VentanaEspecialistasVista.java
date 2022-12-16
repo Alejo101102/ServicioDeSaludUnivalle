@@ -122,7 +122,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         jPanel1.add(lbl_idServicioEspecialista, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_limpiar.setText("Limpiar");
+        btn_limpiar.setText("Nuevo");
         btn_limpiar.setEnabled(false);
         jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 90, -1));
 
