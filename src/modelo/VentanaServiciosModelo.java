@@ -92,6 +92,7 @@ public class VentanaServiciosModelo {
      * @param idActual El idActual del servicio que se quiere modificar
      */
     public void modificarServicio(int idActual) {
+        bdmanager.alteracionEnServicios(idActual);
         bdmanager.modServicio(idActual, id, nombre);
     }
 
@@ -101,6 +102,7 @@ public class VentanaServiciosModelo {
      * @param id El id del servicio que se quiere eliminar
      */
     public void eliminarServicio(int id) {
+        bdmanager.alteracionEnServicios(id);
         bdmanager.delServicio(id);
     }
 
