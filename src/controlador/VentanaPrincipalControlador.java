@@ -79,7 +79,7 @@ public class VentanaPrincipalControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             modelo.iniciarVentanaCitas();
-            //vista.cerrar();
+            vista.cerrar();
         }
     };  
     ActionListener oyenteExportarAfiliados = new ActionListener() {
