@@ -168,6 +168,15 @@ public class VentanaCitasControlador {
     ActionListener oyenteAgregar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
+            try{
+                especialista = vista.getEspecialista();
+                servicio = vista.getServicio();
+                afiliado = vista.getAfiliado();
+                
+                JOptionPane.showMessageDialog(null, "Opcion en desarrollo...");
+            } catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "Error: Puede que usted no haya registrado al menos un: Servicio, Especialista o Afiliado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     };
 
