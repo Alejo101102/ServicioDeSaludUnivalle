@@ -167,6 +167,17 @@ public class VentanaCitasModelo {
         return resultado;
     }
     
+    public boolean hayEspecialistaParaServicio(String servicio){ 
+        boolean resultado = bdmanager.hayEspecialistaParaServicio(servicio);
+        return resultado;
+    }
+    
+    public java.util.List especialistasPara(String servicio){
+        java.util.List<String> resultado = new ArrayList();
+        resultado = bdmanager.especialistasPara(servicio);
+        return resultado;
+    }
+    
     //      PROVEE ELEMENTOS PREVIAMENTE REGISTRADOS EN OTRAS VENTANAS   //
     /**
      * Obtiene la cantidad de servicios en total
