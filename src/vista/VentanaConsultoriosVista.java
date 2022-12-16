@@ -111,7 +111,12 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
         jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
 
         btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_agregar.setText("Agregar");
+        btn_agregar.setText("Registrar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 90, -1));
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -129,6 +134,10 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_agregarActionPerformed
 
     /**
      * @param args the command line arguments

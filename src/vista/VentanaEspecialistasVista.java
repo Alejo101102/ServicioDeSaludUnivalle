@@ -104,7 +104,7 @@ public class VentanaEspecialistasVista extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 340, 220));
 
         btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_agregar.setText("Agregar");
+        btn_agregar.setText("Registrar");
         jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 90, -1));
 
         btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N

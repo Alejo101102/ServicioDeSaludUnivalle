@@ -105,7 +105,12 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 350, 220));
 
         btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_agregar.setText("Agregar");
+        btn_agregar.setText("Registrar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
 
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -140,6 +145,10 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
     private void txtF_idServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_idServicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtF_idServicioActionPerformed
+
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_agregarActionPerformed
 
     /**
      * @param args the command line arguments
