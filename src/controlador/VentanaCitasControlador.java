@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ConcurrentModificationException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import modelo.*;
@@ -31,10 +32,16 @@ public class VentanaCitasControlador {
     VentanaCitasModelo modelo;
     VentanaCitasVista vista;
     
+    private int id;
+    private int dia;
+    private int mes;
+    private int anio;
+    private int horas;
+    private int minutos;
+    private String afiliado;
     private String especialista;
     private String servicio;
     private String consultorio;
-    private String afiliado;
     
     private int selectedRow;
     private int selectedID;
@@ -52,6 +59,7 @@ public class VentanaCitasControlador {
         vista.addAgregarListener(oyenteAgregar);
         vista.addModificarListener(oyenteModificar);
         vista.addEliminarListener(oyenteEliminar);
+        vista.addEspecialistaListener(oyenteEspecialista);
         vista.addVolverListener(oyenteVolver);
         vista.addTableListener(oyenteFila);
 
@@ -81,6 +89,7 @@ public class VentanaCitasControlador {
             vista.addDia(Integer.toString(i));
         }
     }
+    
     public void cargarAnios(){
         for(int i = 2022; i < 2035; i++){
             vista.addAnio(Integer.toString(i));
@@ -100,12 +109,12 @@ public class VentanaCitasControlador {
         }
     }
     
-        /**
+    /**
      * Llena la tabla con todos los especialistas almacenados en el modelo
      */
     public void cargarServicios() {        
-        for (int i = 0; i < modelo.getCantidadServicios(); i++) {
-            vista.addServicio(modelo.getServicio(i));
+        for (int i = 0; i < modelo.getCantidadServiciosRegistrados(); i++) {
+            vista.addServicio(modelo.getServicioRegistrado(i));
         }
     }
     
@@ -113,17 +122,17 @@ public class VentanaCitasControlador {
      * Llena la tabla con todos los especialistas almacenados en el modelo
      */
     public void cargarEspecialistas() {        
-        for (int i = 0; i < modelo.getCantidadEspecialistas(); i++) {
-            vista.addEspecialista(modelo.getEspecialista(i));
+        for (int i = 0; i < modelo.getCantidadEspecialistasRegistrados(); i++) {
+            vista.addEspecialista(modelo.getEspecialistaRegistrado(i));
         }
     }
     
-        /**
+    /**
      * Llena la tabla con todos los especialistas almacenados en el modelo
      */
     public void cargarAfiliados() {        
-        for (int i = 0; i < modelo.getCantidadAfiliados(); i++) {
-            vista.addAfiliado(modelo.getAfiliado(i));
+        for (int i = 0; i < modelo.getCantidadAfiliadosRegistrados(); i++) {
+            vista.addAfiliado(modelo.getAfiliadoRegistrado(i));
         }
     }
 
@@ -169,13 +178,32 @@ public class VentanaCitasControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try{
+                dia = Integer.parseInt(vista.getDia());
+                mes = Integer.parseInt(vista.getMes());
+                anio = Integer.parseInt(vista.getAnio());
+                horas = Integer.parseInt(vista.getHoras());
+                minutos = Integer.parseInt(vista.getMinutos());
                 especialista = vista.getEspecialista();
                 servicio = vista.getServicio();
                 afiliado = vista.getAfiliado();
+                Integer.parseInt(vista.getConsultorio()); // Prueba si ya se asignó un consultorio
+                consultorio = vista.getConsultorio();
+                
+                modelo.setDia(dia);
+                modelo.setMes(mes);
+                modelo.setAnio(anio);
+                modelo.setHoras(horas);
+                modelo.setMinutos(minutos);
+                modelo.setEspecialista(especialista);
+                modelo.setServicio(servicio);
+                modelo.setAfiliado(afiliado);
+                modelo.setConsultorio(consultorio);
                 
                 JOptionPane.showMessageDialog(null, "Opcion en desarrollo...");
             } catch (NullPointerException e){
                 JOptionPane.showMessageDialog(null, "Error: Puede que usted no haya registrado al menos un: Servicio, Especialista o Afiliado", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Error: Este especialista aún no tiene un consultorio asignado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     };
@@ -221,10 +249,25 @@ public class VentanaCitasControlador {
 
         }
     };
-
+    
     /**
-     * Gestiona los clics en las filas de Afiliados
+     * Llama a la función eliminarAfiliado atrapando una excepción
+     *
+     * @see eliminarAfiliado
      */
+    ActionListener oyenteEspecialista = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            JComboBox box = (JComboBox) evt.getSource();
+            String especialistaSeleccionado = box.getSelectedItem().toString();
+            if(modelo.hayConsultorioParaEspecialista(especialistaSeleccionado)){
+                String consultorioSeleccionado = modelo.consultorioEspecialista(especialistaSeleccionado);
+                vista.setConsultorio(consultorioSeleccionado);
+            }
+            else vista.setConsultorio("-");
+        }
+    };
+
     /**
      * Gestiona los clics en las filas de Especialistas
      */
