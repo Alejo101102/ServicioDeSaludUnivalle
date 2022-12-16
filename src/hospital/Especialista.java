@@ -16,33 +16,34 @@ package hospital;
 */
 
 public class Especialista extends Persona{
-    private int idServicio;
+    
+    private String nombreServicio;
     
     /**
      * Constructor de la clase Especialista
      * @see Persona.java - Clase de la que hereda
      * @param id El numero del documento de identificacion del especialista (int)
      * @param nombre Los nombre y apelligos del especialista (String)
-     * @param idServicio El id del servicio que ofrece el especialista (int)
+     * @param nombreServicio El nombre del servicio que ofrece el especialista (String)
      */
-    Especialista(int id, String nombre, int idServicio){
+    Especialista(int id, String nombre, String nombreServicio){
         super(id, nombre);
-        this.idServicio = idServicio;
+        this.nombreServicio = nombreServicio;
     }
 
     /**
      * Obtiene el id del servicio
      * @return El id del servicio que ofrece el especialista (int)
      */
-    public int getIdServicio() {
-        return idServicio;
+    public String getNombreServicio() {
+        return nombreServicio;
     }
 
     /**
      * Asigna el id del servicio
-     * @param idServicio El id del servicio que ofrece el especialista (int)
+     * @param nombreServicio El nombre del servicio que ofrece el especialista (String)
      */
-    public void setIdServicio(int idServicio) {
-        this.idServicio = idServicio;
+    public void setNombreServicio(String nombreServicio) {
+        this.nombreServicio = nombreServicio;
     }  
 }
