@@ -18,9 +18,7 @@ package vista;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 public class VentanaCitasVista extends javax.swing.JFrame {
 
@@ -84,7 +82,6 @@ public class VentanaCitasVista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 550));
-        setPreferredSize(new java.awt.Dimension(700, 550));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -180,6 +177,7 @@ public class VentanaCitasVista extends javax.swing.JFrame {
         lbl_consultorio.setBackground(new java.awt.Color(204, 204, 204));
         lbl_consultorio.setForeground(new java.awt.Color(0, 0, 0));
         lbl_consultorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_consultorio.setText("-");
         lbl_consultorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lbl_consultorio.setOpaque(true);
         jPanel1.add(lbl_consultorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 90, 50, 20));
@@ -433,6 +431,15 @@ public class VentanaCitasVista extends javax.swing.JFrame {
      */
     public void addEliminarListener(ActionListener listener) {
         btn_eliminar.addActionListener(listener);
+    }
+    
+    /**
+     * Agrega un ActionListener al btn_eliminar
+     *
+     * @param listener El ActionListener
+     */
+    public void addEspecialistaListener(ActionListener listener) {
+        box_especialista.addActionListener(listener);
     }
 
     /**
