@@ -48,9 +48,9 @@ public class VentanaPrincipalModelo {
         VentanaConsultoriosControlador vconc = new VentanaConsultoriosControlador(vconm, vconv);
     }
     public void iniciarVentanaCitas(){
-//        VentanaCitasVista vcv = new VentanaCitasVista();
-//        VentanaCitasModelo vcm = new VentanaCitasModelo(bdmanager);
-//        VentanaCitasControlador vcc = new VentanaCitasControlador(vcm, vcv);
+        VentanaCitasVista vcv = new VentanaCitasVista();
+        VentanaCitasModelo vcm = new VentanaCitasModelo(bdmanager);
+        VentanaCitasControlador vcc = new VentanaCitasControlador(vcm, vcv);
     }
     public void exportarAfiliados(){
         bdmanager.exportarAfiliados();
