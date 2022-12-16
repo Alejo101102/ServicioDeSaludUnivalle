@@ -252,7 +252,13 @@ public class BDManager {
         return servicios.size();
     }
     
-    
+    /**
+     * Exporta los afiliados en archivos de texto
+     * 
+     * @param Id Cambia el tipo de variable (int a String) del parámetro para poder ser exportado
+     * @param  exportar Donde se guarda los archivos de texto de los afiliados
+     * 
+     */
     
     public void exportarAfiliados(){
         for (Afiliado afiliadoActual: afiliados){ 
