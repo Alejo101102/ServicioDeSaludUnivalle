@@ -491,7 +491,158 @@ public class BDManager {
         return numeroConsultorio;
     }
     
+    
+    //              MANEJO DE CITAS             //
+    /**
+     * 
+     * @param id
+     * @param dia
+     * @param mes
+     * @param anio
+     * @param horas
+     * @param minutos
+     * @param afiliado
+     * @param especialista
+     * @param servicio
+     * @param consultorio 
+     */
+    public void addCitas(int id, int dia, int mes, int anio, int horas, int minutos, String afiliado, String especialista, String servicio, String consultorio) {
+        citas.add(new Cita(id, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio));        
+    }
+    
+    /**
+     * 
+     * @param idActual
+     * @param nuevoID
+     * @param dia
+     * @param mes
+     * @param anio
+     * @param horas
+     * @param minutos
+     * @param afiliado
+     * @param especialista
+     * @param servicio
+     * @param consultorio 
+     */
+    public void modCitas (int idActual, int nuevoID, int dia, int mes, int anio, int horas, int minutos, String afiliado, String especialista, String servicio, String consultorio) {
+        for (Cita citaActual : citas) {
+            if (citaActual.getId() == idActual) {
+                citaActual.setId(nuevoID);
+                citaActual.setDia(dia);
+                citaActual.setMes(mes);
+                citaActual.setAnio(anio);
+                citaActual.setHoras(horas);
+                citaActual.setMinutos(minutos);
+                citaActual.setAfiliado(afiliado);
+                citaActual.setEspecialista(especialista);
+                citaActual.setConsultorio(consultorio);
+                citaActual.setServicio(servicio);    
+            }
+        }
+    }
 
+    /**
+     * 
+     * @param id 
+     */
+    public void delCita(int id) {
+        for (Cita citaActual : citas) {
+            if (citaActual.getId() == id) {
+                citas.remove(citaActual);
+            }
+        }
+    }    
+    
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public int getIdCita(int numero) {
+        return citas.get(numero).getId();
+    }
+    
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public int getAnioCita(int numero) {
+        return citas.get(numero).getAnio();
+    }
+    
+    /**
+     * 
+     * 
+     * @param numero
+     * @return 
+     */
+    public int getMesCita(int numero) {
+        return citas.get(numero).getMes();
+    }
+    
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public int getDiaCita(int numero) {
+        return citas.get(numero).getDia();
+    }
+    
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public int getHorasCita(int numero) {
+        return citas.get(numero).getHoras();
+    }
+    
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public int getMinutosdCita(int numero) {
+        return citas.get(numero).getMinutos();
+    }
+
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public String getAfiliadoCita(int numero) {
+        return citas.get(numero).getAfiliado();
+    }
+
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public String getEspecialistaCita(int numero) {
+        return citas.get(numero).getEspecialista();
+    }
+
+    /**
+     * 
+     * @param numero
+     * @return 
+     */
+    public String getServicioCita(int numero) {
+        return citas.get(numero).getServicio();
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public int getCantidadCitas() {
+        return citas.size();
+    }  
+    
     //              MANEJO DE ARCHIVOS         //
     /**
      * Exporta el ID y nombre de cada afiliado en un archivo .txt separado por punto y coma
