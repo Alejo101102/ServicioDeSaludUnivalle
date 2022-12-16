@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.*;
 import vista.*;
+import hospital.*;
 
 public class VentanaPrincipalControlador {
     private VentanaPrincipalVista vista;
