@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -59,6 +60,7 @@ public class VentanaCitasControlador {
         vista.addAgregarListener(oyenteAgregar);
         vista.addModificarListener(oyenteModificar);
         vista.addEliminarListener(oyenteEliminar);
+        vista.addServicioListener(oyenteServicio);
         vista.addEspecialistaListener(oyenteEspecialista);
         vista.addVolverListener(oyenteVolver);
         vista.addTableListener(oyenteFila);
@@ -79,13 +81,13 @@ public class VentanaCitasControlador {
     }
     
     public void cargarMeses(){
-        for(int i = 0; i < 13; i++){
+        for(int i = 1; i < 13; i++){
             vista.addMes(Integer.toString(i));
         }
     }
     
     public void cargarDias(){
-        for(int i = 0; i < 32; i++){
+        for(int i = 1; i < 32; i++){
             vista.addDia(Integer.toString(i));
         }
     }
@@ -250,21 +252,42 @@ public class VentanaCitasControlador {
         }
     };
     
-    /**
-     * Llama a la función eliminarAfiliado atrapando una excepción
-     *
-     * @see eliminarAfiliado
-     */
+    ActionListener oyenteServicio = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            try {
+                JComboBox box = (JComboBox) evt.getSource();
+                vista.removerEspecialistasCargados();
+
+                String servicioSeleccionado = box.getSelectedItem().toString();
+                if(modelo.hayEspecialistaParaServicio(servicioSeleccionado)){
+                    java.util.List<String> especialistasServicio = new ArrayList();
+                    especialistasServicio = modelo.especialistasPara(servicioSeleccionado);
+                    for(String especialistaActual: especialistasServicio){
+                        vista.addEspecialista(especialistaActual);
+                    }
+                }
+            } catch(NullPointerException e) {
+                System.out.println("Error de punteros en oyenteServicio");
+            }
+        } 
+    };
+
     ActionListener oyenteEspecialista = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            JComboBox box = (JComboBox) evt.getSource();
-            String especialistaSeleccionado = box.getSelectedItem().toString();
-            if(modelo.hayConsultorioParaEspecialista(especialistaSeleccionado)){
-                String consultorioSeleccionado = modelo.consultorioEspecialista(especialistaSeleccionado);
-                vista.setConsultorio(consultorioSeleccionado);
+            try{
+                vista.setConsultorio("-");                
+                JComboBox box = (JComboBox) evt.getSource();
+                String especialistaSeleccionado = box.getSelectedItem().toString();
+                if(modelo.hayConsultorioParaEspecialista(especialistaSeleccionado)){
+                    String consultorioSeleccionado = modelo.consultorioEspecialista(especialistaSeleccionado);
+                    vista.setConsultorio(consultorioSeleccionado);
+                }
+                else vista.setConsultorio("-");
+            } catch(NullPointerException e) {
+                // No hay problema
             }
-            else vista.setConsultorio("-");
         }
     };
 
