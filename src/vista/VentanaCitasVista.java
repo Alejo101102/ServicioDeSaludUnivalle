@@ -359,6 +359,10 @@ public class VentanaCitasVista extends javax.swing.JFrame {
         lbl_textoGuia.setText("Seleccione citas en la tabla (si las hay) para modificarlas");
     }
     
+    public void removerEspecialistasCargados(){
+        box_especialista.removeAllItems();
+    }
+    
     public void cerrar(){
         dispose();
     }
@@ -431,6 +435,15 @@ public class VentanaCitasVista extends javax.swing.JFrame {
      */
     public void addEliminarListener(ActionListener listener) {
         btn_eliminar.addActionListener(listener);
+    }
+    
+    /**
+     * Agrega un ActionListener al btn_eliminar
+     *
+     * @param listener El ActionListener
+     */
+    public void addServicioListener(ActionListener listener) {
+        box_servicio.addActionListener(listener);
     }
     
     /**
