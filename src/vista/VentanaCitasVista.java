@@ -1,10 +1,6 @@
 package vista;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
  *    Laboratorio # 3
@@ -20,14 +16,30 @@ import javax.swing.table.DefaultTableModel;
  * 
 */
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 public class VentanaCitasVista extends javax.swing.JFrame {
 
-    private DefaultTableModel modeloTabla = new DefaultTableModel();
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
     /** Creates new form ventanaCitas */
     public VentanaCitasVista() {
         initComponents();
         table_citas.setModel(modeloTabla);
-        //configurarTabla();
+        table_citas.setModel(modeloTabla);
+        configurarTabla();
     }
 
     /** This method is called from within the constructor to
@@ -42,29 +54,42 @@ public class VentanaCitasVista extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         lbl_citas = new javax.swing.JLabel();
-        lbl_citasAlifiado = new javax.swing.JLabel();
-        txtF_citasAfiliado = new javax.swing.JTextField();
-        lbl_citasMedico = new javax.swing.JLabel();
-        txtF_citasMedico = new javax.swing.JTextField();
-        lbl_citasServicios = new javax.swing.JLabel();
-        txtF_citasServicio = new javax.swing.JTextField();
-        lbl_citasFecha = new javax.swing.JLabel();
-        txtF_citasFecha = new javax.swing.JTextField();
+        lbl_afiliado = new javax.swing.JLabel();
+        lbl_medico = new javax.swing.JLabel();
+        lbl_servicios = new javax.swing.JLabel();
         lbl_citasHora = new javax.swing.JLabel();
-        txtF_citasHora = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_citas = new javax.swing.JTable();
-        btn_citasActualizar = new javax.swing.JButton();
-        btn_citasAgregar = new javax.swing.JButton();
-        btn_citasVerLista = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
+        btn_agregar = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
+        btn_limpiar = new javax.swing.JButton();
+        lbl_textoGuia = new javax.swing.JLabel();
+        lbl_textConsultorio = new javax.swing.JLabel();
+        box_minutos = new javax.swing.JComboBox<>();
+        box_anio = new javax.swing.JComboBox<>();
+        box_hora = new javax.swing.JComboBox<>();
+        box_afiliado = new javax.swing.JComboBox<>();
+        box_dia = new javax.swing.JComboBox<>();
+        lbl_hora = new javax.swing.JLabel();
+        lbl_fecha = new javax.swing.JLabel();
+        lbl_mda = new javax.swing.JLabel();
+        box_mes = new javax.swing.JComboBox<>();
+        box_servicio = new javax.swing.JComboBox<>();
+        lbl_consultorio = new javax.swing.JLabel();
+        box_especialista = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(360, 385));
-        setPreferredSize(new java.awt.Dimension(400, 500));
+        setMinimumSize(new java.awt.Dimension(700, 550));
+        setPreferredSize(new java.awt.Dimension(700, 550));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(700, 550));
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 550));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_citas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -72,69 +97,103 @@ public class VentanaCitasVista extends javax.swing.JFrame {
         lbl_citas.setText("Citas");
         jPanel1.add(lbl_citas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        lbl_citasAlifiado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_citasAlifiado.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_citasAlifiado.setText("Afiliado");
-        jPanel1.add(lbl_citasAlifiado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
-        jPanel1.add(txtF_citasAfiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 160, -1));
+        lbl_afiliado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_afiliado.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_afiliado.setText("Afiliado");
+        jPanel1.add(lbl_afiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
-        lbl_citasMedico.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_citasMedico.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_citasMedico.setText("Médico");
-        jPanel1.add(lbl_citasMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
-        jPanel1.add(txtF_citasMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 160, -1));
+        lbl_medico.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_medico.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_medico.setText("Especialista");
+        jPanel1.add(lbl_medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
-        lbl_citasServicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_citasServicios.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_citasServicios.setText("Servicio");
-        jPanel1.add(lbl_citasServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
-        jPanel1.add(txtF_citasServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 160, -1));
-
-        lbl_citasFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_citasFecha.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_citasFecha.setText("Fecha");
-        jPanel1.add(lbl_citasFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
-        jPanel1.add(txtF_citasFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 160, -1));
+        lbl_servicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_servicios.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_servicios.setText("Servicio");
+        jPanel1.add(lbl_servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         lbl_citasHora.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_citasHora.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_citasHora.setText("Hora");
-        jPanel1.add(lbl_citasHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
-        jPanel1.add(txtF_citasHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 160, -1));
+        lbl_citasHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_citasHora.setText(":");
+        jPanel1.add(lbl_citasHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 10, -1));
 
-        table_citas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
         jScrollPane1.setViewportView(table_citas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 340, 200));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 650, 200));
 
-        btn_citasActualizar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_citasActualizar.setText("Actualizar");
-        jPanel1.add(btn_citasActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, -1, -1));
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.setEnabled(false);
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, -1, -1));
 
-        btn_citasAgregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_citasAgregar.setText("Agregar");
-        jPanel1.add(btn_citasAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
+        btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_volver.setText("Volver");
+        jPanel1.add(btn_volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 460, -1, -1));
 
-        btn_citasVerLista.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_citasVerLista.setText("Ver Lista");
-        jPanel1.add(btn_citasVerLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
+        btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_agregar.setText("Registrar");
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 90, -1));
+
+        btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_modificar.setText("Modificar");
+        btn_modificar.setEnabled(false);
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 460, -1, -1));
+
+        btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btn_limpiar.setText("Nuevo");
+        btn_limpiar.setEnabled(false);
+        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 90, -1));
+
+        lbl_textoGuia.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_textoGuia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lbl_textoGuia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 650, 20));
+
+        lbl_textConsultorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_textConsultorio.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_textConsultorio.setText("Consultorio");
+        jPanel1.add(lbl_textConsultorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
+        jPanel1.add(box_minutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 50, -1));
+        jPanel1.add(box_anio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 70, -1));
+        jPanel1.add(box_hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 50, -1));
+        jPanel1.add(box_afiliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 220, -1));
+        jPanel1.add(box_dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 50, -1));
+
+        lbl_hora.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_hora.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_hora.setText("Hora");
+        jPanel1.add(lbl_hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, -1, -1));
+
+        lbl_fecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_fecha.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_fecha.setText("Fecha");
+        jPanel1.add(lbl_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        lbl_mda.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_mda.setText("M                D                    A");
+        jPanel1.add(lbl_mda, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
+        jPanel1.add(box_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 50, -1));
+        jPanel1.add(box_servicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 220, -1));
+
+        lbl_consultorio.setBackground(new java.awt.Color(204, 204, 204));
+        lbl_consultorio.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_consultorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_consultorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lbl_consultorio.setOpaque(true);
+        jPanel1.add(lbl_consultorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 90, 50, 20));
+        jPanel1.add(box_especialista, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 220, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -176,27 +235,262 @@ public class VentanaCitasVista extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla(){
+        String[] titulosTabla = new String[]{"D", "M", "A", "H", "M","AFILIADO", "ESPECIALISTA", "SERVICIO"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);
+    }
+
+    public void addMes(String text) {
+        box_mes.addItem(text);
+    }
+
+    public String getMes() {
+        return box_mes.getSelectedItem().toString();
+    }
+
+    public void setMes(String mes) {
+        box_mes.setSelectedItem(mes);
+    }
+
+    public void addDia(String dia) {
+        box_dia.addItem(dia);
+    }
+
+    public String getDia() {
+        return box_dia.getSelectedItem().toString();
+    }
+
+    public void setDia(String dia) {
+        box_dia.setSelectedItem(dia);
+    }
     
+    public void addAnio(String anio) {
+        box_anio.addItem(anio);
+    }
+
+    public String getAnio() {
+        return box_anio.getSelectedItem().toString();
+    }
+
+    public void setAnio(String anio) {
+        box_anio.setSelectedItem(anio);
+    }
+
+    public void addHoras(String hora) {
+        box_hora.addItem(hora);
+    }
+
+    public String getHoras() {
+        return box_hora.getSelectedItem().toString();
+    }
+
+    public void setHoras(String hora) {
+        box_hora.setSelectedItem(hora);
+    }
+
+    public void addMinutos(String minutos) {
+        box_minutos.addItem(minutos);
+    }
+
+    public String getMinutos() {
+        return box_minutos.getSelectedItem().toString();
+    }
+
+    public void setMinutos(String minutos) {
+        box_minutos.setSelectedItem(minutos);
+    }
+
+    public void addServicio(String text) {
+        box_servicio.addItem(text);
+    }
+
+    public String getServicio() {
+        return box_servicio.getSelectedItem().toString();
+    }
+
+    public void setServicio(String nombreServicio) {
+        box_servicio.setSelectedItem(nombreServicio);
+    }
+    
+    public void addEspecialista(String especialista) {
+        box_especialista.addItem(especialista);
+    }
+
+    public String getEspecialista() {
+        return box_especialista.getSelectedItem().toString();
+    }
+
+    public void setEspecialista(String especialista) {
+        box_especialista.setSelectedItem(especialista);
+    }
+    
+    public String getConsultorio(){
+        return lbl_consultorio.getText();
+    }
+    
+    public void setConsultorio(String consultorio){
+        lbl_consultorio.setText(consultorio);
+    }
+
+    public void addAfiliado(String afiliado) {
+        box_afiliado.addItem(afiliado);
+    }
+
+    public String getAfiliado() {
+        return box_afiliado.getSelectedItem().toString();
+    }
+
+    public void setAfiliado(String afiliado) {
+        box_afiliado.setSelectedItem(afiliado);
+    }
+    
+    /**
+     * Establece un texto para instruir en el modo Registrar
+     */
+    public void setGuiaRegistrar() {
+        lbl_textoGuia.setText("Modifique los campos arriba o presione Nuevo para volver al modo registro");
+    }
+
+    /**
+     * Establece un texto para instruir en el modo Modificar
+     */
+    public void setGuiaModificar() {
+        lbl_textoGuia.setText("Seleccione citas en la tabla (si las hay) para modificarlas");
+    }
+    
+    public void cerrar(){
+        dispose();
+    }
+    
+    
+        //              HABILITAR/DESHABILITAR BOTONES          //
+    public void habilitarLimpiar() {
+        btn_limpiar.setEnabled(true);
+    }
+
+    public void deshabilitarLimpiar() {
+        btn_limpiar.setEnabled(false);
+    }
+
+    public void habilitarAgregar() {
+        btn_agregar.setEnabled(true);
+    }
+
+    public void deshabilitarAgregar() {
+        btn_agregar.setEnabled(false);
+    }
+
+    public void habilitarModificar() {
+        btn_modificar.setEnabled(true);
+    }
+
+    public void deshabilitarModificar() {
+        btn_modificar.setEnabled(false);
+    }
+
+    /**
+     * Habilita btn_eliminar y configura su color en rojo
+     */
+    public void habilitarEliminar() {
+        btn_eliminar.setEnabled(true);
+        btn_eliminar.setBackground(new java.awt.Color(255, 0, 51));
+    }
+
+    /**
+     * Deshabilita btn_eliminar y configura su color en gris
+     */
+    public void deshabilitarEliminar() {
+        btn_eliminar.setEnabled(false);
+        btn_eliminar.setBackground(new java.awt.Color(187, 187, 187));
+    }
+    
+    //                  LISTENERS                       //
+    /**
+     * Agrega un ActionListener al btn_agregar
+     *
+     * @param listener El ActionListener
+     */
+    public void addAgregarListener(ActionListener listener) {
+        btn_agregar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_modificar
+     *
+     * @param listener El ActionListener
+     */
+    public void addModificarListener(ActionListener listener) {
+        btn_modificar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_eliminar
+     *
+     * @param listener El ActionListener
+     */
+    public void addEliminarListener(ActionListener listener) {
+        btn_eliminar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_volver
+     *
+     * @param listener El ActionListener
+     */
+    public void addVolverListener(ActionListener listener) {
+        btn_volver.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un ActionListener al btn_limpiar
+     *
+     * @param listener El ActionListener
+     */
+    public void addLimpiarListener(ActionListener listener) {
+        btn_limpiar.addActionListener(listener);
+    }
+
+    /**
+     * Agrega un MouseListener al btn_agregar
+     *
+     * @param listener El MouseListener
+     */
+    public void addTableListener(MouseListener listener) {
+        table_citas.addMouseListener(listener);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_citasActualizar;
-    private javax.swing.JButton btn_citasAgregar;
-    private javax.swing.JButton btn_citasVerLista;
+    private javax.swing.JComboBox<String> box_afiliado;
+    private javax.swing.JComboBox<String> box_anio;
+    private javax.swing.JComboBox<String> box_dia;
+    private javax.swing.JComboBox<String> box_especialista;
+    private javax.swing.JComboBox<String> box_hora;
+    private javax.swing.JComboBox<String> box_mes;
+    private javax.swing.JComboBox<String> box_minutos;
+    private javax.swing.JComboBox<String> box_servicio;
+    private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_limpiar;
+    private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbl_afiliado;
     private javax.swing.JLabel lbl_citas;
-    private javax.swing.JLabel lbl_citasAlifiado;
-    private javax.swing.JLabel lbl_citasFecha;
     private javax.swing.JLabel lbl_citasHora;
-    private javax.swing.JLabel lbl_citasMedico;
-    private javax.swing.JLabel lbl_citasServicios;
+    private javax.swing.JLabel lbl_consultorio;
+    private javax.swing.JLabel lbl_fecha;
+    private javax.swing.JLabel lbl_hora;
+    private javax.swing.JLabel lbl_mda;
+    private javax.swing.JLabel lbl_medico;
+    private javax.swing.JLabel lbl_servicios;
+    private javax.swing.JLabel lbl_textConsultorio;
+    private javax.swing.JLabel lbl_textoGuia;
     private javax.swing.JTable table_citas;
-    private javax.swing.JTextField txtF_citasAfiliado;
-    private javax.swing.JTextField txtF_citasFecha;
-    private javax.swing.JTextField txtF_citasHora;
-    private javax.swing.JTextField txtF_citasMedico;
-    private javax.swing.JTextField txtF_citasServicio;
     // End of variables declaration//GEN-END:variables
 
 }
