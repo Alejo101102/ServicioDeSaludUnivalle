@@ -16,6 +16,8 @@ package modelo;
 */
 
 import hospital.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class VentanaEspecialistasModelo {
     
@@ -23,7 +25,9 @@ public class VentanaEspecialistasModelo {
 
     private int id;
     private String nombre;
-    private int idServicioEspecialista;
+    private String nombreServicio;
+    
+    private java.util.List<String> serviciosRegistrados = new ArrayList();
 
     /**
      * Constructor de la clase VentanaEspecialistasModelo
@@ -32,6 +36,7 @@ public class VentanaEspecialistasModelo {
      */
     public VentanaEspecialistasModelo(BDManager bdmanager) {
         this.bdmanager = bdmanager;
+        cargarServicios();
     }
 
     /**
@@ -87,24 +92,24 @@ public class VentanaEspecialistasModelo {
      * @param numero La posicion del especialista en el arreglo
      * @return id El id del especialista (int)
      */
-    public int getIdServicioEspecialista(int numero) {
-        return bdmanager.getIdServicioEspecialista(numero);
+    public String getNombreServicioEspecialista(int numero) {
+        return bdmanager.getNombreServicioEspecialista(numero);
     }
 
     /**
      * Obtiene el nombre de un especialista específico
      *
-     * @param idServicioEspecialista El id del servicio del especialista
+     * @param nombreServicio El id del servicio del especialista
      */
-    public void setIdServicioEspecialista(int idServicioEspecialista) {
-        this.idServicioEspecialista = idServicioEspecialista;
+    public void setNombreServicio(String nombreServicio) {
+        this.nombreServicio = nombreServicio;
     }
 
     /**
      * Crea un nuevo especialista en bdmanager usando sus atributos
      */
     public void agregarEspecialista() {
-        bdmanager.addEspecialista(id, nombre, idServicioEspecialista);
+        bdmanager.addEspecialista(id, nombre, nombreServicio);
     }
 
     /**
@@ -113,7 +118,7 @@ public class VentanaEspecialistasModelo {
      * @param idActual El idActual del especialista que se quiere modificar
      */
     public void modificarEspecialista(int idActual) {
-        bdmanager.modEspecialista(idActual, id, nombre, idServicioEspecialista);
+        bdmanager.modEspecialista(idActual, id, nombre, nombreServicio);
     }
 
     /**
@@ -132,5 +137,29 @@ public class VentanaEspecialistasModelo {
      */
     public int getCantidadEspecialistas() {
         return bdmanager.getCantidadEspecialistas();
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public int getCantidadServicios() {
+        return bdmanager.getCantidadServicios();
+    }
+    
+    public void cargarServicios(){
+        if(bdmanager.getCantidadServicios()>0){
+            for(int i = 0; i < bdmanager.getCantidadServicios(); i++){
+                serviciosRegistrados.add(bdmanager.getNombreServicio(i));
+            }
+        }
+    }
+    
+    public String getServicio(int numero){
+        return serviciosRegistrados.get(numero);
+    }
+    
+    public void declararServicioEliminado(int idActual) {
+        bdmanager.modEspecialista(idActual, id, nombre, nombreServicio);
     }
 }
