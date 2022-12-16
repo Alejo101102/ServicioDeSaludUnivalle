@@ -252,24 +252,24 @@ public class BDManager {
         return servicios.size();
     }
     
+    
+    
     public void exportarAfiliados(){
         for (Afiliado afiliadoActual: afiliados){ 
-            String Isd;
+            String Id;
+            Id=Integer.toString(afiliadoActual.getId());
             try{
-                FileWriter exportar = new FileWriter("src/backup/archivoAfiliados.txt");
+                FileWriter exportar = new FileWriter("src/backup/"+Id+".txt");
                 BufferedWriter bw = new BufferedWriter(exportar);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.print(Isd=Integer.toString(afiliadoActual.getId()));
+                pw.print(Id);
                 pw.println("; "+afiliadoActual.getNombre()+"\r\n");
                 pw.close();
-                //JOptionPane.showMessageDialog(null, "Se exportaron con éxito los datos");
-                System.out.println(Isd);
-                System.out.println(afiliadoActual.getNombre());
-                
+                JOptionPane.showMessageDialog(null, "Se exportaron con éxito los datos");
             }catch(Exception x){
                 JOptionPane.showMessageDialog(null, "No se ha podido exportar");
             }
-            JOptionPane.showMessageDialog(null, "Aqui se exportan los afiliados");
+            
         }
     }
     
