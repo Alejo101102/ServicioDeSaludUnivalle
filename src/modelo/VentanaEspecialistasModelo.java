@@ -7,7 +7,7 @@ package modelo;
 
     Archivo:  VentanaEspecialistasModelo.java
     Licencia: GNU-GPL 
- *    @version  1.1
+ *    @version  1.2
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -118,6 +118,7 @@ public class VentanaEspecialistasModelo {
      * @param idActual El idActual del especialista que se quiere modificar
      */
     public void modificarEspecialista(int idActual) {
+        bdmanager.alteracionEnEspecialista(idActual);
         bdmanager.modEspecialista(idActual, id, nombre, nombreServicio);
     }
 
@@ -127,6 +128,7 @@ public class VentanaEspecialistasModelo {
      * @param id El id del especialista que se quiere eliminar
      */
     public void eliminarEspecialista(int id) {
+        bdmanager.alteracionEnEspecialista(id);
         bdmanager.delEspecialista(id);
     }
 
@@ -140,13 +142,16 @@ public class VentanaEspecialistasModelo {
     }
     
     /**
-     * 
-     * @return 
+     * Obtiene la cantidad de servicios en total
+     * @return La cantidad de servicios (int)
      */
     public int getCantidadServicios() {
         return bdmanager.getCantidadServicios();
     }
     
+    /**
+     * Copia los servicios en el bdmanager a un ArrayList local
+     */
     public void cargarServicios(){
         if(bdmanager.getCantidadServicios()>0){
             for(int i = 0; i < bdmanager.getCantidadServicios(); i++){
@@ -155,11 +160,12 @@ public class VentanaEspecialistasModelo {
         }
     }
     
+    /**
+     * Obtiene el nombre de un servicio en una posicion específica del arreglo
+     * @param numero El indice del servicio que se quiere obtener (int)
+     * @return El nombre del servicio (String)
+     */
     public String getServicio(int numero){
         return serviciosRegistrados.get(numero);
-    }
-    
-    public void declararServicioEliminado(int idActual) {
-        bdmanager.modEspecialista(idActual, id, nombre, nombreServicio);
     }
 }
