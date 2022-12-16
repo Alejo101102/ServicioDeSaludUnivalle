@@ -25,6 +25,7 @@ public class BDManager {
     private java.util.List<Especialista> especialistas = new ArrayList<>();
     private java.util.List<Servicio> servicios = new ArrayList<>();
     private java.util.List<Consultorio> consultorios = new ArrayList<>();
+    private java.util.List<Cita> citas = new ArrayList<>();
 
     /**
      * Constructor de la clase BDManager
