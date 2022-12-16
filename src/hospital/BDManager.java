@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  *
  *    Archivo:  BDManager.java
  *    Licencia: GNU-GPL 
- *    @version  1.2
+ *    @version  1.3
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -226,6 +226,10 @@ public class BDManager {
         return especialistas.size();
     }
     
+    /**
+     * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Especialista
+     * @param id El ID del especialista que sufrió una alteracion (int)
+     */
     public void alteracionEnEspecialista(int id){
         String nombreEspecialista = buscarNombreEspecialista(id);
          
@@ -248,6 +252,11 @@ public class BDManager {
         }
     }
     
+    /**
+     * Busca el nombre de un especialista
+     * @param id El ID del especialista del que se quiere obtener el nombre (int)
+     * @return El nombre del especialista (String)
+     */
     public String buscarNombreEspecialista(int id){
         String nombreEspecialista = "EMPTY";
         
@@ -331,13 +340,19 @@ public class BDManager {
         return servicios.size();
     }
     
+    /**
+     * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Servicio
+     * @param id El ID del servicio que sufrió una alteracion
+     */
     public void alteracionEnServicios(int id){
+        
         String nombreServicio = buscarNombreServicio(id);
         
         if(nombreServicio != "EMPTY"){
             //ELIMINACION EN ESPECIALISTAS
             for (Especialista especialistaActual : especialistas) {
                 if (especialistaActual.getNombreServicio() == nombreServicio) {
+                    alteracionEnEspecialista(especialistaActual.getId());
                     especialistaActual.setNombreServicio("NO ENCONTRADO");
                 }
             } 
@@ -345,12 +360,18 @@ public class BDManager {
             //ELIMINACION EN CITAS
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    alteracionEnCita(citaActual.getID())
 //                    citaActual.setEspecialista("NO ENCONTRADO");
 //                }
 //            }
         }
     }
     
+    /**
+     * Busca el nombre de un servicio
+     * @param id El ID del servicio del que se quiere obtener el nombre (int)
+     * @return El nombre del servicio (String)
+     */
     public String buscarNombreServicio(int id){
         String nombreServicio = "EMPTY";
         
@@ -433,6 +454,10 @@ public class BDManager {
         return consultorios.size();
     }  
     
+    /**
+     * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Consultorio
+     * @param nombreEspecialista El nombre del Especialista del consultorio que sufrió una alteracion
+     */
     public void alteracionEnConsultorio(String nombreEspecialista){
         String numeroConsultorio = buscarNumeroConsultorio(nombreEspecialista);
         
@@ -446,6 +471,11 @@ public class BDManager {
         }
     }
     
+    /**
+     * Busca el nombre de un especialista
+     * @param nombreEspecialista El nombre del especialista del que se quiere obtener el numero de Consultorio (int)
+     * @return El nombre del especialista (String)
+     */
     public String buscarNumeroConsultorio(String nombreEspecialista){
         String numeroConsultorio = "EMPTY";
         
