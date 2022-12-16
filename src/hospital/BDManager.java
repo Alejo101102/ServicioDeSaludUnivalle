@@ -491,6 +491,28 @@ public class BDManager {
         return numeroConsultorio;
     }
     
+    public boolean hayConsultorioParaEspecialista(String nombre){
+        boolean resultado = false;
+        for (Consultorio consultorioActual : consultorios) {
+            if (consultorioActual.getNombre() == nombre) {
+                resultado = true;
+                break;
+            }
+        }
+        return resultado;
+    }
+    
+    public int consultorioEspecialista(String nombre){
+        int resultado = 0;
+        for (Consultorio consultorioActual : consultorios) {
+            if (consultorioActual.getNombre() == nombre) {
+                resultado = consultorioActual.getNumeroConsultorio();
+                break;
+            }
+        }
+        return resultado;
+    }
+    
     
     //              MANEJO DE CITAS             //
     /**
@@ -555,84 +577,94 @@ public class BDManager {
     
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public int getIdCita(int numero) {
-        return citas.get(numero).getId();
+    public int getIdCita(int indice) {
+        return citas.get(indice).getId();
     }
     
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public int getAnioCita(int numero) {
-        return citas.get(numero).getAnio();
+    public int getAnioCita(int indice) {
+        return citas.get(indice).getAnio();
     }
     
     /**
      * 
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public int getMesCita(int numero) {
-        return citas.get(numero).getMes();
+    public int getMesCita(int indice) {
+        return citas.get(indice).getMes();
     }
     
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public int getDiaCita(int numero) {
-        return citas.get(numero).getDia();
+    public int getDiaCita(int indice) {
+        return citas.get(indice).getDia();
     }
     
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public int getHorasCita(int numero) {
-        return citas.get(numero).getHoras();
+    public int getHorasCita(int indice) {
+        return citas.get(indice).getHoras();
     }
     
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public int getMinutosdCita(int numero) {
-        return citas.get(numero).getMinutos();
+    public int getMinutosCita(int indice) {
+        return citas.get(indice).getMinutos();
     }
 
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public String getAfiliadoCita(int numero) {
-        return citas.get(numero).getAfiliado();
+    public String getAfiliadoCita(int indice) {
+        return citas.get(indice).getAfiliado();
     }
 
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public String getEspecialistaCita(int numero) {
-        return citas.get(numero).getEspecialista();
+    public String getEspecialistaCita(int indice) {
+        return citas.get(indice).getEspecialista();
     }
 
     /**
      * 
-     * @param numero
+     * @param indice
      * @return 
      */
-    public String getServicioCita(int numero) {
-        return citas.get(numero).getServicio();
+    public String getServicioCita(int indice) {
+        return citas.get(indice).getServicio();
+    }
+    
+    
+    /**
+     * 
+     * @param indice
+     * @return 
+     */
+    public String getConsultorioCita(int indice) {
+        return citas.get(indice).getConsultorio();
     }
 
     /**
