@@ -20,7 +20,7 @@ import vista.VentanaPrincipalVista;
  *
  *    Archivo:  VentanaConsultoriosControlador.java
  *    Licencia: GNU-GPL 
- *    @version  1.0
+ *    @version  1.1
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -63,6 +63,7 @@ public class VentanaConsultoriosControlador {
 
         vista.configurarTabla();
         cargarConsultorios();
+        cargarEspecialistas();
         vista.setGuiaModificar();
     }
 
@@ -75,6 +76,15 @@ public class VentanaConsultoriosControlador {
             especialistaAsociado = modelo.getEspecialistaAsociado(i);
             vista.nuevaFilaConsultorio(numeroConsultorio, especialistaAsociado);
         }
+    }
+        
+    /**
+     * Añade todos los especialistas existentes al Combo Box en la vista para que puedan ser seleccionados
+     */
+    public void cargarEspecialistas(){
+        for (int i = 0; i < modelo.getCantidadEspecialistas(); i++) {
+            vista.addEspecialista(modelo.getEspecialista(i));
+        }          
     }
 
     /**
@@ -144,6 +154,9 @@ public class VentanaConsultoriosControlador {
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo de cedula", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "Error: Aun no se ha registrado ningun especialista", "Error", JOptionPane.ERROR_MESSAGE);
+                modoRegistrar();
             }
         }
     };
@@ -173,6 +186,9 @@ public class VentanaConsultoriosControlador {
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "Error: No se han encontrado especialistas registrados", "Error", JOptionPane.ERROR_MESSAGE);
+                modoRegistrar();
             }
         }
     };

@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
     Archivo:  VentanaConsultoriosVista.java
     Licencia: GNU-GPL 
- *    @version  1.0
+ *    @version  1.2
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -54,7 +53,6 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
         lbl_consultoriosNumero = new javax.swing.JLabel();
         txtF_numeroConsultorio = new javax.swing.JTextField();
         lbl_consultoriosMedico = new javax.swing.JLabel();
-        txtF_especialistaAsociado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_consultorios = new javax.swing.JTable();
         btn_eliminar = new javax.swing.JButton();
@@ -63,6 +61,7 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
         btn_agregar = new javax.swing.JButton();
         btn_limpiar = new javax.swing.JButton();
         lbl_textoGuia = new javax.swing.JLabel();
+        box_especialistaAsociado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,7 +81,6 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
         lbl_consultoriosMedico.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_consultoriosMedico.setText("Especialista Asociado");
         jPanel1.add(lbl_consultoriosMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
-        jPanel1.add(txtF_especialistaAsociado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 180, -1));
 
         table_consultorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,6 +123,7 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
         lbl_textoGuia.setForeground(new java.awt.Color(0, 102, 102));
         lbl_textoGuia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(lbl_textoGuia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 380, -1));
+        jPanel1.add(box_especialistaAsociado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 180, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 410));
 
@@ -168,11 +167,15 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
     }
     
     public String getEspecialistaAsociado() {
-        return txtF_especialistaAsociado.getText();
+        return box_especialistaAsociado.getSelectedItem().toString(); 
     }
 
+    public void addEspecialista(String text) {
+        box_especialistaAsociado.addItem(text);
+    }
+     
     public void setEspecialistaAsociado(String especialistaAsociado) {
-        txtF_especialistaAsociado.setText(especialistaAsociado);
+        box_especialistaAsociado.setSelectedItem(especialistaAsociado);
     }
 
     public String getNumeroConsultorio() {
@@ -250,7 +253,6 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
      */
     public void limpiarCampos() {
         txtF_numeroConsultorio.setText("");
-        txtF_especialistaAsociado.setText("");
     }
 
     //              HABILITAR/DESHABILITAR BOTONES          //
@@ -351,6 +353,7 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> box_especialistaAsociado;
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_limpiar;
@@ -363,7 +366,6 @@ public class VentanaConsultoriosVista extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_textoGuia;
     private javax.swing.JLabel lbl_tituloConsultorios;
     private javax.swing.JTable table_consultorios;
-    private javax.swing.JTextField txtF_especialistaAsociado;
     private javax.swing.JTextField txtF_numeroConsultorio;
     // End of variables declaration//GEN-END:variables
 
