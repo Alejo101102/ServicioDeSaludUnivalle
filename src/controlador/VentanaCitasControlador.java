@@ -74,7 +74,6 @@ public class VentanaCitasControlador {
         
         
         cargarServicios();
-        cargarEspecialistas();
         cargarAfiliados();
         
         vista.setGuiaModificar();
