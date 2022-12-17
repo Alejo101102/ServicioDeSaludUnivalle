@@ -184,33 +184,57 @@ public class VentanaEspecialistasControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                id = Integer.parseInt(vista.getCedula());
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al modificar este especialista:
+                                                                   
+                                                                   - Se eliminarán las citas donde participe
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Modificación de especialista",
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.WARNING_MESSAGE);
                 
-                nombreServicio = vista.getNombreServicio();
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        id = Integer.parseInt(vista.getCedula());
 
-                if (vista.getNombre().isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    nombre = vista.getNombre();
-                    if (id != selectedID && modelo.existeEspecialistaConId(id)) {
-                        String mensaje = "Error: Ya existe un especialista con esta cedula";
-                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    else{ 
                         nombreServicio = vista.getNombreServicio();
 
-                        modelo.setId(id);
-                        modelo.setNombre(nombre);
-                        modelo.setNombreServicio(nombreServicio);
+                        if (vista.getNombre().isBlank()) {
+                            JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            nombre = vista.getNombre();
+                            if (id != selectedID && modelo.existeEspecialistaConId(id)) {
+                                String mensaje = "Error: Ya existe un especialista con esta cedula";
+                                JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                nombreServicio = vista.getNombreServicio();
 
-                        modelo.modificarEspecialista(selectedID);
+                                modelo.setId(id);
+                                modelo.setNombre(nombre);
+                                modelo.setNombreServicio(nombreServicio);
+
+                                modelo.modificarEspecialista(selectedID);
+                                vista.limpiarCampos();
+                                vista.limpiarTabla();
+
+                                modoRegistrar();
+                                cargarEspecialistasDesde(0);
+                            }
+                        }  
+                        break;
+                        
+                    case JOptionPane.NO_OPTION:
                         vista.limpiarCampos();
                         vista.limpiarTabla();
 
-                        modoRegistrar();
                         cargarEspecialistasDesde(0);
-                    }
+                        modoRegistrar();                       
+                        break;
                 }
+                
+                
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo de cedula", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (NullPointerException e) {
@@ -252,7 +276,30 @@ public class VentanaEspecialistasControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                eliminarEspecialista();
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al eliminar este especialista:
+                                                                   
+                                                                   - Se desasignará de los consultorios.
+                                                                   - Se eliminarán las citas donde participe.
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Eliminación de especialista",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+                
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        eliminarEspecialista();
+                        break;
+                    case JOptionPane.NO_OPTION:
+                        vista.limpiarCampos();
+                        vista.limpiarTabla();
+
+                        cargarEspecialistasDesde(0);
+                        modoRegistrar();    
+                        break;
+                }
+                
             } catch (ConcurrentModificationException e) {
                 eliminarEspecialista();
             }
