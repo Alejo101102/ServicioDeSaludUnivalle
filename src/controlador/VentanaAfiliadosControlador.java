@@ -195,15 +195,12 @@ public class VentanaAfiliadosControlador {
                                 modelo.setNombre(nombre);
 
                                 modelo.modificarAfiliado(selectedID);
-                                limpiarTodo();
                             }
                         }
                         break;
-                        
-                    case JOptionPane.NO_OPTION:
-                        limpiarTodo();
-                        break;
                 }
+                
+                limpiarTodo();
                     
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
