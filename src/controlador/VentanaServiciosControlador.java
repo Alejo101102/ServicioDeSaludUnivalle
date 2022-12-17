@@ -131,11 +131,17 @@ public class VentanaServiciosControlador {
                     JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     nombre = vista.getNombre();
-                    modelo.setId(id);
-                    modelo.setNombre(nombre);
-                    modelo.agregarServicio();
-                    vista.nuevaFilaServicio(id, nombre);
-                    vista.limpiarCampos();
+                    if (modelo.existeServicioConId(id)) {
+                        String mensaje = "Error: Ya existe un servicio con este ID";
+                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{  
+                        modelo.setId(id);
+                        modelo.setNombre(nombre);
+                        modelo.agregarServicio();
+                        vista.nuevaFilaServicio(id, nombre);
+                        vista.limpiarCampos();
+                    }
                 }
 
             } catch (NumberFormatException e) {
@@ -156,16 +162,23 @@ public class VentanaServiciosControlador {
                     JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     nombre = vista.getNombre();
+                    
+                    if (id != selectedID && modelo.existeServicioConId(id)) {
+                        String mensaje = "Error: Ya existe un servicio con este ID";
+                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
 
-                    modelo.setId(id);
-                    modelo.setNombre(nombre);
+                        modelo.setId(id);
+                        modelo.setNombre(nombre);
 
-                    modelo.modificarServicio(selectedID);
-                    vista.limpiarCampos();
-                    vista.limpiarTabla();
+                        modelo.modificarServicio(selectedID);
+                        vista.limpiarCampos();
+                        vista.limpiarTabla();
 
-                    modoRegistrar();
-                    cargarServicios();
+                        modoRegistrar();
+                        cargarServicios();
+                    }
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de ID", "Error", JOptionPane.ERROR_MESSAGE);

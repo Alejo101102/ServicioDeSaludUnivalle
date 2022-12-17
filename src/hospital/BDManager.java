@@ -322,6 +322,7 @@ public class BDManager {
         return resultado;
     }
     
+    
     //              MANEJO DE SERVICIOS         //
     /**
      * Añade un nuevo servicio
@@ -434,6 +435,17 @@ public class BDManager {
             }
         }
         return nombreServicio;
+    }
+    
+    public boolean existeServicioConId(int id){
+        boolean resultado = false;
+        for (Servicio servicioActual : servicios) {
+            if (servicioActual.getIdServicio() == id) {
+                resultado = true;
+                break;
+            }
+        }
+        return resultado;
     }
     
     
