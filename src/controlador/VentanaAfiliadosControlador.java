@@ -161,29 +161,50 @@ public class VentanaAfiliadosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                id = Integer.parseInt(vista.getCedula());
-                if (vista.getNombre().isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else{
-                    nombre = vista.getNombre();
-                    if (id != selectedID && modelo.existeAfiliadoConId(id)) {
-                        String mensaje = "Error: Ya existe un afiliado con esta cedula";
-                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    else{  
-                        nombre = vista.getNombre();
-                        modelo.setId(id);
-                        modelo.setNombre(nombre);
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al modificar este afiliado:
+                                                                   
+                                                                   - Se eliminarán las citas donde participe.
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Modificacion de afiliado",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
 
-                        modelo.modificarAfiliado(selectedID);
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        id = Integer.parseInt(vista.getCedula());
+                        if (vista.getNombre().isBlank()) {
+                            JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            nombre = vista.getNombre();
+                            if (id != selectedID && modelo.existeAfiliadoConId(id)) {
+                                String mensaje = "Error: Ya existe un afiliado con esta cedula";
+                                JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                nombre = vista.getNombre();
+                                modelo.setId(id);
+                                modelo.setNombre(nombre);
+
+                                modelo.modificarAfiliado(selectedID);
+                                vista.limpiarCampos();
+                                vista.limpiarTabla();
+
+                                modoRegistrar();
+                                cargarAfiliados();
+                            }
+                        }
+                        break;
+                        
+                    case JOptionPane.NO_OPTION:
                         vista.limpiarCampos();
                         vista.limpiarTabla();
 
                         modoRegistrar();
                         cargarAfiliados();
-                    }
+                        break;
                 }
+                    
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -220,7 +241,29 @@ public class VentanaAfiliadosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                eliminarAfiliado();
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al eliminar este afiliado:
+                                                                   
+                                                                   - Se eliminarán las citas donde participe.
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Eliminación de afiliado",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        eliminarAfiliado();
+                        break;
+                        
+                    case JOptionPane.NO_OPTION:
+                        vista.limpiarCampos();
+                        vista.limpiarTabla();
+
+                        modoRegistrar();
+                        cargarAfiliados();
+                        break;
+                }
             } catch (ConcurrentModificationException e) {
                 eliminarAfiliado();
             }
