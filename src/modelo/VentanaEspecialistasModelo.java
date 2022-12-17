@@ -117,7 +117,7 @@ public class VentanaEspecialistasModelo {
      * @param idActual El idActual del especialista que se quiere modificar
      */
     public void modificarEspecialista(int idActual) {     
-        bdmanager.eliminarEspecialistaDeCitas(idActual);
+        bdmanager.alteracionEnEspecialista(idActual);
         bdmanager.modEspecialista(idActual, id, nombre, nombreServicio);
     }
 
