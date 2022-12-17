@@ -220,6 +220,8 @@ public class VentanaConsultoriosControlador {
             } catch (NullPointerException e){
                 JOptionPane.showMessageDialog(null, "Error: No se han encontrado especialistas registrados", "Error", JOptionPane.ERROR_MESSAGE);
                 modoRegistrar();
+            } catch (ConcurrentModificationException e) {
+                // Ignora la excepción
             }
         }
     };
