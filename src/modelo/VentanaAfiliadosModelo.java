@@ -117,10 +117,5 @@ public class VentanaAfiliadosModelo {
     public boolean existeAfiliadoConId(int id){
         boolean resultado = bdmanager.existeAfiliadoConId(id);
         return resultado;
-    }
-    
-    public boolean existeEspecialistaConId(int id){
-        boolean resultado = bdmanager.existeEspecialistaConId(id);
-        return resultado;
-    }    
+    }   
 }
