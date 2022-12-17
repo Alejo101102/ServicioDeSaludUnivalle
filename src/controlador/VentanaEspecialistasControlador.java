@@ -148,18 +148,24 @@ public class VentanaEspecialistasControlador {
                     JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     nombre = vista.getNombre();
-                    nombreServicio = vista.getNombreServicio();
-                    
-                    modelo.setId(id);
-                    modelo.setNombre(nombre);
-                    modelo.setNombreServicio(nombreServicio);
+                    if (modelo.existeEspecialistaConId(id)) {
+                        String mensaje = "Error: Ya existe un especialista con esta cedula";
+                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                        nombreServicio = vista.getNombreServicio();
 
-                    modelo.agregarEspecialista();
+                        modelo.setId(id);
+                        modelo.setNombre(nombre);
+                        modelo.setNombreServicio(nombreServicio);
 
-                    vista.nuevaFilaEspecialista(id, nombre, nombreServicio);
-                    vista.limpiarCampos();
-                    vista.deshabilitarAgregar();
-                    vista.habilitarAgregar();
+                        modelo.agregarEspecialista();
+
+                        vista.nuevaFilaEspecialista(id, nombre, nombreServicio);
+                        vista.limpiarCampos();
+                        vista.deshabilitarAgregar();
+                        vista.habilitarAgregar();
+                    }
                 }
                 
             } catch (NumberFormatException e) {
@@ -186,18 +192,24 @@ public class VentanaEspecialistasControlador {
                     JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     nombre = vista.getNombre();
-                    nombreServicio = vista.getNombreServicio();
-                    
-                    modelo.setId(id);
-                    modelo.setNombre(nombre);
-                    modelo.setNombreServicio(nombreServicio);
+                    if (id != selectedID && modelo.existeEspecialistaConId(id)) {
+                        String mensaje = "Error: Ya existe un especialista con esta cedula";
+                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{ 
+                        nombreServicio = vista.getNombreServicio();
 
-                    modelo.modificarEspecialista(selectedID);
-                    vista.limpiarCampos();
-                    vista.limpiarTabla();
+                        modelo.setId(id);
+                        modelo.setNombre(nombre);
+                        modelo.setNombreServicio(nombreServicio);
 
-                    modoRegistrar();
-                    cargarEspecialistasDesde(0);
+                        modelo.modificarEspecialista(selectedID);
+                        vista.limpiarCampos();
+                        vista.limpiarTabla();
+
+                        modoRegistrar();
+                        cargarEspecialistasDesde(0);
+                    }
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo de cedula", "Error", JOptionPane.ERROR_MESSAGE);
