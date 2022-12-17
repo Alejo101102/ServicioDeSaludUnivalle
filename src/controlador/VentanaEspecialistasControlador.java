@@ -131,6 +131,14 @@ public class VentanaEspecialistasControlador {
         vista.habilitarEliminar();
         vista.habilitarLimpiar();
     }
+    
+    public void limpiarTodo() {
+        vista.limpiarCampos();
+        vista.limpiarTabla();
+
+        cargarEspecialistasDesde(0);
+        modoRegistrar();
+    }
 
     
     //              LISTENERS               //
@@ -215,21 +223,14 @@ public class VentanaEspecialistasControlador {
                                 modelo.setNombreServicio(nombreServicio);
 
                                 modelo.modificarEspecialista(selectedID);
-                                vista.limpiarCampos();
-                                vista.limpiarTabla();
-
-                                modoRegistrar();
-                                cargarEspecialistasDesde(0);
+                                
+                                limpiarTodo();
                             }
                         }  
                         break;
                         
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        cargarEspecialistasDesde(0);
-                        modoRegistrar();                       
+                        limpiarTodo();
                         break;
                 }
                 
@@ -260,10 +261,7 @@ public class VentanaEspecialistasControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            vista.limpiarCampos();
-            vista.deshabilitarModificar();
-            vista.deshabilitarEliminar();
-            vista.habilitarAgregar();
+            limpiarTodo();
         }
     };
     
@@ -292,11 +290,7 @@ public class VentanaEspecialistasControlador {
                         eliminarEspecialista();
                         break;
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        cargarEspecialistasDesde(0);
-                        modoRegistrar();    
+                        limpiarTodo();
                         break;
                 }
                 
