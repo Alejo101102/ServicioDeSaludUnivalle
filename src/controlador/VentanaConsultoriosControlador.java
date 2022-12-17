@@ -209,15 +209,12 @@ public class VentanaConsultoriosControlador {
                             modelo.setEspecialistaAsociado(especialistaAsociado);
 
                             modelo.modificarConsultorio(selectedID);
-                            limpiarTodo();
                         }
-                        break;
-                        
-                        
-                    case JOptionPane.NO_OPTION:
-                        limpiarTodo();
-                        break;     
+                        break; 
                 }
+                
+                limpiarTodo();
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (NullPointerException e){
