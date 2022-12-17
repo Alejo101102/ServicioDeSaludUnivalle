@@ -128,8 +128,18 @@ public class BDManager {
         
         return nombreAfiliado;
     }
-   
     
+    public boolean existeAfiliadoConId(int id){
+        boolean resultado = false;
+        for (Afiliado afiliadoActual : afiliados) {
+            if (afiliadoActual.getId() == id) {
+                resultado = true;
+                break;
+            }
+        }
+        return resultado;
+    }
+
     //              MANEJO DE ESPECIALISTAS         //
     /**
      * Añade un nuevo especialista
@@ -163,7 +173,7 @@ public class BDManager {
     }
     
     /**
-     * Declara el servicio de un especialista como NO ENCONTRADO
+     * Declara el servicio de un especialista como NO ASIGNADO
      *
      * @param id El numero del documento de identificacion actual del
      * especialista que se va a modificar (int)
@@ -171,7 +181,7 @@ public class BDManager {
     public void serEliminadoEspecialista(int id) {
         for (Especialista especialistaActual : especialistas) {
             if (especialistaActual.getId() == id) {
-                especialistaActual.setNombreServicio("NO ENCONTRADO");
+                especialistaActual.setNombreServicio("NO ASIGNADO");
             }
         }
     }
@@ -270,7 +280,7 @@ public class BDManager {
             for (Consultorio consultorioActual : consultorios) {
                 if (consultorioActual.getNombre() == nombreEspecialista) {
                     alteracionEnConsultorio(consultorioActual.getNombre());
-                    consultorioActual.setNombre("NO ENCONTRADO");
+                    consultorioActual.setNombre("NO ASIGNADO");
                     
                 }
             }
@@ -278,7 +288,7 @@ public class BDManager {
             //ELIMINACION EN CITAS
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getEspecialista() == nombreEspecialista) {
-//                    citaActual.setEspecialista("NO ENCONTRADO");
+//                    citaActual.setEspecialista("NO ASIGNADO");
 //                }
 //            }        
         }
@@ -301,6 +311,16 @@ public class BDManager {
         return nombreEspecialista;
     }
     
+    public boolean existeEspecialistaConId(int id){
+        boolean resultado = false;
+        for (Especialista especialistaActual : especialistas) {
+            if (especialistaActual.getId() == id) {
+                resultado = true;
+                break;
+            }
+        }
+        return resultado;
+    }
     
     //              MANEJO DE SERVICIOS         //
     /**
@@ -385,7 +405,7 @@ public class BDManager {
             for (Especialista especialistaActual : especialistas) {
                 if (especialistaActual.getNombreServicio() == nombreServicio) {
                     alteracionEnEspecialista(especialistaActual.getId());
-                    especialistaActual.setNombreServicio("NO ENCONTRADO");
+                    especialistaActual.setNombreServicio("NO ASIGNADO");
                 }
             } 
             
@@ -393,7 +413,7 @@ public class BDManager {
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getEspecialista() == nombreEspecialista) {
 //                    alteracionEnCita(citaActual.getID())
-//                    citaActual.setEspecialista("NO ENCONTRADO");
+//                    citaActual.setEspecialista("NO ASIGNADO");
 //                }
 //            }
         }
@@ -497,7 +517,7 @@ public class BDManager {
             //ELIMINACION EN CITAS
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getConsultorio() == numeroConsultorio) {
-//                    citaActual.setNumeroConsultorio("NO ENCONTRADO");
+//                    citaActual.setNumeroConsultorio("NO ASIGNADO");
 //                }
 //            }        
         }
@@ -558,7 +578,7 @@ public class BDManager {
      * @param servicio
      * @param consultorio 
      */
-    public void addCitas(int id, int dia, int mes, int anio, int horas, int minutos, String afiliado, String especialista, String servicio, String consultorio) {
+    public void addCita(String id, String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio, String consultorio) {
         citas.add(new Cita(id, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio));        
     }
     
@@ -576,7 +596,7 @@ public class BDManager {
      * @param servicio
      * @param consultorio 
      */
-    public void modCitas (int idActual, int nuevoID, int dia, int mes, int anio, int horas, int minutos, String afiliado, String especialista, String servicio, String consultorio) {
+    public void modCita(String idActual, String nuevoID, String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio, String consultorio) {
         for (Cita citaActual : citas) {
             if (citaActual.getId() == idActual) {
                 citaActual.setId(nuevoID);
@@ -597,7 +617,7 @@ public class BDManager {
      * 
      * @param id 
      */
-    public void delCita(int id) {
+    public void delCita(String id) {
         for (Cita citaActual : citas) {
             if (citaActual.getId() == id) {
                 citas.remove(citaActual);
@@ -610,7 +630,7 @@ public class BDManager {
      * @param indice
      * @return 
      */
-    public int getIdCita(int indice) {
+    public String getIdCita(int indice) {
         return citas.get(indice).getId();
     }
     
@@ -619,7 +639,7 @@ public class BDManager {
      * @param indice
      * @return 
      */
-    public int getAnioCita(int indice) {
+    public String getAnioCita(int indice) {
         return citas.get(indice).getAnio();
     }
     
@@ -629,7 +649,7 @@ public class BDManager {
      * @param indice
      * @return 
      */
-    public int getMesCita(int indice) {
+    public String getMesCita(int indice) {
         return citas.get(indice).getMes();
     }
     
@@ -638,7 +658,7 @@ public class BDManager {
      * @param indice
      * @return 
      */
-    public int getDiaCita(int indice) {
+    public String getDiaCita(int indice) {
         return citas.get(indice).getDia();
     }
     
@@ -647,7 +667,7 @@ public class BDManager {
      * @param indice
      * @return 
      */
-    public int getHorasCita(int indice) {
+    public String getHorasCita(int indice) {
         return citas.get(indice).getHoras();
     }
     
@@ -656,7 +676,7 @@ public class BDManager {
      * @param indice
      * @return 
      */
-    public int getMinutosCita(int indice) {
+    public String getMinutosCita(int indice) {
         return citas.get(indice).getMinutos();
     }
 

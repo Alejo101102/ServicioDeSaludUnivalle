@@ -28,12 +28,12 @@ public class VentanaCitasModelo {
     private java.util.List<String> afiliadosRegistrados = new ArrayList();
     private java.util.List<String> consultoriosRegistrados = new ArrayList();
     
-    private int id;
-    private int dia;
-    private int mes;
-    private int anio;
-    private int horas;
-    private int minutos;
+    private String id;
+    private String dia;
+    private String mes;
+    private String anio;
+    private String horas;
+    private String minutos;
     private String afiliado;
     private String especialista;
     private String servicio;
@@ -58,70 +58,57 @@ public class VentanaCitasModelo {
         return bdmanager;
     }
 
-    public int getId(int indice) {
+    public String getId(int indice) {
         return bdmanager.getIdCita(indice);
     }
 
     public void generarID(){
-        String idS;
-        String anioS;
-        String mesS;
-        String diaS;
-        String horasS;
-        String minutosS;        
-
-        if(anio < 10) anioS = "0" + Integer.toString(anio);
-        else anioS = Integer.toString(anio);
-        if(mes < 10) mesS = "0" + Integer.toString(mes);
-        else mesS = Integer.toString(mes);
-        if(dia < 10) diaS = "0" + Integer.toString(dia);
-        else diaS = Integer.toString(dia); 
-        if(horas < 10) horasS = "0" + Integer.toString(horas);
-        else horasS = Integer.toString(horas); 
-        if(minutos < 10) minutosS = "0" + Integer.toString(minutos);
-        else minutosS = Integer.toString(minutos); 
+        id = anio + mes + dia + horas + minutos;
+    }
+    
+    public String tomarNuevoId(){
+        String nuevoId = anio + mes + dia + horas + minutos;
         
-        idS = anioS + mesS + diaS + horasS + minutosS;
-        id = Integer.parseInt(idS);   
+        return nuevoId;
     }
 
-    public int getDia(int indice) {
+    public String getDia(int indice) {
         return bdmanager.getDiaCita(indice);
     }
 
-    public void setDia(int dia) {
+    public void setDia(String dia) {
         this.dia = dia;
     }
 
-    public int getMes(int indice) {
+    public String getMes(int indice) {
         return bdmanager.getMesCita(indice);
     }
 
-    public void setMes(int mes) {
+    public void setMes(String mes) {
         this.mes = mes;
     }
 
-    public int getAnio(int indice) {
+    public String getAnio(int indice) {
         return bdmanager.getAnioCita(indice);
     }
 
-    public void setAnio(int anio) {
+    public void setAnio(String anio) {
         this.anio = anio;
     }
 
-    public int getHoras(int indice) {
+    public String getHoras(int indice) {
         return bdmanager.getHorasCita(indice);
     }
 
-    public void setHoras(int horas) {
+    public void setHoras(String horas) {
         this.horas = horas;
     }
 
-    public int getMinutos(int indice) {
+    public String getMinutos(int indice) {
         return bdmanager.getMinutosCita(indice);
     }
 
-    public void setMinutos(int minutos) {
+    public void setMinutos(String minutos) {
         this.minutos = minutos;
     }
 
@@ -157,6 +144,15 @@ public class VentanaCitasModelo {
         this.consultorio = consultorio;
     }
     
+    public void agregarCita(){
+        bdmanager.addCita(id, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio);
+    }
+    
+    public void modificarCita(String nuevoId){
+        bdmanager.modCita(id, nuevoId, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio);
+    }
+    
+    //                 CONSULTAS AL BDMANAGER               //
     public boolean hayConsultorioParaEspecialista(String nombre){ 
         boolean resultado = bdmanager.hayConsultorioParaEspecialista(nombre);
         return resultado;
@@ -176,6 +172,10 @@ public class VentanaCitasModelo {
         java.util.List<String> resultado = new ArrayList();
         resultado = bdmanager.especialistasPara(servicio);
         return resultado;
+    }
+    
+    public int getCantidadCitas(){
+        return bdmanager.getCantidadCitas();
     }
     
     //      PROVEE ELEMENTOS PREVIAMENTE REGISTRADOS EN OTRAS VENTANAS   //

@@ -345,6 +345,12 @@ public class VentanaCitasVista extends javax.swing.JFrame {
         box_afiliado.setSelectedItem(afiliado);
     }
     
+    public void nuevaFilaCita(String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio) {
+        modeloTabla.addRow(new Object[]{
+            dia, mes, anio, horas, minutos, afiliado, especialista, servicio
+        });
+    }
+    
     /**
      * Establece un texto para instruir en el modo Registrar
      */

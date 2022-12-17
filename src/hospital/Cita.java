@@ -16,18 +16,18 @@ package hospital;
 */
 
 public class Cita {
-    private int id;
-    private int dia;
-    private int mes;
-    private int anio;
-    private int horas;
-    private int minutos;
+    private String id;
+    private String dia;
+    private String mes;
+    private String anio;
+    private String horas;
+    private String minutos;
     private String afiliado;
     private String especialista;
     private String servicio;
     private String consultorio;
 
-    public Cita(int id, int dia, int mes, int anio, int horas, int minutos, String afiliado, String especialista, String servicio, String consultorio) {
+    public Cita(String id, String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio, String consultorio) {
         this.id = id;
         this.dia = dia;
         this.mes = mes;
@@ -40,51 +40,51 @@ public class Cita {
         this.consultorio = consultorio;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getDia() {
+    public String getDia() {
         return dia;
     }
 
-    public void setDia(int dia) {
+    public void setDia(String dia) {
         this.dia = dia;
     }
 
-    public int getMes() {
+    public String getMes() {
         return mes;
     }
 
-    public void setMes(int mes) {
+    public void setMes(String mes) {
         this.mes = mes;
     }
 
-    public int getAnio() {
+    public String getAnio() {
         return anio;
     }
 
-    public void setAnio(int anio) {
+    public void setAnio(String anio) {
         this.anio = anio;
     }
 
-    public int getHoras() {
+    public String getHoras() {
         return horas;
     }
 
-    public void setHoras(int horas) {
+    public void setHoras(String horas) {
         this.horas = horas;
     }
 
-    public int getMinutos() {
+    public String getMinutos() {
         return minutos;
     }
 
-    public void setMinutos(int minutos) {
+    public void setMinutos(String minutos) {
         this.minutos = minutos;
     }
 
@@ -120,26 +120,6 @@ public class Cita {
         this.consultorio = consultorio;
     }
 
-    public void generarID(){
-        String idS;
-        String anioS;
-        String mesS;
-        String diaS;
-        String horasS;
-        String minutosS;        
+    
 
-        if(anio < 10) anioS = "0" + Integer.toString(anio);
-        else anioS = Integer.toString(anio);
-        if(mes < 10) mesS = "0" + Integer.toString(mes);
-        else mesS = Integer.toString(mes);
-        if(dia < 10) diaS = "0" + Integer.toString(dia);
-        else diaS = Integer.toString(dia); 
-        if(horas < 10) horasS = "0" + Integer.toString(horas);
-        else horasS = Integer.toString(horas); 
-        if(minutos < 10) minutosS = "0" + Integer.toString(minutos);
-        else minutosS = Integer.toString(minutos); 
-        
-        idS = anioS + mesS + diaS + horasS + minutosS;
-        id = Integer.parseInt(idS);   
-    }
 }

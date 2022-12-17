@@ -130,17 +130,26 @@ public class VentanaAfiliadosControlador {
                 id = Integer.parseInt(vista.getCedula());
                 if (vista.getNombre().isBlank()) {
                     JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    nombre = vista.getNombre();
-                    modelo.setId(id);
-                    modelo.setNombre(nombre);
-                    modelo.agregarAfiliado();
-                    vista.nuevaFilaAfiliado(id, nombre);
-                    vista.limpiarCampos();
                 }
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo de cedula", "Error", JOptionPane.ERROR_MESSAGE);
+                else{
+                    nombre = vista.getNombre();
+                    if (modelo.existeAfiliadoConId(id)) {
+                        String mensaje = "Error: Ya existe un afiliado con esta cedula";
+                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{  
+                        nombre = vista.getNombre();
+                        modelo.setId(id);
+                        modelo.setNombre(nombre);
+                        modelo.agregarAfiliado();
+                        vista.nuevaFilaAfiliado(id, nombre);
+                        vista.limpiarCampos();
+                    }
+                }
+            }
+            catch (NumberFormatException e) {
+                String mensaje = "Error: Debe digirar numeros en el campo de cedula";
+                JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     };

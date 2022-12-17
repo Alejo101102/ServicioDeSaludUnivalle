@@ -33,12 +33,12 @@ public class VentanaCitasControlador {
     VentanaCitasModelo modelo;
     VentanaCitasVista vista;
     
-    private int id;
-    private int dia;
-    private int mes;
-    private int anio;
-    private int horas;
-    private int minutos;
+    private String id;
+    private String dia;
+    private String mes;
+    private String anio;
+    private String horas;
+    private String minutos;
     private String afiliado;
     private String especialista;
     private String servicio;
@@ -71,22 +71,29 @@ public class VentanaCitasControlador {
         
         cargarHora();
         cargarMinutos();
-        
-        
+
         cargarServicios();
         cargarAfiliados();
+        
+        cargarCitas();
         
         vista.setGuiaModificar();
     }
     
     public void cargarMeses(){
-        for(int i = 1; i < 13; i++){
+        for(int i = 1; i < 10; i++){
+            vista.addMes("0" + Integer.toString(i));
+        }
+        for(int i = 10; i < 13; i++){
             vista.addMes(Integer.toString(i));
         }
     }
     
     public void cargarDias(){
-        for(int i = 1; i < 32; i++){
+        for(int i = 1; i < 10; i++){
+            vista.addDia("0" + Integer.toString(i));
+        }
+        for(int i = 10; i < 32; i++){
             vista.addDia(Integer.toString(i));
         }
     }
@@ -98,13 +105,18 @@ public class VentanaCitasControlador {
     }
     
     public void cargarHora(){
-        for(int i = 0; i < 24; i++){
+        
+        for(int i = 1; i < 10; i++){
+            vista.addHoras(0 + Integer.toString(i));
+        }
+        
+        for(int i = 10; i < 24; i++){
             vista.addHoras(Integer.toString(i));
         }
     }
     
     public void cargarMinutos(){
-        vista.addMinutos(Integer.toString(00));
+        vista.addMinutos("00");
         for(int i = 15; i < 60; i+=15){
             vista.addMinutos(Integer.toString(i));
         }
@@ -134,6 +146,22 @@ public class VentanaCitasControlador {
     public void cargarAfiliados() {        
         for (int i = 0; i < modelo.getCantidadAfiliadosRegistrados(); i++) {
             vista.addAfiliado(modelo.getAfiliadoRegistrado(i));
+        }
+    }
+    
+    public void cargarCitas(){
+        for (int i = 0; i < modelo.getCantidadCitas(); i++) {
+            dia = modelo.getDia(i);
+            mes = modelo.getMes(i);
+            anio = modelo.getAnio(i);
+            horas = modelo.getHoras(i);
+            minutos  = modelo.getMinutos(i);
+            afiliado  = modelo.getAfiliado(i);
+            especialista  = modelo.getEspecialista(i);
+            servicio  = modelo.getServicio(i);
+            consultorio  = modelo.getConsultorio(i);
+        
+            vista.nuevaFilaCita(dia, mes, anio, horas, minutos, afiliado, especialista, servicio);
         }
     }
 
@@ -179,32 +207,35 @@ public class VentanaCitasControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try{
-                dia = Integer.parseInt(vista.getDia());
-                mes = Integer.parseInt(vista.getMes());
-                anio = Integer.parseInt(vista.getAnio());
-                horas = Integer.parseInt(vista.getHoras());
-                minutos = Integer.parseInt(vista.getMinutos());
+                dia = vista.getDia();
+                mes = vista.getMes();
+                anio = vista.getAnio();
+                horas = vista.getHoras();
+                minutos = vista.getMinutos();
                 especialista = vista.getEspecialista();
                 servicio = vista.getServicio();
                 afiliado = vista.getAfiliado();
-                Integer.parseInt(vista.getConsultorio()); // Prueba si ya se asignó un consultorio
                 consultorio = vista.getConsultorio();
                 
-                modelo.setDia(dia);
-                modelo.setMes(mes);
-                modelo.setAnio(anio);
-                modelo.setHoras(horas);
-                modelo.setMinutos(minutos);
-                modelo.setEspecialista(especialista);
-                modelo.setServicio(servicio);
-                modelo.setAfiliado(afiliado);
-                modelo.setConsultorio(consultorio);
-                
-                JOptionPane.showMessageDialog(null, "Opcion en desarrollo...");
+                if(consultorio != "-"){
+                    modelo.setDia(dia);
+                    modelo.setMes(mes);
+                    modelo.setAnio(anio);
+                    modelo.setHoras(horas);
+                    modelo.setMinutos(minutos);
+                    modelo.setEspecialista(especialista);
+                    modelo.setServicio(servicio);
+                    modelo.setAfiliado(afiliado);
+                    modelo.setConsultorio(consultorio);
+
+                    modelo.generarID();
+
+                    modelo.agregarCita();
+                    vista.nuevaFilaCita(dia, mes, anio, horas, minutos, afiliado, especialista, servicio);
+                }
+                else JOptionPane.showMessageDialog(null, "Error: Este especialista aún no tiene un consultorio asignado. ", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (NullPointerException e){
                 JOptionPane.showMessageDialog(null, "Error: Puede que usted no haya registrado al menos un: Servicio, Especialista o Afiliado", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Error: Este especialista aún no tiene un consultorio asignado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     };
@@ -215,7 +246,35 @@ public class VentanaCitasControlador {
     ActionListener oyenteModificar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
+            try{
+                dia = vista.getDia();
+                mes = vista.getMes();
+                anio = vista.getAnio();
+                horas = vista.getHoras();
+                minutos = vista.getMinutos();
+                especialista = vista.getEspecialista();
+                servicio = vista.getServicio();
+                afiliado = vista.getAfiliado();
+                consultorio = vista.getConsultorio();
 
+                modelo.setDia(dia);
+                modelo.setMes(mes);
+                modelo.setAnio(anio);
+                modelo.setHoras(horas);
+                modelo.setMinutos(minutos);
+                modelo.setEspecialista(especialista);
+                modelo.setServicio(servicio);
+                modelo.setAfiliado(afiliado);
+                modelo.setConsultorio(consultorio);
+
+                modelo.modificarCita(modelo.tomarNuevoId());
+
+                JOptionPane.showMessageDialog(null, "Opcion en desarrollo...");
+            } catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "Error: Puede que usted no haya registrado al menos un: Servicio, Especialista o Afiliado", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Error: Este especialista aún no tiene un consultorio asignado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     };
 
@@ -317,7 +376,7 @@ public class VentanaCitasControlador {
                 vista.setEspecialista(table.getValueAt(table.getSelectedRow(), 6).toString());                
                 vista.setServicio(table.getValueAt(table.getSelectedRow(), 7).toString());  
                 especialista = table.getValueAt(table.getSelectedRow(), 6).toString();
-                vista.setConsultorio(especialista);        
+                vista.setConsultorio(modelo.buscarNumeroConsultorioRegistrado(especialista));        
                 modoModificar();
             }
         }
