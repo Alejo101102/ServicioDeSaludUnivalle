@@ -157,29 +157,51 @@ public class VentanaServiciosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                id = Integer.parseInt(vista.getId());
-                if (vista.getNombre().isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    nombre = vista.getNombre();
-                    
-                    if (id != selectedID && modelo.existeServicioConId(id)) {
-                        String mensaje = "Error: Ya existe un servicio con este ID";
-                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    else{
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al modificar este servicio:
+                                                                   
+                                                                   - Se desasignará de los especialistas que lo ofrezcan
+                                                                   - Se eliminarán las citas donde se ofrezca el servicio
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Modificacion de Servicio",
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.WARNING_MESSAGE);
+                
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        id = Integer.parseInt(vista.getId());
+                        if (vista.getNombre().isBlank()) {
+                            JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            nombre = vista.getNombre();
 
-                        modelo.setId(id);
-                        modelo.setNombre(nombre);
+                            if (id != selectedID && modelo.existeServicioConId(id)) {
+                                String mensaje = "Error: Ya existe un servicio con este ID";
+                                JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
 
-                        modelo.modificarServicio(selectedID);
+                                modelo.setId(id);
+                                modelo.setNombre(nombre);
+
+                                modelo.modificarServicio(selectedID);
+                                vista.limpiarCampos();
+                                vista.limpiarTabla();
+
+                                modoRegistrar();
+                                cargarServicios();
+                            }
+                        }                        
+                        break;
+                        
+                    case JOptionPane.NO_OPTION:
                         vista.limpiarCampos();
                         vista.limpiarTabla();
 
                         modoRegistrar();
                         cargarServicios();
-                    }
-                }
+                        break;
+                }                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de ID", "Error", JOptionPane.ERROR_MESSAGE);
             }
