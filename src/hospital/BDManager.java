@@ -181,7 +181,7 @@ public class BDManager {
     public void serEliminadoEspecialista(int id) {
         for (Especialista especialistaActual : especialistas) {
             if (especialistaActual.getId() == id) {
-                especialistaActual.setNombreServicio("NO ASIGNADO");
+                especialistaActual.setNombreServicio("SIN ASIGNAR");
             }
         }
     }
@@ -280,7 +280,7 @@ public class BDManager {
             for (Consultorio consultorioActual : consultorios) {
                 if (consultorioActual.getNombre() == nombreEspecialista) {
                     alteracionEnConsultorio(consultorioActual.getNombre());
-                    consultorioActual.setNombre("NO ASIGNADO");
+                    consultorioActual.setNombre("SIN  ASIGNAR");
                     
                 }
             }
@@ -406,7 +406,7 @@ public class BDManager {
             for (Especialista especialistaActual : especialistas) {
                 if (especialistaActual.getNombreServicio() == nombreServicio) {
                     alteracionEnEspecialista(especialistaActual.getId());
-                    especialistaActual.setNombreServicio("NO ASIGNADO");
+                    especialistaActual.setNombreServicio("SIN ASIGNAR");
                 }
             } 
             
@@ -414,7 +414,7 @@ public class BDManager {
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getEspecialista() == nombreEspecialista) {
 //                    alteracionEnCita(citaActual.getID())
-//                    citaActual.setEspecialista("NO ASIGNADO");
+//                    citaActual.setEspecialista("SIN ASIGNAR");
 //                }
 //            }
         }
@@ -529,7 +529,7 @@ public class BDManager {
             //ELIMINACION EN CITAS
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getConsultorio() == numeroConsultorio) {
-//                    citaActual.setNumeroConsultorio("NO ASIGNADO");
+//                    citaActual.setNumeroConsultorio("SIN ASIGNAR");
 //                }
 //            }        
         }
