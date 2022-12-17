@@ -108,11 +108,11 @@ public class BDManager {
         
         if(nombreAfiliado != "SIN ASIGNAR"){
             //ELIMINACION EN CITAS
-//            for (Cita citaActual : citas) {
-//                if (citaActual.getEspecialista() == nombreEspecialista) {
-//                    citaActual.setEspecialista("NO ECONTRADO");
-//                }
-//            }        
+            for (Cita citaActual : citas) {
+                if (citaActual.getAfiliado() == nombreAfiliado) {
+                    citas.remove(citaActual);
+                }
+            }        
         }
     }
     
@@ -140,6 +140,7 @@ public class BDManager {
         return resultado;
     }
 
+    
     //              MANEJO DE ESPECIALISTAS         //
     /**
      * Añade un nuevo especialista
@@ -278,23 +279,17 @@ public class BDManager {
         if(nombreEspecialista != "SIN ASIGNAR"){
             //ELIMINACION EN CONSULTORIOS
             for (Consultorio consultorioActual : consultorios) {
-                if (consultorioActual.getNombre() == nombreEspecialista) {
-                    alteracionEnConsultorio(consultorioActual.getNombre());
+                if (consultorioActual.getNombre() == nombreEspecialista) {                    
                     consultorioActual.setNombre("SIN  ASIGNAR");
                     
                 }
             }
 
-            //ELIMINACION EN CITAS
-//            for (Cita citaActual : citas) {
-//                if (citaActual.getEspecialista() == nombreEspecialista) {
-//                    citaActual.setEspecialista("NO ASIGNADO");
-//                }
-//            }        
+            eliminarEspecialistaDeCitas(id);
         }
     }
     
-        /**
+    /**
      * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Especialista
      * @param id El ID del especialista que sufrió una alteracion (int)
      */
@@ -302,11 +297,11 @@ public class BDManager {
         String nombreEspecialista = buscarNombreEspecialista(id);
          
             //ELIMINACION EN CITAS
-//            for (Cita citaActual : citas) {
-//                if (citaActual.getEspecialista() == nombreEspecialista) {
-//                    citaActual.setEspecialista("NO ASIGNADO");
-//                }
-//            }        
+            for (Cita citaActual : citas) {
+                if (citaActual.getEspecialista() == nombreEspecialista) {
+                    citas.remove(citaActual);
+                }
+            }           
     }
     
     /**
@@ -426,12 +421,11 @@ public class BDManager {
             } 
             
             //ELIMINACION EN CITAS
-//            for (Cita citaActual : citas) {
-//                if (citaActual.getEspecialista() == nombreEspecialista) {
-//                    alteracionEnCita(citaActual.getID())
-//                    citaActual.setEspecialista("SIN ASIGNAR");
-//                }
-//            }
+            for (Cita citaActual : citas) {
+                if (citaActual.getServicio() == nombreServicio) {
+                    citas.remove(citaActual);
+                }
+            }
         }
     }
     
@@ -532,23 +526,6 @@ public class BDManager {
     public int getCantidadConsultorios() {
         return consultorios.size();
     }  
-    
-    /**
-     * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Consultorio
-     * @param nombreEspecialista El nombre del Especialista del consultorio que sufrió una alteracion
-     */
-    public void alteracionEnConsultorio(String nombreEspecialista){
-        String numeroConsultorio = buscarNumeroConsultorio(nombreEspecialista);
-        
-        if(numeroConsultorio != "SIN ASIGNAR"){
-            //ELIMINACION EN CITAS
-//            for (Cita citaActual : citas) {
-//                if (citaActual.getConsultorio() == numeroConsultorio) {
-//                    citaActual.setNumeroConsultorio("SIN ASIGNAR");
-//                }
-//            }        
-        }
-    }
     
     /**
      * Busca el nombre de un especialista
