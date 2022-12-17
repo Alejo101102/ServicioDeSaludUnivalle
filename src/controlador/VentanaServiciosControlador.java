@@ -169,6 +169,7 @@ public class VentanaServiciosControlador {
                                                                    Por motivos de seguridad, al modificar este servicio:
                                                                    
                                                                    - Se desasignará de los especialistas que lo ofrezcan
+                                                                   - Los especialistas que lo ofrezcan se desasignaran de los consultorios
                                                                    - Se eliminarán las citas donde se ofrezca el servicio
                                                                    
                                                                    ¿Desea continuar con la operación?""",
@@ -202,6 +203,8 @@ public class VentanaServiciosControlador {
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de ID", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (ConcurrentModificationException e) {
+                // Ignora la excepción
             }
         }
     };
@@ -239,6 +242,7 @@ public class VentanaServiciosControlador {
                                                                    Por motivos de seguridad, al eliminar este servicio:
                                                                    
                                                                    - Se desasignará de los especialistas que lo ofrezcan
+                                                                   - Los especialistas que lo ofrezcan se desasignaran de los consultorios
                                                                    - Se eliminarán las citas donde se ofrezca el servicio
                                                                    
                                                                    ¿Desea continuar con la operación?""",
