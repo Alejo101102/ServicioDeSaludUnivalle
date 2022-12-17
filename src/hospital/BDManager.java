@@ -106,7 +106,7 @@ public class BDManager {
     public void alteracionEnAfiliado(int id){
         String nombreAfiliado = buscarNombreAfiliado(id);
         
-        if(nombreAfiliado != "EMPTY"){
+        if(nombreAfiliado != "SIN ASIGNAR"){
             //ELIMINACION EN CITAS
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getEspecialista() == nombreEspecialista) {
@@ -117,7 +117,7 @@ public class BDManager {
     }
     
     public String buscarNombreAfiliado(int id){
-        String nombreAfiliado = "EMPTY";
+        String nombreAfiliado = "SIN ASIGNAR";
         
         for (Afiliado afiliadoActual : afiliados) {
             if (afiliadoActual.getId() == id) {
@@ -275,7 +275,7 @@ public class BDManager {
     public void alteracionEnEspecialista(int id){
         String nombreEspecialista = buscarNombreEspecialista(id);
          
-        if(nombreEspecialista != "EMPTY"){
+        if(nombreEspecialista != "SIN ASIGNAR"){
             //ELIMINACION EN CONSULTORIOS
             for (Consultorio consultorioActual : consultorios) {
                 if (consultorioActual.getNombre() == nombreEspecialista) {
@@ -300,7 +300,7 @@ public class BDManager {
      * @return El nombre del especialista (String)
      */
     public String buscarNombreEspecialista(int id){
-        String nombreEspecialista = "EMPTY";
+        String nombreEspecialista = "SIN ASIGNAR";
         
         for (Especialista especialistaActual : especialistas) {
             if (especialistaActual.getId() == id) {
@@ -401,7 +401,7 @@ public class BDManager {
         
         String nombreServicio = buscarNombreServicio(id);
         
-        if(nombreServicio != "EMPTY"){
+        if(nombreServicio != "SIN ASIGNAR"){
             //ELIMINACION EN ESPECIALISTAS
             for (Especialista especialistaActual : especialistas) {
                 if (especialistaActual.getNombreServicio() == nombreServicio) {
@@ -426,7 +426,7 @@ public class BDManager {
      * @return El nombre del servicio (String)
      */
     public String buscarNombreServicio(int id){
-        String nombreServicio = "EMPTY";
+        String nombreServicio = "SIN ASIGNAR";
         
         for (Servicio servicioActual : servicios) {
             if (servicioActual.getIdServicio() == id) {
@@ -525,7 +525,7 @@ public class BDManager {
     public void alteracionEnConsultorio(String nombreEspecialista){
         String numeroConsultorio = buscarNumeroConsultorio(nombreEspecialista);
         
-        if(numeroConsultorio != "EMPTY"){
+        if(numeroConsultorio != "SIN ASIGNAR"){
             //ELIMINACION EN CITAS
 //            for (Cita citaActual : citas) {
 //                if (citaActual.getConsultorio() == numeroConsultorio) {
@@ -541,7 +541,7 @@ public class BDManager {
      * @return El nombre del especialista (String)
      */
     public String buscarNumeroConsultorio(String nombreEspecialista){
-        String numeroConsultorio = "EMPTY";
+        String numeroConsultorio = "SIN ASIGNAR";
         
         for (Consultorio consultorioActual : consultorios) {
             if (consultorioActual.getNombre() == nombreEspecialista) {
