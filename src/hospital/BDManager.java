@@ -294,6 +294,21 @@ public class BDManager {
         }
     }
     
+        /**
+     * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Especialista
+     * @param id El ID del especialista que sufrió una alteracion (int)
+     */
+    public void eliminarEspecialistaDeCitas(int id){
+        String nombreEspecialista = buscarNombreEspecialista(id);
+         
+            //ELIMINACION EN CITAS
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    citaActual.setEspecialista("NO ASIGNADO");
+//                }
+//            }        
+    }
+    
     /**
      * Busca el nombre de un especialista
      * @param id El ID del especialista del que se quiere obtener el nombre (int)
