@@ -575,6 +575,17 @@ public class BDManager {
         return resultado;
     }
     
+    public boolean existeConsultorioConId(int id){
+        boolean resultado = false;
+        for (Consultorio consultorioActual : consultorios) {
+            if (consultorioActual.getNumeroConsultorio() == id) {
+                resultado = true;
+                break;
+            }
+        }
+        return resultado;
+    }
+    
     
     //              MANEJO DE CITAS             //
     /**
