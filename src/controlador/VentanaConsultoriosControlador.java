@@ -131,6 +131,14 @@ public class VentanaConsultoriosControlador {
         vista.habilitarEliminar();
         vista.habilitarLimpiar();
     }
+    
+    public void limpiarTodo() {
+        vista.limpiarCampos();
+        vista.limpiarTabla();
+
+        modoRegistrar();
+        cargarConsultorios();
+    }
 
     //              LISTENERS               //
     /**
@@ -201,21 +209,13 @@ public class VentanaConsultoriosControlador {
                             modelo.setEspecialistaAsociado(especialistaAsociado);
 
                             modelo.modificarConsultorio(selectedID);
-                            vista.limpiarCampos();
-                            vista.limpiarTabla();
-
-                            modoRegistrar();
-                            cargarConsultorios();
+                            limpiarTodo();
                         }
                         break;
                         
                         
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        modoRegistrar();
-                        cargarConsultorios();                        
+                        limpiarTodo();
                         break;     
                 }
             } catch (NumberFormatException e) {
@@ -243,8 +243,7 @@ public class VentanaConsultoriosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            vista.limpiarCampos();
-            modoRegistrar();
+            limpiarTodo();
         }
     };
 
@@ -272,11 +271,7 @@ public class VentanaConsultoriosControlador {
                         eliminarConsultorio();
                         break;
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        modoRegistrar();
-                        cargarConsultorios();
+                        limpiarTodo();
                         break;
                 }
                 
