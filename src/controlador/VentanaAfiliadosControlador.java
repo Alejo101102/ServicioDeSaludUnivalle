@@ -117,6 +117,14 @@ public class VentanaAfiliadosControlador {
         vista.habilitarEliminar();
         vista.habilitarLimpiar();
     }
+    
+    public void limpiarTodo(){
+        vista.limpiarCampos();
+        vista.limpiarTabla();
+
+        modoRegistrar();
+        cargarAfiliados();
+    }
 
     //              LISTENERS               //
     /**
@@ -187,21 +195,13 @@ public class VentanaAfiliadosControlador {
                                 modelo.setNombre(nombre);
 
                                 modelo.modificarAfiliado(selectedID);
-                                vista.limpiarCampos();
-                                vista.limpiarTabla();
-
-                                modoRegistrar();
-                                cargarAfiliados();
+                                limpiarTodo();
                             }
                         }
                         break;
                         
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        modoRegistrar();
-                        cargarAfiliados();
+                        limpiarTodo();
                         break;
                 }
                     
@@ -227,8 +227,7 @@ public class VentanaAfiliadosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            vista.limpiarCampos();
-            modoRegistrar();
+            limpiarTodo();
         }
     };
 
@@ -257,11 +256,7 @@ public class VentanaAfiliadosControlador {
                         break;
                         
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        modoRegistrar();
-                        cargarAfiliados();
+                        limpiarTodo();
                         break;
                 }
             } catch (ConcurrentModificationException e) {
