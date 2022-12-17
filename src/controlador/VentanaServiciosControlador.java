@@ -238,7 +238,30 @@ public class VentanaServiciosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                eliminarServicio();
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al eliminar este servicio:
+                                                                   
+                                                                   - Se desasignará de los especialistas que lo ofrezcan
+                                                                   - Se eliminarán las citas donde se ofrezca el servicio
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Eliminación de Servicio",
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.WARNING_MESSAGE);
+                
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        eliminarServicio();
+                        break;
+                    case JOptionPane.NO_OPTION:
+                        vista.limpiarCampos();
+                        vista.limpiarTabla();
+
+                        modoRegistrar();
+                        cargarServicios();
+                        break;
+                }
+                
             } catch (ConcurrentModificationException e) {
                 eliminarServicio();
             }
