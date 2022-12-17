@@ -68,7 +68,7 @@ public class VentanaEspecialistasControlador {
     /**
      * Llena la tabla con todos los especialistas almacenados en el modelo
      */
-    public void cargarEspecialistasDesde(int numEspecialista) {       
+    public void cargarEspecialistasDesde(int numEspecialista) {    
         for (int i = numEspecialista; i < modelo.getCantidadEspecialistas(); i++) {
             numEspecialista = i;
             id = modelo.getId(i);
@@ -82,7 +82,8 @@ public class VentanaEspecialistasControlador {
     /**
      * Llena la tabla con todos los especialistas almacenados en el modelo
      */
-    public void cargarServicios() {        
+    public void cargarServicios() {      
+        vista.addServicio("SIN ASIGNAR");
         for (int i = 0; i < modelo.getCantidadServicios(); i++) {
             vista.addServicio(modelo.getServicio(i));
         }
@@ -235,6 +236,8 @@ public class VentanaEspecialistasControlador {
             } catch (NullPointerException e) {
                 JOptionPane.showMessageDialog(null, "Error: No se han encontrado servicios registrados", "Error", JOptionPane.ERROR_MESSAGE);
                 modoRegistrar();
+            } catch (ConcurrentModificationException e) {
+                // Ignora la excepción
             }
         }
     };
