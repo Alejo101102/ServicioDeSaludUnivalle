@@ -82,6 +82,7 @@ public class VentanaConsultoriosControlador {
      * Añade todos los especialistas existentes al Combo Box en la vista para que puedan ser seleccionados
      */
     public void cargarEspecialistas(){
+        vista.addEspecialista("SIN ASIGNAR");
         for (int i = 0; i < modelo.getCantidadEspecialistas(); i++) {
             vista.addEspecialista(modelo.getEspecialista(i));
         }          
@@ -173,26 +174,49 @@ public class VentanaConsultoriosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                numeroConsultorio = Integer.parseInt(vista.getNumeroConsultorio());
-                if (vista.getEspecialistaAsociado().isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Error: El campo de especialistaAsociado no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                } 
-                else if (numeroConsultorio != selectedID && modelo.existeConsultorioConId(numeroConsultorio)) {
-                    String mensaje = "Error: Ya existe un consultorio con este numero";
-                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else {
-                    especialistaAsociado = vista.getEspecialistaAsociado();
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al modificar este consultorio:
+                                                                   
+                                                                   - Se eliminarán las citas donde se use.
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Modificacion de consultorio",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
 
-                    modelo.setNumeroConsultorio(numeroConsultorio);
-                    modelo.setEspecialistaAsociado(especialistaAsociado);
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        numeroConsultorio = Integer.parseInt(vista.getNumeroConsultorio());
+                        if (vista.getEspecialistaAsociado().isBlank()) {
+                            JOptionPane.showMessageDialog(null, "Error: El campo de especialistaAsociado no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+                        } 
+                        else if (numeroConsultorio != selectedID && modelo.existeConsultorioConId(numeroConsultorio)) {
+                            String mensaje = "Error: Ya existe un consultorio con este numero";
+                            JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+                        } 
+                        else {
+                            especialistaAsociado = vista.getEspecialistaAsociado();
 
-                    modelo.modificarConsultorio(selectedID);
-                    vista.limpiarCampos();
-                    vista.limpiarTabla();
+                            modelo.setNumeroConsultorio(numeroConsultorio);
+                            modelo.setEspecialistaAsociado(especialistaAsociado);
 
-                    modoRegistrar();
-                    cargarConsultorios();
+                            modelo.modificarConsultorio(selectedID);
+                            vista.limpiarCampos();
+                            vista.limpiarTabla();
+
+                            modoRegistrar();
+                            cargarConsultorios();
+                        }
+                        break;
+                        
+                        
+                    case JOptionPane.NO_OPTION:
+                        vista.limpiarCampos();
+                        vista.limpiarTabla();
+
+                        modoRegistrar();
+                        cargarConsultorios();                        
+                        break;     
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
@@ -233,7 +257,29 @@ public class VentanaConsultoriosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                eliminarConsultorio();
+                int eleccion = JOptionPane.showConfirmDialog(null, """    
+                                                                   Por motivos de seguridad, al eliminar este consultorio:
+                                                                   
+                                                                   - Se eliminarán las citas donde se use.
+                                                                   
+                                                                   ¿Desea continuar con la operación?""",
+                        "Advertencia: Eliminacion de consultorio",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+
+                switch (eleccion) {
+                    case JOptionPane.YES_OPTION:
+                        eliminarConsultorio();
+                        break;
+                    case JOptionPane.NO_OPTION:
+                        vista.limpiarCampos();
+                        vista.limpiarTabla();
+
+                        modoRegistrar();
+                        cargarConsultorios();
+                        break;
+                }
+                
             } catch (ConcurrentModificationException e) {
                 eliminarConsultorio();
             }
