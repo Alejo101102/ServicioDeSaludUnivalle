@@ -196,10 +196,6 @@ public class VentanaServiciosControlador {
                             }
                         }                        
                         break;
-                        
-                    case JOptionPane.NO_OPTION:
-                        
-                        break;
                 }    
                 
                 limpiarTodo();
@@ -226,8 +222,7 @@ public class VentanaServiciosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            limpiarTodo();
-                    
+            limpiarTodo();  
         }
     };
 
