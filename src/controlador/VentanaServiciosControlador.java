@@ -150,6 +150,14 @@ public class VentanaServiciosControlador {
         }
     };
     
+    public void limpiarTodo(){
+        vista.limpiarCampos();
+        vista.limpiarTabla();
+
+        modoRegistrar();
+        cargarServicios();
+    }
+    
     /**
      * Modifica un servicio seleccionado que ya debe existir
      */
@@ -185,23 +193,17 @@ public class VentanaServiciosControlador {
                                 modelo.setNombre(nombre);
 
                                 modelo.modificarServicio(selectedID);
-                                vista.limpiarCampos();
-                                vista.limpiarTabla();
-
-                                modoRegistrar();
-                                cargarServicios();
                             }
                         }                        
                         break;
                         
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        modoRegistrar();
-                        cargarServicios();
+                        
                         break;
-                }                
+                }    
+                
+                limpiarTodo();
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de ID", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -224,8 +226,8 @@ public class VentanaServiciosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            vista.limpiarCampos();
-            modoRegistrar();
+            limpiarTodo();
+                    
         }
     };
 
@@ -254,11 +256,7 @@ public class VentanaServiciosControlador {
                         eliminarServicio();
                         break;
                     case JOptionPane.NO_OPTION:
-                        vista.limpiarCampos();
-                        vista.limpiarTabla();
-
-                        modoRegistrar();
-                        cargarServicios();
+                        limpiarTodo();
                         break;
                 }
                 
