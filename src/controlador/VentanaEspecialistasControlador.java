@@ -196,6 +196,7 @@ public class VentanaEspecialistasControlador {
                 int eleccion = JOptionPane.showConfirmDialog(null, """    
                                                                    Por motivos de seguridad, al modificar este especialista:
                                                                    
+                                                                   - Se desasignará de los consultorios
                                                                    - Se eliminarán las citas donde participe
                                                                    
                                                                    ¿Desea continuar con la operación?""",
