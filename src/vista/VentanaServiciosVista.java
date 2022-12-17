@@ -128,7 +128,7 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
         jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, -1));
 
         btn_limpiar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btn_limpiar.setText("Nuevo");
+        btn_limpiar.setText("Cancelar");
         btn_limpiar.setEnabled(false);
         jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 90, -1));
 
@@ -241,7 +241,7 @@ public class VentanaServiciosVista extends javax.swing.JFrame {
      * Establece un texto para instruir en el modo Registrar
      */
     public void setGuiaRegistrar() {
-        lbl_textoGuia.setText("Modifique los campos arriba o presione Nuevo para volver al modo registro");
+        lbl_textoGuia.setText("Modifique los campos arriba o presione Cancelar para volver al modo registro");
     }
 
     /**

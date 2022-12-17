@@ -168,4 +168,9 @@ public class VentanaEspecialistasModelo {
     public String getServicio(int numero){
         return serviciosRegistrados.get(numero);
     }
+    
+    public boolean existeEspecialistaConId(int id){
+        boolean resultado = bdmanager.existeEspecialistaConId(id);
+        return resultado;
+    } 
 }
