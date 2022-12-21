@@ -20,8 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import javax.swing.table.DefaultTableModel;
 
-public class VentanaCitasVista extends javax.swing.JFrame {
-
+public class VentanaCitasVista extends javax.swing.JFrame{
     /**
      * Creacion de un modelo de tabla NO editable
      */

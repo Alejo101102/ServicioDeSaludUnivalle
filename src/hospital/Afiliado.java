@@ -1,5 +1,7 @@
 package hospital;
 
+import java.io.Serializable;
+
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
  *    Laboratorio # 3
@@ -15,8 +17,8 @@ package hospital;
  * 
 */
 
-public class Afiliado extends Persona{
-    
+public class Afiliado extends Persona implements Serializable{
+    private static final long serialVersionUID = 1L;
     /**
      * Constructor de la clase Afiliado
      * @see Persona.java - Clase de la que hereda
@@ -26,4 +28,5 @@ public class Afiliado extends Persona{
     Afiliado(int id, String nombre){
         super(id, nombre);
     }
+
 }

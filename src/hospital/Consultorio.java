@@ -1,5 +1,7 @@
 package hospital;
 
+import java.io.Serializable;
+
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
  *    Laboratorio #
@@ -15,7 +17,8 @@ package hospital;
  * 
 */
 
-public class Consultorio {
+public class Consultorio implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected int numeroConsultorio;
     protected String especialistaAsociado;
     
@@ -60,4 +63,5 @@ public class Consultorio {
     public void setNombre(String especialistaAsociado) {
         this.especialistaAsociado = especialistaAsociado;
     }
+
 }

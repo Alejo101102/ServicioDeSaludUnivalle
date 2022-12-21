@@ -18,8 +18,7 @@ package modelo;
 import hospital.BDManager;
 import java.util.ArrayList;
 
-public class VentanaCitasModelo {
-    
+public class VentanaCitasModelo{
     private BDManager bdmanager = new BDManager();
     
     //      ELEMENTOS PREVIAMENTE REGISTRADOS EN OTRAS VENTANAS         //

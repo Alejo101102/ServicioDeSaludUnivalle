@@ -1,5 +1,7 @@
 package hospital;
 
+import java.io.Serializable;
+
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
  *    Laboratorio #
@@ -15,7 +17,8 @@ package hospital;
  * 
 */
 
-public class Cita {
+public class Cita implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String dia;
     private String mes;
@@ -119,7 +122,5 @@ public class Cita {
     public void setConsultorio(String consultorio) {
         this.consultorio = consultorio;
     }
-
-    
 
 }

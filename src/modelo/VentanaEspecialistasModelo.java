@@ -18,8 +18,7 @@ package modelo;
 import hospital.*;
 import java.util.ArrayList;
 
-public class VentanaEspecialistasModelo {
-    
+public class VentanaEspecialistasModelo{
     BDManager bdmanager = new BDManager();
 
     private int id;
