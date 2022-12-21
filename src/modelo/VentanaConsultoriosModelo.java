@@ -18,8 +18,7 @@ import java.util.ArrayList;
  * 
 */
 
-public class VentanaConsultoriosModelo {
-
+public class VentanaConsultoriosModelo{
     BDManager bdmanager = new BDManager();
 
     private int numeroConsultorio;

@@ -1,5 +1,7 @@
 package hospital;
 
+import java.io.Serializable;
+
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
  *    Laboratorio # 3
@@ -15,7 +17,8 @@ package hospital;
  * 
 */
 
-public class Persona {
+public class Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected int id;
     protected String nombre;
     

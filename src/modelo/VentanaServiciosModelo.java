@@ -17,8 +17,7 @@ package modelo;
 
 import hospital.*;
 
-public class VentanaServiciosModelo {  
-    
+public class VentanaServiciosModelo{
     BDManager bdmanager = new BDManager();
     
     private int id;

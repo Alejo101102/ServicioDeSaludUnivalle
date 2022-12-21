@@ -19,8 +19,7 @@ import hospital.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class VentanaEspecialistasModelo {
-    
+public class VentanaEspecialistasModelo{
     BDManager bdmanager = new BDManager();
 
     private int id;

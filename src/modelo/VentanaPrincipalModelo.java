@@ -20,7 +20,7 @@ import controlador.*;
 
 import hospital.*;
 
-public class VentanaPrincipalModelo {
+public class VentanaPrincipalModelo{
     BDManager bdmanager = new BDManager();
     
     public VentanaPrincipalModelo(BDManager bdmanager){

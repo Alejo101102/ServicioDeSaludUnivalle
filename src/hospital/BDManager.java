@@ -2,6 +2,8 @@ package hospital;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -747,11 +749,44 @@ public class BDManager {
         }
     }
     
+    /**
+     * Realiza un backup de Afiliado, Cita, Consultorio, Especialista, Servicio
+     */
     public void realizarBackup(){
-        JOptionPane.showMessageDialog(null, "Aqui se realiza un backup");
+        try{
+            ObjectOutputStream backup = new ObjectOutputStream(new FileOutputStream("src/backup/backup.data"));
+            backup.writeObject(afiliados);
+            backup.writeObject(especialistas);
+            backup.writeObject(consultorios);
+            backup.writeObject(citas);
+            backup.writeObject(servicios);
+            backup.flush();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null, "No hay archivos para exportar");
+        }
     }
     
+    /**
+     * Restaura el backup de Afiliado, Cita, Consultorio, Especialista, Servicio
+     */
     public void restaurarBackup(){
-        JOptionPane.showMessageDialog(null, "Aqui se restaura un backup");
+        try {
+            ObjectInputStream recuperar = new ObjectInputStream(new FileInputStream("src/bakup/backup.data"));
+            
+            afiliados = (ArrayList) recuperar.readObject();
+            especialistas = (ArrayList) recuperar.readObject();
+            consultorios = (ArrayList) recuperar.readObject();
+            citas = (ArrayList) recuperar.readObject();
+            servicios = (ArrayList) recuperar.readObject();
+            recuperar.close();
+            
+        }catch(ClassNotFoundException e){
+            JOptionPane.showMessageDialog(null, "error 1");
+        }catch(EOFException e){
+            JOptionPane.showMessageDialog(null, "error 2");
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null, "error 3");
+        }
+        
     }
 }
