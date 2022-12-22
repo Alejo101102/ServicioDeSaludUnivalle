@@ -7,7 +7,7 @@ package controlador;
  *
  *    Archivo:  VentanaEspecialistasControlador.java
  *    Licencia: GNU-GPL 
- *    @version  1.2
+ *    @version  1.3
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -60,17 +60,18 @@ public class VentanaEspecialistasControlador {
         vista.addVolverListener(oyenteVolver);
         vista.addTableListener(oyenteFila);
 
-        cargarEspecialistasDesde(0);
+        cargarEspecialistas();
         cargarServicios();
         vista.setGuiaModificar();
     }
 
+    
+    //              ELEMENTOS DE LA INTERFAZ               //
     /**
      * Llena la tabla con todos los especialistas almacenados en el modelo
      */
-    public void cargarEspecialistasDesde(int numEspecialista) {    
-        for (int i = numEspecialista; i < modelo.getCantidadEspecialistas(); i++) {
-            numEspecialista = i;
+    public void cargarEspecialistas() {    
+        for (int i = 0; i < modelo.getCantidadEspecialistas(); i++) {
             id = modelo.getId(i);
             nombre = modelo.getNombre(i);                
             nombreServicio = modelo.getNombreServicioEspecialista(i);
@@ -89,6 +90,42 @@ public class VentanaEspecialistasControlador {
         }
     }
 
+    
+    //              MODOS DE OPERACION               //
+    /**
+     * Habilita y deshabilita elementos en la interfaz para REGISTRAR especialistas
+     */
+    public void modoRegistrar() {
+        vista.setGuiaModificar();
+        vista.deshabilitarLimpiar();
+        vista.deshabilitarModificar();
+        vista.deshabilitarEliminar();
+        vista.habilitarAgregar();
+    }
+
+    /**
+     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES en especialistas (Modificar y eliminar)
+     */
+    public void modoModificar() {
+        vista.setGuiaRegistrar();
+        vista.deshabilitarAgregar();
+        vista.habilitarModificar();
+        vista.habilitarEliminar();
+        vista.habilitarLimpiar();
+    }
+    
+    /**
+     * Recarga algunos elementos y datos de la interfaz
+     */
+    public void reinicioLimpio() {
+        vista.limpiarCampos();
+        vista.limpiarTabla();
+        cargarEspecialistas();
+        modoRegistrar();
+    }
+    
+    
+        //              FUNCIONES VARIADAS               //
     /**
      * Elimina el especialista seleccionado en la tabla
      */
@@ -107,38 +144,6 @@ public class VentanaEspecialistasControlador {
         VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
         VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
         vista.cerrar();
-    }
-
-    /**
-     * Habilita y deshabilita elementos en la interfaz para REGISTRAR NUEVOS
-     * AFILIADOS
-     */
-    public void modoRegistrar() {
-        vista.setGuiaModificar();
-        vista.deshabilitarLimpiar();
-        vista.deshabilitarModificar();
-        vista.deshabilitarEliminar();
-        vista.habilitarAgregar();
-    }
-
-    /**
-     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES
-     * EN AFILIADOS EXISTENTES (Modificar datos y eliminar)
-     */
-    public void modoModificar() {
-        vista.setGuiaRegistrar();
-        vista.deshabilitarAgregar();
-        vista.habilitarModificar();
-        vista.habilitarEliminar();
-        vista.habilitarLimpiar();
-    }
-    
-    public void limpiarTodo() {
-        vista.limpiarCampos();
-        vista.limpiarTabla();
-
-        cargarEspecialistasDesde(0);
-        modoRegistrar();
     }
 
     
@@ -171,9 +176,8 @@ public class VentanaEspecialistasControlador {
                         modelo.agregarEspecialista();
 
                         vista.nuevaFilaEspecialista(id, nombre, nombreServicio);
-                        vista.limpiarCampos();
-                        vista.deshabilitarAgregar();
-                        vista.habilitarAgregar();
+                        
+                        reinicioLimpio();
                     }
                 }
                 
@@ -230,7 +234,7 @@ public class VentanaEspecialistasControlador {
                         break;
                 }
                 
-                limpiarTodo();
+                reinicioLimpio();
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo de cedula", "Error", JOptionPane.ERROR_MESSAGE);
@@ -259,14 +263,12 @@ public class VentanaEspecialistasControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            limpiarTodo();
+            reinicioLimpio();
         }
     };
     
     /**
-     * Llama a la función eliminarEspecialista atrapando una excepción
-     *
-     * @see eliminarEspecialista
+     * Redirige y asegura la ejecución del método eliminarEspecialista
      */
     ActionListener oyenteEliminar = new ActionListener() {
         @Override
@@ -288,7 +290,7 @@ public class VentanaEspecialistasControlador {
                         eliminarEspecialista();
                         break;
                     case JOptionPane.NO_OPTION:
-                        limpiarTodo();
+                        reinicioLimpio();
                         break;
                 }
                 
@@ -304,16 +306,19 @@ public class VentanaEspecialistasControlador {
     MouseListener oyenteFila = new MouseListener() {
         @Override
         public void mousePressed(MouseEvent Mouse_evt) {
+            
             JTable table = (JTable) Mouse_evt.getSource();
             selectedRow = table.getSelectedRow();
+            Point point = Mouse_evt.getPoint();
+            int row = table.rowAtPoint(point);
+            
             try {
                 selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: No se debe modificar directamente la tabla, guardando datos y redirigiendo...", "Error crítico", JOptionPane.ERROR_MESSAGE);
                 volverAlMenu();
             }
-            Point point = Mouse_evt.getPoint();
-            int row = table.rowAtPoint(point);
+            
             if (Mouse_evt.getClickCount() == 1) {
                 int indiceServicio = 0;
                 vista.setCedulaEspecialista(table.getValueAt(table.getSelectedRow(), 0).toString());
