@@ -63,6 +63,7 @@ public class VentanaAfiliadosControlador {
         vista.setGuiaModificar();
     }
 
+    //              ELEMENTOS DE LA INTERFAZ               //
     /**
      * Llena la tabla con todos los afiliados almacenados en el modelo
      */
@@ -74,26 +75,8 @@ public class VentanaAfiliadosControlador {
         }
     }
 
-    /**
-     * Elimina el afiliado seleccionado en la tabla
-     */
-    public void eliminarAfiliado() {
-        modelo.eliminarAfiliado(selectedID);
-        vista.eliminarFilaTabla(selectedRow);
-        vista.limpiarCampos();
-        modoRegistrar();
-    }
-
-    /**
-     * Instancia una VentanaPrincipal
-     */
-    public void volverAlMenu() {
-        VentanaPrincipalVista vpv = new VentanaPrincipalVista();
-        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
-        VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
-        vista.cerrar();
-    }
-
+    
+    //              MODOS DE OPERACION               //
     /**
      * Habilita y deshabilita elementos en la interfaz para REGISTRAR NUEVOS
      * AFILIADOS
@@ -118,14 +101,39 @@ public class VentanaAfiliadosControlador {
         vista.habilitarLimpiar();
     }
     
-    public void limpiarTodo(){
+    /**
+     * Recarga algunos elementos y datos de la vista
+     */
+    public void reinicioLimpio(){
         vista.limpiarCampos();
         vista.limpiarTabla();
-
         modoRegistrar();
         cargarAfiliados();
     }
+    
+    
+    //              FUNCIONES VARIADAS               //
+    /**
+     * Elimina el afiliado seleccionado en la tabla
+     */
+    public void eliminarAfiliado() {
+        modelo.eliminarAfiliado(selectedID);
+        vista.eliminarFilaTabla(selectedRow);
+        vista.limpiarCampos();
+        modoRegistrar();
+    }
 
+    /**
+     * Instancia una VentanaPrincipal
+     */
+    public void volverAlMenu() {
+        VentanaPrincipalVista vpv = new VentanaPrincipalVista();
+        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
+        VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
+        vista.cerrar();
+    }
+
+    
     //              LISTENERS               //
     /**
      * Registra un nuevo afiliado
@@ -150,8 +158,7 @@ public class VentanaAfiliadosControlador {
                         modelo.setId(id);
                         modelo.setNombre(nombre);
                         modelo.agregarAfiliado();
-                        vista.nuevaFilaAfiliado(id, nombre);
-                        vista.limpiarCampos();
+                        reinicioLimpio();
                     }
                 }
             }
@@ -169,6 +176,7 @@ public class VentanaAfiliadosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
+                
                 int eleccion = JOptionPane.showConfirmDialog(null, """    
                                                                    Por motivos de seguridad, al modificar este afiliado:
                                                                    
@@ -180,12 +188,17 @@ public class VentanaAfiliadosControlador {
                         JOptionPane.WARNING_MESSAGE);
 
                 switch (eleccion) {
+                    
                     case JOptionPane.YES_OPTION:
+                        
                         id = Integer.parseInt(vista.getCedula());
-                        if (vista.getNombre().isBlank()) {
+                        
+                        if (vista.getNombre().isBlank())
                             JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                        } else {
+                        else {
+                            
                             nombre = vista.getNombre();
+                            
                             if (id != selectedID && modelo.existeAfiliadoConId(id)) {
                                 String mensaje = "Error: Ya existe un afiliado con esta cedula";
                                 JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
@@ -200,7 +213,7 @@ public class VentanaAfiliadosControlador {
                         break;
                 }
                 
-                limpiarTodo();
+                reinicioLimpio();
                     
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
@@ -226,7 +239,7 @@ public class VentanaAfiliadosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            limpiarTodo();
+            reinicioLimpio();
         }
     };
 
@@ -239,6 +252,7 @@ public class VentanaAfiliadosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
+                
                 int eleccion = JOptionPane.showConfirmDialog(null, """    
                                                                    Por motivos de seguridad, al eliminar este afiliado:
                                                                    
@@ -250,14 +264,16 @@ public class VentanaAfiliadosControlador {
                         JOptionPane.WARNING_MESSAGE);
 
                 switch (eleccion) {
+                    
                     case JOptionPane.YES_OPTION:
                         eliminarAfiliado();
                         break;
                         
                     case JOptionPane.NO_OPTION:
-                        limpiarTodo();
+                        reinicioLimpio();
                         break;
                 }
+                
             } catch (ConcurrentModificationException e) {
                 eliminarAfiliado();
             }
@@ -272,14 +288,16 @@ public class VentanaAfiliadosControlador {
         public void mousePressed(MouseEvent Mouse_evt) {
             JTable table = (JTable) Mouse_evt.getSource();
             selectedRow = table.getSelectedRow();
+            Point point = Mouse_evt.getPoint();
+            int row = table.rowAtPoint(point);
+            
             try {
                 selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: No se debe modificar directamente la tabla, guardando datos y redirigiendo...", "Error crítico", JOptionPane.ERROR_MESSAGE);
                 volverAlMenu();
             }
-            Point point = Mouse_evt.getPoint();
-            int row = table.rowAtPoint(point);
+
             if (Mouse_evt.getClickCount() == 1) {
                 vista.setCedulaAfiliado(table.getValueAt(table.getSelectedRow(), 0).toString());
                 vista.setNombreAfiliado(table.getValueAt(table.getSelectedRow(), 1).toString());
