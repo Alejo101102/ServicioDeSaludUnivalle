@@ -33,12 +33,15 @@ public class BDManager {
     private java.util.List<Servicio> servicios = new ArrayList<>();
     private java.util.List<Consultorio> consultorios = new ArrayList<>();
     private java.util.List<Cita> citas = new ArrayList<>();
+    
     //    Fecha    //
     private Date date = new Date();  
-    private SimpleDateFormat fechaActual = new SimpleDateFormat("dd_MMM_YYYY");  
+    private SimpleDateFormat fechaActual = new SimpleDateFormat("dd_MMM_YYYY"); 
+    
     //private String fecha= fechaActual.format(date); 
     //    Hora     //
     private Calendar calendario = new GregorianCalendar();
+    
     // Navegador de archivos //
     private JFileChooser selectorArchivos = new JFileChooser("src/backup");
     private Component contentPane;
@@ -612,9 +615,15 @@ public class BDManager {
      * @param servicio
      * @param consultorio 
      */
-    public void modCita(String idActual, String nuevoID, String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio, String consultorio) {
+    public void modCita(String idActual, String afiliadoActual, String especialistaActual, String nuevoID, String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio, String consultorio) {
+        // DESARROLLADOR
+        //System.out.println("\nDATA: Id: " + id + " afiliado: " + afiliado + " especialista: " + especialista);
+        
         for (Cita citaActual : citas) {
-            if (citaActual.getId() == idActual) {
+            
+            // DESARROLLADOR
+            // System.out.println("\nCITA: Id: " + citaActual.getId() + " Afiliado: " + citaActual.getAfiliado() + " Especialista: " + citaActual.getEspecialista());
+            if (citaActual.getAfiliado() == afiliadoActual && citaActual.getEspecialista() == especialistaActual) {
                 citaActual.setId(nuevoID);
                 citaActual.setDia(dia);
                 citaActual.setMes(mes);
@@ -633,9 +642,15 @@ public class BDManager {
      * 
      * @param id 
      */
-    public void delCita(String id) {
+    public void delCita(String id, String afiliado, String especialista) {
+        // DESARROLLADOR
+        //System.out.println("\nDATA: Id: " + id + " afiliado: " + afiliado + " especialista: " + especialista);
+        
         for (Cita citaActual : citas) {
-            if (citaActual.getId() == id) {
+            
+            // DESARROLLADOR
+            // System.out.println("\nCITA: Id: " + citaActual.getId() + " Afiliado: " + citaActual.getAfiliado() + " Especialista: " + citaActual.getEspecialista());            
+            if (citaActual.getAfiliado() == afiliado && citaActual.getEspecialista() == especialista) {                
                 citas.remove(citaActual);
             }
         }
