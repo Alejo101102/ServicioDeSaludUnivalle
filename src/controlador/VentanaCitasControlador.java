@@ -199,6 +199,36 @@ public class VentanaCitasControlador {
         vista.habilitarLimpiar();
     }
     
+    public void cargarDatosVistaAModelo() {
+        dia = vista.getDia();
+        mes = vista.getMes();
+        anio = vista.getAnio();
+        horas = vista.getHoras();
+        minutos = vista.getMinutos();
+        especialista = vista.getEspecialista();
+        servicio = vista.getServicio();
+        afiliado = vista.getAfiliado();
+        consultorio = vista.getConsultorio();
+
+        modelo.setDia(dia);
+        modelo.setMes(mes);
+        modelo.setAnio(anio);
+        modelo.setHoras(horas);
+        modelo.setMinutos(minutos);
+        modelo.setEspecialista(especialista);
+        modelo.setServicio(servicio);
+        modelo.setAfiliado(afiliado);
+        modelo.setConsultorio(consultorio);
+
+        modelo.generarID();
+        
+        // DESARROLLADOR
+//        System.out.println("\nDATOS CARGADOS AL MODELO");
+//        System.out.println("Id generado: " + modelo.tomarNuevoId());
+//        System.out.println("Especialista cargado: " + especialista);
+//        System.out.println("Afiliado cargado: " + afiliado);
+    }
+    
         //              LISTENERS               //
     /**
      * Registra un nuevo afiliado
@@ -268,8 +298,11 @@ public class VentanaCitasControlador {
                 modelo.setConsultorio(consultorio);
 
                 modelo.modificarCita(modelo.tomarNuevoId());
-
-                JOptionPane.showMessageDialog(null, "Opcion en desarrollo...");
+                
+                vista.limpiarTabla();
+                cargarCitas();
+                
+                modoRegistrar();
             } catch (NullPointerException e){
                 JOptionPane.showMessageDialog(null, "Error: Puede que usted no haya registrado al menos un: Servicio, Especialista o Afiliado", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (NumberFormatException e){
@@ -306,7 +339,14 @@ public class VentanaCitasControlador {
     ActionListener oyenteEliminar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-
+            try{
+            modelo.eliminarCita();
+            }  catch(ConcurrentModificationException e){
+                modelo.eliminarCita();
+            }
+            
+            
+            vista.eliminarFilaTabla(selectedRow);
         }
     };
     
@@ -358,7 +398,8 @@ public class VentanaCitasControlador {
             JTable table = (JTable) Mouse_evt.getSource();
             selectedRow = table.getSelectedRow();
             try {
-                selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+                selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());                
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: No se debe modificar directamente la tabla, guardando datos y redirigiendo...", "Error crítico", JOptionPane.ERROR_MESSAGE);
                 volverAlMenu();
@@ -376,7 +417,13 @@ public class VentanaCitasControlador {
                 vista.setEspecialista(table.getValueAt(table.getSelectedRow(), 6).toString());                
                 vista.setServicio(table.getValueAt(table.getSelectedRow(), 7).toString());  
                 especialista = table.getValueAt(table.getSelectedRow(), 6).toString();
-                vista.setConsultorio(modelo.buscarNumeroConsultorioRegistrado(especialista));        
+                vista.setConsultorio(modelo.buscarNumeroConsultorioRegistrado(especialista)); 
+                
+                modelo.setAfiliadoActual(vista.getAfiliado());
+                modelo.setEspecialistaActual(vista.getEspecialista());
+                
+                cargarDatosVistaAModelo();
+                
                 modoModificar();
             }
         }
