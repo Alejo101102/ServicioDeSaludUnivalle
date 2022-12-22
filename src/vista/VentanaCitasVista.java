@@ -372,6 +372,26 @@ public class VentanaCitasVista extends javax.swing.JFrame{
         dispose();
     }
     
+        //              FUNCIONES DE LIMPIEZA                   //
+    /**
+     * Elimina todas las filas de la tabla
+     */
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
+    }
+
+    /**
+     * Elimina una fila específica de la tabla
+     *
+     * @param fila La Fila a eliminar
+     */
+    public void eliminarFilaTabla(int fila) {
+        modeloTabla.removeRow(fila);
+    }
+    
     
         //              HABILITAR/DESHABILITAR BOTONES          //
     public void habilitarLimpiar() {
