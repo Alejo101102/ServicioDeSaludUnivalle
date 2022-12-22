@@ -455,6 +455,17 @@ public class BDManager {
         return nombreServicio;
     }
     
+    public boolean existeServicioConId(int id){
+        boolean resultado = false;
+        for (Servicio servicioActual : servicios) {
+            if (servicioActual.getIdServicio() == id) {
+                resultado = true;
+                break;
+            }
+        }
+        return resultado;
+    }
+    
     
     //              MANEJO DE CONSULTORIOS             //
     /**
@@ -576,6 +587,17 @@ public class BDManager {
         for (Consultorio consultorioActual : consultorios) {
             if (consultorioActual.getNombre() == nombre) {
                 resultado = consultorioActual.getNumeroConsultorio();
+                break;
+            }
+        }
+        return resultado;
+    }
+    
+    public boolean existeConsultorioConId(int id){
+        boolean resultado = false;
+        for (Consultorio consultorioActual : consultorios) {
+            if (consultorioActual.getNumeroConsultorio() == id) {
+                resultado = true;
                 break;
             }
         }
