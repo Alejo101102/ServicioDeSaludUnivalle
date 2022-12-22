@@ -1,9 +1,14 @@
 package hospital;
 
+import java.awt.Component;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.JFileChooser;
+import java.lang.NullPointerException;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +33,16 @@ public class BDManager {
     private java.util.List<Servicio> servicios = new ArrayList<>();
     private java.util.List<Consultorio> consultorios = new ArrayList<>();
     private java.util.List<Cita> citas = new ArrayList<>();
-
+    //    Fecha    //
+    private Date date = new Date();  
+    private SimpleDateFormat fechaActual = new SimpleDateFormat("dd_MMM_YYYY");  
+    //private String fecha= fechaActual.format(date); 
+    //    Hora     //
+    private Calendar calendario = new GregorianCalendar();
+    // Navegador de archivos //
+    private JFileChooser selectorArchivos = new JFileChooser("src/backup");
+    private Component contentPane;
+    
     /**
      * Constructor de la clase BDManager
      */
@@ -754,7 +768,12 @@ public class BDManager {
      */
     public void realizarBackup(){
         try{
-            ObjectOutputStream backup = new ObjectOutputStream(new FileOutputStream("src/backup/backup.data"));
+            String fecha= fechaActual.format(date);
+            int hora, minutos, segundos;
+            hora =calendario.get(Calendar.HOUR_OF_DAY);
+            minutos = calendario.get(Calendar.MINUTE);
+            segundos = calendario.get(Calendar.SECOND);
+            ObjectOutputStream backup = new ObjectOutputStream(new FileOutputStream("src/backup/"+fecha+"_"+hora+"-"+minutos+"-"+segundos+"backup.data"));
             backup.writeObject(afiliados);
             backup.writeObject(especialistas);
             backup.writeObject(consultorios);
@@ -770,9 +789,14 @@ public class BDManager {
      * Restaura el backup de Afiliado, Cita, Consultorio, Especialista, Servicio
      */
     public void restaurarBackup(){
-        try {
-            ObjectInputStream recuperar = new ObjectInputStream(new FileInputStream("src/backup/backup.data"));
-            
+        // Abre la selección del usuario
+        int seleccion =  selectorArchivos.showOpenDialog(contentPane); 
+        //Si el usuario le da aceptar
+        if (seleccion == JFileChooser.APPROVE_OPTION){ 
+           try {
+            //Seleccionamos el arcchivo
+            File archivo = selectorArchivos.getSelectedFile();
+            ObjectInputStream recuperar = new ObjectInputStream(new FileInputStream(archivo));
             afiliados = (ArrayList) recuperar.readObject();
             especialistas = (ArrayList) recuperar.readObject();
             consultorios = (ArrayList) recuperar.readObject();
@@ -780,12 +804,15 @@ public class BDManager {
             servicios = (ArrayList) recuperar.readObject();
             recuperar.close();
             
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null, "error 1");
-        }catch(EOFException e){
-            JOptionPane.showMessageDialog(null, "error 2");
-        }catch(IOException e){
-            JOptionPane.showMessageDialog(null, "error 3");
-        }
+            }catch(ClassNotFoundException e){
+                JOptionPane.showMessageDialog(null, "error 1");
+            }catch(EOFException e){
+                JOptionPane.showMessageDialog(null, "error 2");
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(null, "error 3");
+            }catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "error de gestor de archivos");
+            } 
+        }  
     }
 }
