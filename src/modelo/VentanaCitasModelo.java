@@ -37,6 +37,10 @@ public class VentanaCitasModelo{
     private String especialista;
     private String servicio;
     private String consultorio;
+    
+    private String idActual;
+    private String afiliadoActual;
+    private String especialistaActual;
 
     
     public VentanaCitasModelo(BDManager bdmanager){
@@ -143,12 +147,28 @@ public class VentanaCitasModelo{
         this.consultorio = consultorio;
     }
     
+    public void setIdActual(String id){
+        idActual = id;
+    }
+    
+    public void setAfiliadoActual(String afiliado){
+        afiliadoActual = afiliado;
+    }
+    
+    public void setEspecialistaActual(String especialista){
+        especialistaActual = especialista;
+    }
+    
     public void agregarCita(){
         bdmanager.addCita(id, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio);
     }
     
     public void modificarCita(String nuevoId){
-        bdmanager.modCita(id, nuevoId, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio);
+        bdmanager.modCita(idActual, afiliadoActual, especialistaActual, nuevoId, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio);
+    }
+    
+    public void eliminarCita(){
+        bdmanager.delCita(id, afiliado, especialista);
     }
     
     //                 CONSULTAS AL BDMANAGER               //
