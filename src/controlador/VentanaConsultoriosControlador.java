@@ -15,12 +15,12 @@ import vista.VentanaPrincipalVista;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
- *    Laboratorio #
+ *    Laboratorio # 3
  *    Profesor: Luis Romo Portilla 
  *
  *    Archivo:  VentanaConsultoriosControlador.java
  *    Licencia: GNU-GPL 
- *    @version  1.1
+ *    @version  1.2
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -67,6 +67,8 @@ public class VentanaConsultoriosControlador {
         vista.setGuiaModificar();
     }
 
+    
+    //              ELEMENTOS DE LA INTERFAZ               //
     /**
      * Llena la tabla con todos los consultorios almacenados en el modelo
      */
@@ -79,7 +81,7 @@ public class VentanaConsultoriosControlador {
     }
         
     /**
-     * Añade todos los especialistas existentes al Combo Box en la vista para que puedan ser seleccionados
+     * Añade todos los especialistas existentes al JComboBox en la vista
      */
     public void cargarEspecialistas(){
         vista.addEspecialista("SIN ASIGNAR");
@@ -88,26 +90,8 @@ public class VentanaConsultoriosControlador {
         }          
     }
 
-    /**
-     * Elimina el consultorio seleccionado en la tabla
-     */
-    public void eliminarConsultorio() {
-        modelo.eliminarConsultorio(selectedID);
-        vista.eliminarFilaTabla(selectedRow);
-        vista.limpiarCampos();
-        modoRegistrar();
-    }
-
-    /**
-     * Instancia una VentanaPrincipal
-     */
-    public void volverAlMenu() {
-        VentanaPrincipalVista vpv = new VentanaPrincipalVista();
-        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
-        VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
-        vista.cerrar();
-    }
-
+    
+    //              MODOS DE OPERACION               //
     /**
      * Habilita y deshabilita elementos en la interfaz para REGISTRAR NUEVOS
      * AFILIADOS
@@ -132,14 +116,40 @@ public class VentanaConsultoriosControlador {
         vista.habilitarLimpiar();
     }
     
-    public void limpiarTodo() {
+    /**
+     * Recarga los elementos y datos de la vista
+     */
+    public void reinicioLimpio() {
         vista.limpiarCampos();
         vista.limpiarTabla();
 
         modoRegistrar();
         cargarConsultorios();
     }
+    
+    
+    //              FUNCIONES VARIADAS               //
+    /**
+     * Elimina el consultorio seleccionado en la tabla
+     */
+    public void eliminarConsultorio() {
+        modelo.eliminarConsultorio(selectedID);
+        vista.eliminarFilaTabla(selectedRow);
+        vista.limpiarCampos();
+        modoRegistrar();
+    }
 
+    /**
+     * Instancia una VentanaPrincipal
+     */
+    public void volverAlMenu() {
+        VentanaPrincipalVista vpv = new VentanaPrincipalVista();
+        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
+        VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
+        vista.cerrar();
+    }
+    
+    
     //              LISTENERS               //
     /**
      * Registra un nuevo consultorio
@@ -162,8 +172,8 @@ public class VentanaConsultoriosControlador {
                     modelo.setNumeroConsultorio(numeroConsultorio);
                     modelo.setEspecialistaAsociado(especialistaAsociado);
                     modelo.agregarConsultorio();
-                    vista.nuevaFilaConsultorio(numeroConsultorio, especialistaAsociado);
-                    vista.limpiarCampos();
+                    
+                    reinicioLimpio();
                 }
 
             } catch (NumberFormatException e) {
@@ -213,7 +223,7 @@ public class VentanaConsultoriosControlador {
                         break; 
                 }
                 
-                limpiarTodo();
+                reinicioLimpio();
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de cedula", "Error", JOptionPane.ERROR_MESSAGE);
@@ -242,14 +252,12 @@ public class VentanaConsultoriosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            limpiarTodo();
+            reinicioLimpio();
         }
     };
 
     /**
-     * Llama a la función eliminarConsultorio atrapando una excepción
-     *
-     * @see eliminarConsultorio
+     * Redirige y asegura la ejecución del metodo eliminarConsultorio
      */
     ActionListener oyenteEliminar = new ActionListener() {
         @Override
@@ -270,7 +278,7 @@ public class VentanaConsultoriosControlador {
                         eliminarConsultorio();
                         break;
                     case JOptionPane.NO_OPTION:
-                        limpiarTodo();
+                        reinicioLimpio();
                         break;
                 }
                 
@@ -288,14 +296,16 @@ public class VentanaConsultoriosControlador {
         public void mousePressed(MouseEvent Mouse_evt) {
             JTable table = (JTable) Mouse_evt.getSource();
             selectedRow = table.getSelectedRow();
+            Point point = Mouse_evt.getPoint();
+            int row = table.rowAtPoint(point);
+            
             try {
                 selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: No se debe modificar directamente la tabla, guardando datos y redirigiendo...", "Error crítico", JOptionPane.ERROR_MESSAGE);
                 volverAlMenu();
             }
-            Point point = Mouse_evt.getPoint();
-            int row = table.rowAtPoint(point);
+            
             if (Mouse_evt.getClickCount() == 1) {
                 vista.setNumeroConsultorio(table.getValueAt(table.getSelectedRow(), 0).toString());
                 vista.setEspecialistaAsociado(table.getValueAt(table.getSelectedRow(), 1).toString());
