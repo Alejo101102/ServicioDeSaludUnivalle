@@ -7,7 +7,7 @@ package controlador;
  *
  *    Archivo:  VentanaCitasControlador.java
  *    Licencia: GNU-GPL 
- *    @version  1.0
+ *    @version  1.2
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -33,7 +33,6 @@ public class VentanaCitasControlador {
     VentanaCitasModelo modelo;
     VentanaCitasVista vista;
     
-    private String id;
     private String dia;
     private String mes;
     private String anio;
@@ -45,7 +44,6 @@ public class VentanaCitasControlador {
     private String consultorio;
     
     private int selectedRow;
-    private int selectedID;
     
     public VentanaCitasControlador(VentanaCitasModelo modelo, VentanaCitasVista vista){
     
@@ -80,6 +78,11 @@ public class VentanaCitasControlador {
         vista.setGuiaModificar();
     }
     
+    
+    //              ELEMENTOS EN INTERFAZ               //
+    /**
+     * Añade los distintos meses al JComboBox en la vista
+     */
     public void cargarMeses(){
         for(int i = 1; i < 10; i++){
             vista.addMes("0" + Integer.toString(i));
@@ -89,6 +92,9 @@ public class VentanaCitasControlador {
         }
     }
     
+    /**
+     * Añade los distintos dias al JComboBox en la vista
+     */
     public void cargarDias(){
         for(int i = 1; i < 10; i++){
             vista.addDia("0" + Integer.toString(i));
@@ -98,12 +104,18 @@ public class VentanaCitasControlador {
         }
     }
     
+    /**
+     * Añade los distintos años al JComboBox en la vista
+     */
     public void cargarAnios(){
         for(int i = 2022; i < 2035; i++){
             vista.addAnio(Integer.toString(i));
         }
     }
     
+    /**
+     * Añade las distintos horas del dia al JComboBox en la vista
+     */
     public void cargarHora(){
         
         for(int i = 1; i < 10; i++){
@@ -115,6 +127,9 @@ public class VentanaCitasControlador {
         }
     }
     
+    /**
+     * Añade los distintos minutos de una hora al JComboBox en la vista
+     */
     public void cargarMinutos(){
         vista.addMinutos("00");
         for(int i = 15; i < 60; i+=15){
@@ -123,7 +138,7 @@ public class VentanaCitasControlador {
     }
     
     /**
-     * Llena la tabla con todos los especialistas almacenados en el modelo
+     * Añade los servicios disponibles al JComboBox en la vista
      */
     public void cargarServicios() {        
         for (int i = 0; i < modelo.getCantidadServiciosRegistrados(); i++) {
@@ -132,16 +147,7 @@ public class VentanaCitasControlador {
     }
     
     /**
-     * Llena la tabla con todos los especialistas almacenados en el modelo
-     */
-    public void cargarEspecialistas() {        
-        for (int i = 0; i < modelo.getCantidadEspecialistasRegistrados(); i++) {
-            vista.addEspecialista(modelo.getEspecialistaRegistrado(i));
-        }
-    }
-    
-    /**
-     * Llena la tabla con todos los especialistas almacenados en el modelo
+     * Llena la tabla con todos los afiliados almacenados en el modelo
      */
     public void cargarAfiliados() {        
         for (int i = 0; i < modelo.getCantidadAfiliadosRegistrados(); i++) {
@@ -149,6 +155,9 @@ public class VentanaCitasControlador {
         }
     }
     
+    /**
+     * Carga todas las citas existentes del modelo al JTable en la vista
+     */
     public void cargarCitas(){
         for (int i = 0; i < modelo.getCantidadCitas(); i++) {
             dia = modelo.getDia(i);
@@ -165,19 +174,10 @@ public class VentanaCitasControlador {
         }
     }
 
+    
+    //              MODOS DE OPERACION               //
     /**
-     * Instancia una VentanaPrincipal
-     */
-    public void volverAlMenu() {
-        VentanaPrincipalVista vpv = new VentanaPrincipalVista();
-        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
-        VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
-        vista.cerrar();
-    }
-
-    /**
-     * Habilita y deshabilita elementos en la interfaz para REGISTRAR NUEVOS
-     * AFILIADOS
+     * Habilita y deshabilita elementos en la interfaz para REGISTRAR nuevas citas
      */
     public void modoRegistrar() {
         vista.setGuiaModificar();
@@ -188,8 +188,7 @@ public class VentanaCitasControlador {
     }
 
     /**
-     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES
-     * EN AFILIADOS EXISTENTES (Modificar datos y eliminar)
+     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES en citas EXISTENTES (Modificar y eliminar)
      */
     public void modoModificar() {
         vista.setGuiaRegistrar();
@@ -199,6 +198,21 @@ public class VentanaCitasControlador {
         vista.habilitarLimpiar();
     }
     
+    
+    //              FUNCIONES VARIADAS              //    
+    /**
+     * Instancia una VentanaPrincipal y cierra la actual
+     */
+    public void volverAlMenu() {
+        VentanaPrincipalVista vpv = new VentanaPrincipalVista();
+        VentanaPrincipalModelo vpm = new VentanaPrincipalModelo(modelo.getBDManager());
+        VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
+        vista.cerrar();
+    }
+    
+    /**
+     * Carga todos los datos sobre una cita en la vista hacia variables locales y luego se los pasa al modelo
+     */
     public void cargarDatosVistaAModelo() {
         dia = vista.getDia();
         mes = vista.getMes();
@@ -229,41 +243,34 @@ public class VentanaCitasControlador {
 //        System.out.println("Afiliado cargado: " + afiliado);
     }
     
-        //              LISTENERS               //
     /**
-     * Registra un nuevo afiliado
+     * Recarga partes de la interfaz interfaz y datos
+     */
+    public void reinicioLimpio() {
+        vista.limpiarTabla();
+        cargarCitas();
+        modoRegistrar();
+    }
+    
+    
+    //              LISTENERS               //
+    /**
+     * Registra una nueva cita
      */
     ActionListener oyenteAgregar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try{
-                dia = vista.getDia();
-                mes = vista.getMes();
-                anio = vista.getAnio();
-                horas = vista.getHoras();
-                minutos = vista.getMinutos();
-                especialista = vista.getEspecialista();
-                servicio = vista.getServicio();
-                afiliado = vista.getAfiliado();
-                consultorio = vista.getConsultorio();
+                
+                cargarDatosVistaAModelo();
                 
                 if(consultorio != "-"){
-                    modelo.setDia(dia);
-                    modelo.setMes(mes);
-                    modelo.setAnio(anio);
-                    modelo.setHoras(horas);
-                    modelo.setMinutos(minutos);
-                    modelo.setEspecialista(especialista);
-                    modelo.setServicio(servicio);
-                    modelo.setAfiliado(afiliado);
-                    modelo.setConsultorio(consultorio);
-
-                    modelo.generarID();
-
+                    
                     modelo.agregarCita();
                     vista.nuevaFilaCita(dia, mes, anio, horas, minutos, afiliado, especialista, servicio);
                 }
                 else JOptionPane.showMessageDialog(null, "Error: Este especialista aún no tiene un consultorio asignado. ", "Error", JOptionPane.ERROR_MESSAGE);
+                
             } catch (NullPointerException e){
                 JOptionPane.showMessageDialog(null, "Error: Puede que usted no haya registrado al menos un: Servicio, Especialista o Afiliado", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -271,38 +278,19 @@ public class VentanaCitasControlador {
     };
 
     /**
-     * Modifica un afiliado seleccionado que ya debe existir
+     * Modifica una cita existente
      */
     ActionListener oyenteModificar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try{
-                dia = vista.getDia();
-                mes = vista.getMes();
-                anio = vista.getAnio();
-                horas = vista.getHoras();
-                minutos = vista.getMinutos();
-                especialista = vista.getEspecialista();
-                servicio = vista.getServicio();
-                afiliado = vista.getAfiliado();
-                consultorio = vista.getConsultorio();
-
-                modelo.setDia(dia);
-                modelo.setMes(mes);
-                modelo.setAnio(anio);
-                modelo.setHoras(horas);
-                modelo.setMinutos(minutos);
-                modelo.setEspecialista(especialista);
-                modelo.setServicio(servicio);
-                modelo.setAfiliado(afiliado);
-                modelo.setConsultorio(consultorio);
+                
+                cargarDatosVistaAModelo();
 
                 modelo.modificarCita(modelo.tomarNuevoId());
                 
-                vista.limpiarTabla();
-                cargarCitas();
+                reinicioLimpio();
                 
-                modoRegistrar();
             } catch (NullPointerException e){
                 JOptionPane.showMessageDialog(null, "Error: Puede que usted no haya registrado al menos un: Servicio, Especialista o Afiliado", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (NumberFormatException e){
@@ -322,42 +310,45 @@ public class VentanaCitasControlador {
     };
 
     /**
-     * Limpia los campos de texto y vuelve al modo de registrar
+     * Redirige al metodo de reinicioLimpio
      */
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            modoRegistrar();
+            reinicioLimpio();
         }
     };
 
     /**
-     * Llama a la función eliminarAfiliado atrapando una excepción
-     *
-     * @see eliminarAfiliado
+     * Ordena al modelo eliminar la cita seleccionada
      */
     ActionListener oyenteEliminar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try{
+                
             modelo.eliminarCita();
+            
             }  catch(ConcurrentModificationException e){
                 modelo.eliminarCita();
-            }
+            }            
             
-            
-            vista.eliminarFilaTabla(selectedRow);
+            reinicioLimpio();
         }
     };
     
+    /**
+     * Carga solo los especialistas que cumplan con el servicio elegido
+     */
     ActionListener oyenteServicio = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
+                vista.removerEspecialistasCargados();  
+                
                 JComboBox box = (JComboBox) evt.getSource();
-                vista.removerEspecialistasCargados();
-
-                String servicioSeleccionado = box.getSelectedItem().toString();
+                String servicioSeleccionado = box.getSelectedItem().toString();            
+                
                 if(modelo.hayEspecialistaParaServicio(servicioSeleccionado)){
                     java.util.List<String> especialistasServicio = new ArrayList();
                     especialistasServicio = modelo.especialistasPara(servicioSeleccionado);
@@ -365,24 +356,31 @@ public class VentanaCitasControlador {
                         vista.addEspecialista(especialistaActual);
                     }
                 }
+                
             } catch(NullPointerException e) {
                 System.out.println("Error de punteros en oyenteServicio");
             }
         } 
     };
 
+    /**
+     * Carga el consultorio del especialista (en caso de tener)
+     */
     ActionListener oyenteEspecialista = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try{
-                vista.setConsultorio("-");                
+                
+                vista.setConsultorio("-");   
+                
                 JComboBox box = (JComboBox) evt.getSource();
                 String especialistaSeleccionado = box.getSelectedItem().toString();
+                
                 if(modelo.hayConsultorioParaEspecialista(especialistaSeleccionado)){
                     String consultorioSeleccionado = modelo.consultorioEspecialista(especialistaSeleccionado);
                     vista.setConsultorio(consultorioSeleccionado);
                 }
-                else vista.setConsultorio("-");
+                
             } catch(NullPointerException e) {
                 // No hay problema
             }
@@ -390,22 +388,18 @@ public class VentanaCitasControlador {
     };
 
     /**
-     * Gestiona los clics en las filas de Especialistas
+     * Gestiona los clics en las filas de citas, cargando algunos en la vista y en el modelo
      */
     MouseListener oyenteFila = new MouseListener() {
         @Override
         public void mousePressed(MouseEvent Mouse_evt) {
+            
             JTable table = (JTable) Mouse_evt.getSource();
             selectedRow = table.getSelectedRow();
-            try {
-                selectedID = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());                
-                
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Error: No se debe modificar directamente la tabla, guardando datos y redirigiendo...", "Error crítico", JOptionPane.ERROR_MESSAGE);
-                volverAlMenu();
-            }
+
             Point point = Mouse_evt.getPoint();
             int row = table.rowAtPoint(point);
+            
             if (Mouse_evt.getClickCount() == 1) {
                 int indiceServicio = 0;
                 vista.setDia(table.getValueAt(table.getSelectedRow(), 0).toString());                
