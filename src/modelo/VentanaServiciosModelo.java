@@ -112,10 +112,5 @@ public class VentanaServiciosModelo{
      */
     public int getCantidadServicios() {
         return bdmanager.getCantidadServicios();
-    }
-    
-    public boolean existeServicioConId(int id){
-        boolean resultado = bdmanager.existeServicioConId(id);
-        return resultado;
     }   
 }

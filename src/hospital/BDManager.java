@@ -108,18 +108,18 @@ public class BDManager {
     public void alteracionEnAfiliado(int id){
         String nombreAfiliado = buscarNombreAfiliado(id);
         
-        if(nombreAfiliado != "SIN ASIGNAR"){
+        if(nombreAfiliado != "EMPTY"){
             //ELIMINACION EN CITAS
-            for (Cita citaActual : citas) {
-                if (citaActual.getAfiliado() == nombreAfiliado) {
-                    citas.remove(citaActual);
-                }
-            }        
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    citaActual.setEspecialista("NO ECONTRADO");
+//                }
+//            }        
         }
     }
     
     public String buscarNombreAfiliado(int id){
-        String nombreAfiliado = "SIN ASIGNAR";
+        String nombreAfiliado = "EMPTY";
         
         for (Afiliado afiliadoActual : afiliados) {
             if (afiliadoActual.getId() == id) {
@@ -142,7 +142,6 @@ public class BDManager {
         return resultado;
     }
 
-    
     //              MANEJO DE ESPECIALISTAS         //
     /**
      * Añade un nuevo especialista
@@ -184,7 +183,7 @@ public class BDManager {
     public void serEliminadoEspecialista(int id) {
         for (Especialista especialistaActual : especialistas) {
             if (especialistaActual.getId() == id) {
-                especialistaActual.setNombreServicio("SIN ASIGNAR");
+                especialistaActual.setNombreServicio("NO ASIGNADO");
             }
         }
     }
@@ -278,32 +277,23 @@ public class BDManager {
     public void alteracionEnEspecialista(int id){
         String nombreEspecialista = buscarNombreEspecialista(id);
          
-        if(nombreEspecialista != "SIN ASIGNAR"){
+        if(nombreEspecialista != "EMPTY"){
             //ELIMINACION EN CONSULTORIOS
             for (Consultorio consultorioActual : consultorios) {
-                if (consultorioActual.getNombre() == nombreEspecialista) {                    
-                    consultorioActual.setNombre("SIN  ASIGNAR");
+                if (consultorioActual.getNombre() == nombreEspecialista) {
+                    alteracionEnConsultorio(consultorioActual.getNombre());
+                    consultorioActual.setNombre("NO ASIGNADO");
                     
                 }
             }
 
-            eliminarEspecialistaDeCitas(id);
-        }
-    }
-    
-    /**
-     * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Especialista
-     * @param id El ID del especialista que sufrió una alteracion (int)
-     */
-    public void eliminarEspecialistaDeCitas(int id){
-        String nombreEspecialista = buscarNombreEspecialista(id);
-         
             //ELIMINACION EN CITAS
-            for (Cita citaActual : citas) {
-                if (citaActual.getEspecialista() == nombreEspecialista) {
-                    citas.remove(citaActual);
-                }
-            }           
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    citaActual.setEspecialista("NO ASIGNADO");
+//                }
+//            }        
+        }
     }
     
     /**
@@ -312,7 +302,7 @@ public class BDManager {
      * @return El nombre del especialista (String)
      */
     public String buscarNombreEspecialista(int id){
-        String nombreEspecialista = "SIN ASIGNAR";
+        String nombreEspecialista = "EMPTY";
         
         for (Especialista especialistaActual : especialistas) {
             if (especialistaActual.getId() == id) {
@@ -333,7 +323,6 @@ public class BDManager {
         }
         return resultado;
     }
-    
     
     //              MANEJO DE SERVICIOS         //
     /**
@@ -413,21 +402,22 @@ public class BDManager {
         
         String nombreServicio = buscarNombreServicio(id);
         
-        if(nombreServicio != "SIN ASIGNAR"){
+        if(nombreServicio != "EMPTY"){
             //ELIMINACION EN ESPECIALISTAS
             for (Especialista especialistaActual : especialistas) {
                 if (especialistaActual.getNombreServicio() == nombreServicio) {
                     alteracionEnEspecialista(especialistaActual.getId());
-                    especialistaActual.setNombreServicio("SIN ASIGNAR");
+                    especialistaActual.setNombreServicio("NO ASIGNADO");
                 }
             } 
             
             //ELIMINACION EN CITAS
-            for (Cita citaActual : citas) {
-                if (citaActual.getServicio() == nombreServicio) {
-                    citas.remove(citaActual);
-                }
-            }
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getEspecialista() == nombreEspecialista) {
+//                    alteracionEnCita(citaActual.getID())
+//                    citaActual.setEspecialista("NO ASIGNADO");
+//                }
+//            }
         }
     }
     
@@ -437,7 +427,7 @@ public class BDManager {
      * @return El nombre del servicio (String)
      */
     public String buscarNombreServicio(int id){
-        String nombreServicio = "SIN ASIGNAR";
+        String nombreServicio = "EMPTY";
         
         for (Servicio servicioActual : servicios) {
             if (servicioActual.getIdServicio() == id) {
@@ -446,17 +436,6 @@ public class BDManager {
             }
         }
         return nombreServicio;
-    }
-    
-    public boolean existeServicioConId(int id){
-        boolean resultado = false;
-        for (Servicio servicioActual : servicios) {
-            if (servicioActual.getIdServicio() == id) {
-                resultado = true;
-                break;
-            }
-        }
-        return resultado;
     }
     
     
@@ -530,12 +509,29 @@ public class BDManager {
     }  
     
     /**
+     * Efectua cambios en los objetos de otras clases dependientes o relacionados con la clase Consultorio
+     * @param nombreEspecialista El nombre del Especialista del consultorio que sufrió una alteracion
+     */
+    public void alteracionEnConsultorio(String nombreEspecialista){
+        String numeroConsultorio = buscarNumeroConsultorio(nombreEspecialista);
+        
+        if(numeroConsultorio != "EMPTY"){
+            //ELIMINACION EN CITAS
+//            for (Cita citaActual : citas) {
+//                if (citaActual.getConsultorio() == numeroConsultorio) {
+//                    citaActual.setNumeroConsultorio("NO ASIGNADO");
+//                }
+//            }        
+        }
+    }
+    
+    /**
      * Busca el nombre de un especialista
      * @param nombreEspecialista El nombre del especialista del que se quiere obtener el numero de Consultorio (int)
      * @return El nombre del especialista (String)
      */
     public String buscarNumeroConsultorio(String nombreEspecialista){
-        String numeroConsultorio = "SIN ASIGNAR";
+        String numeroConsultorio = "EMPTY";
         
         for (Consultorio consultorioActual : consultorios) {
             if (consultorioActual.getNombre() == nombreEspecialista) {
@@ -563,17 +559,6 @@ public class BDManager {
         for (Consultorio consultorioActual : consultorios) {
             if (consultorioActual.getNombre() == nombre) {
                 resultado = consultorioActual.getNumeroConsultorio();
-                break;
-            }
-        }
-        return resultado;
-    }
-    
-    public boolean existeConsultorioConId(int id){
-        boolean resultado = false;
-        for (Consultorio consultorioActual : consultorios) {
-            if (consultorioActual.getNumeroConsultorio() == id) {
-                resultado = true;
                 break;
             }
         }
@@ -750,7 +735,7 @@ public class BDManager {
             String Id;
             Id=Integer.toString(afiliadoActual.getId());
             try{
-                FileWriter exportar = new FileWriter("src/backup/"+Id+".txt");
+                FileWriter exportar = new FileWriter("src/archivosAfiliados/"+Id+".txt");
                 BufferedWriter bw = new BufferedWriter(exportar);
                 PrintWriter pw = new PrintWriter(bw);
                 pw.print(Id);
@@ -786,7 +771,7 @@ public class BDManager {
      */
     public void restaurarBackup(){
         try {
-            ObjectInputStream recuperar = new ObjectInputStream(new FileInputStream("src/bakup/backup.data"));
+            ObjectInputStream recuperar = new ObjectInputStream(new FileInputStream("src/backup/backup.data"));
             
             afiliados = (ArrayList) recuperar.readObject();
             especialistas = (ArrayList) recuperar.readObject();
@@ -802,6 +787,5 @@ public class BDManager {
         }catch(IOException e){
             JOptionPane.showMessageDialog(null, "error 3");
         }
-        
     }
 }

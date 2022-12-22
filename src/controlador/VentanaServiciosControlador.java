@@ -131,17 +131,11 @@ public class VentanaServiciosControlador {
                     JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     nombre = vista.getNombre();
-                    if (modelo.existeServicioConId(id)) {
-                        String mensaje = "Error: Ya existe un servicio con este ID";
-                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    else{  
-                        modelo.setId(id);
-                        modelo.setNombre(nombre);
-                        modelo.agregarServicio();
-                        vista.nuevaFilaServicio(id, nombre);
-                        vista.limpiarCampos();
-                    }
+                    modelo.setId(id);
+                    modelo.setNombre(nombre);
+                    modelo.agregarServicio();
+                    vista.nuevaFilaServicio(id, nombre);
+                    vista.limpiarCampos();
                 }
 
             } catch (NumberFormatException e) {
@@ -150,14 +144,6 @@ public class VentanaServiciosControlador {
         }
     };
     
-    public void limpiarTodo(){
-        vista.limpiarCampos();
-        vista.limpiarTabla();
-
-        modoRegistrar();
-        cargarServicios();
-    }
-    
     /**
      * Modifica un servicio seleccionado que ya debe existir
      */
@@ -165,46 +151,24 @@ public class VentanaServiciosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                int eleccion = JOptionPane.showConfirmDialog(null, """    
-                                                                   Por motivos de seguridad, al modificar este servicio:
-                                                                   
-                                                                   - Se desasignará de los especialistas que lo ofrezcan
-                                                                   - Los especialistas que lo ofrezcan se desasignaran de los consultorios
-                                                                   - Se eliminarán las citas donde se ofrezca el servicio
-                                                                   
-                                                                   ¿Desea continuar con la operación?""",
-                        "Advertencia: Modificacion de Servicio",
-                        JOptionPane.YES_NO_OPTION, 
-                        JOptionPane.WARNING_MESSAGE);
-                
-                switch (eleccion) {
-                    case JOptionPane.YES_OPTION:
-                        id = Integer.parseInt(vista.getId());
-                        if (vista.getNombre().isBlank()) {
-                            JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                        } else {
-                            nombre = vista.getNombre();
+                id = Integer.parseInt(vista.getId());
+                if (vista.getNombre().isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    nombre = vista.getNombre();
 
-                            if (id != selectedID && modelo.existeServicioConId(id)) {
-                                String mensaje = "Error: Ya existe un servicio con este ID";
-                                JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-                            } else {
+                    modelo.setId(id);
+                    modelo.setNombre(nombre);
 
-                                modelo.setId(id);
-                                modelo.setNombre(nombre);
+                    modelo.modificarServicio(selectedID);
+                    vista.limpiarCampos();
+                    vista.limpiarTabla();
 
-                                modelo.modificarServicio(selectedID);
-                            }
-                        }                        
-                        break;
-                }    
-                
-                limpiarTodo();
-                
+                    modoRegistrar();
+                    cargarServicios();
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de ID", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (ConcurrentModificationException e) {
-                // Ignora la excepción
             }
         }
     };
@@ -225,7 +189,8 @@ public class VentanaServiciosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            limpiarTodo();  
+            vista.limpiarCampos();
+            modoRegistrar();
         }
     };
 
@@ -238,27 +203,7 @@ public class VentanaServiciosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
-                int eleccion = JOptionPane.showConfirmDialog(null, """    
-                                                                   Por motivos de seguridad, al eliminar este servicio:
-                                                                   
-                                                                   - Se desasignará de los especialistas que lo ofrezcan
-                                                                   - Los especialistas que lo ofrezcan se desasignaran de los consultorios
-                                                                   - Se eliminarán las citas donde se ofrezca el servicio
-                                                                   
-                                                                   ¿Desea continuar con la operación?""",
-                        "Advertencia: Eliminación de Servicio",
-                        JOptionPane.YES_NO_OPTION, 
-                        JOptionPane.WARNING_MESSAGE);
-                
-                switch (eleccion) {
-                    case JOptionPane.YES_OPTION:
-                        eliminarServicio();
-                        break;
-                    case JOptionPane.NO_OPTION:
-                        limpiarTodo();
-                        break;
-                }
-                
+                eliminarServicio();
             } catch (ConcurrentModificationException e) {
                 eliminarServicio();
             }
