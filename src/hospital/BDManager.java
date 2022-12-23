@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JFileChooser;
-import java.lang.NullPointerException;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  *    Archivo:  BDManager.java
  *    Licencia: GNU-GPL 
- *    @version  1.4
+ *    @version  1.5
  *    
  *    @author   Alejandro Guerrero Cano           (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">}
  *    @author   Estiven Andres Martinez Granados  (202179687-3743) {@literal <"estiven.martinez@correounivalle.edu.co">}
@@ -34,15 +33,14 @@ public class BDManager {
     private java.util.List<Consultorio> consultorios = new ArrayList<>();
     private java.util.List<Cita> citas = new ArrayList<>();
     
-    //    Fecha    //
+    // FECHA
     private Date date = new Date();  
     private SimpleDateFormat fechaActual = new SimpleDateFormat("dd_MMM_YYYY"); 
     
-    //private String fecha= fechaActual.format(date); 
-    //    Hora     //
+    // HORA
     private Calendar calendario = new GregorianCalendar();
     
-    // Navegador de archivos //
+    // NAVEGADOR DE ARCHIVOS
     private JFileChooser selectorArchivos = new JFileChooser("src/backup");
     private Component contentPane;
     
@@ -122,6 +120,10 @@ public class BDManager {
         return afiliados.size();
     }    
     
+    /**
+     * Provoca alteraciones en otros objetos según la relación
+     * @param id El id del afiliado que fue alterado (Modificado/Eliminado)
+     */
     public void alteracionEnAfiliado(int id){
         String nombreAfiliado = buscarNombreAfiliado(id);
         
@@ -135,6 +137,11 @@ public class BDManager {
         }
     }
     
+    /**
+     * Busca el nombre de un afiliado a partir de su cedula
+     * @param id La cedula del afiliado (int)
+     * @return El nombre completo del afiliado (String)
+     */
     public String buscarNombreAfiliado(int id){
         String nombreAfiliado = "EMPTY";
         
@@ -148,6 +155,11 @@ public class BDManager {
         return nombreAfiliado;
     }
     
+    /**
+     * Verifica si existe un afiliado con una cedula
+     * @param id La cedula del afiliado (int)
+     * @return True, si un afiliado ya tiene esa cedual; False, si no existe un afiliado con esa cedula
+     */
     public boolean existeAfiliadoConId(int id){
         boolean resultado = false;
         for (Afiliado afiliadoActual : afiliados) {
@@ -257,6 +269,11 @@ public class BDManager {
         return especialistas.size();
     }
     
+    /**
+     * Verifica si existe algu especialista que se ocupe de un servicio especifico
+     * @param servicio El nombre del servicio (String)
+     * @return True, si existe un especialista en ese servicio; False, si no existe
+     */
     public boolean hayEspecialistaParaServicio(String servicio) {
         boolean resultado = false;
         
@@ -272,6 +289,11 @@ public class BDManager {
         return resultado;
     }
 
+    /**
+     * Lista los nombres completos de los especialistas que se ocupan de un servicio especifico 
+     * @param servicio El nombre del servicio (String)
+     * @return El listado de nombres completos de los especialistas (List-String-)
+     */
     public java.util.List especialistasPara(String servicio) {
         
         java.util.List<String> resultado = new ArrayList();
@@ -330,6 +352,11 @@ public class BDManager {
         return nombreEspecialista;
     }
     
+    /**
+     * Verifica si existe un especialista con un numero de cedula especifico
+     * @param id El numero de cedula del especialista (int)
+     * @return True, si existe un especialista con esa cedula; False, si no existe un especialista con esa cedula
+     */
     public boolean existeEspecialistaConId(int id){
         boolean resultado = false;
         for (Especialista especialistaActual : especialistas) {
@@ -455,6 +482,11 @@ public class BDManager {
         return nombreServicio;
     }
     
+    /**
+     * Verifica si existe un servicio con un id especifico
+     * @param id El numero de id del servicio (int)
+     * @return True, si existe un servicio con esa id; False, si no existe un servicio con ese ID
+     */
     public boolean existeServicioConId(int id){
         boolean resultado = false;
         for (Servicio servicioActual : servicios) {
@@ -571,6 +603,11 @@ public class BDManager {
         return numeroConsultorio;
     }
     
+    /**
+     * Verifica si hay algun consultorio asignado al especialista
+     * @param nombre El nombre completo del especialista (String)
+     * @return True, si existe un consultorio para ese especialista; False, si no 
+     */
     public boolean hayConsultorioParaEspecialista(String nombre){
         boolean resultado = false;
         for (Consultorio consultorioActual : consultorios) {
@@ -582,6 +619,11 @@ public class BDManager {
         return resultado;
     }
     
+    /**
+     * Obtiene el numero del consultorio asignado a un especialista (El primer consultorio que encuentra)
+     * @param nombre El nombre completo del especialista (String)
+     * @return El numero del consultorio (int)
+     */
     public int consultorioEspecialista(String nombre){
         int resultado = 0;
         for (Consultorio consultorioActual : consultorios) {
@@ -593,6 +635,11 @@ public class BDManager {
         return resultado;
     }
     
+    /**
+     * Verifica si existe un consultorio con cierto numero
+     * @param id El numero del consultorio a comprobar (int)
+     * @return True, si existe un consultorio con ese nombre; False, si no
+     */
     public boolean existeConsultorioConId(int id){
         boolean resultado = false;
         for (Consultorio consultorioActual : consultorios) {
@@ -607,35 +654,37 @@ public class BDManager {
     
     //              MANEJO DE CITAS             //
     /**
-     * 
-     * @param id
-     * @param dia
-     * @param mes
-     * @param anio
-     * @param horas
-     * @param minutos
-     * @param afiliado
-     * @param especialista
-     * @param servicio
-     * @param consultorio 
+     * Añade una cita nueva a la lista
+     * @param id El id de la cita (String)
+     * @param dia El dia en el que se efectua la cita (String)
+     * @param mes El mes en el que se efectua la cita (String)
+     * @param anio El año en el que se efectua la cita (String)
+     * @param horas La hora en la que se efectua la cita sin considerar minutos (String)
+     * @param minutos Los minutos en el que se efectua la cita en la hora escogida (String)
+     * @param afiliado El nombre completo del afiliado que participa en la cita (String)
+     * @param especialista El nombre completo del servicio que participa en la cita (String)
+     * @param servicio El nombre del servicio que se efectua en la cita (String)
+     * @param consultorio El numero de consultorio donde se llevará a cabo la cita (String)
      */
     public void addCita(String id, String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio, String consultorio) {
         citas.add(new Cita(id, dia, mes, anio, horas, minutos, afiliado, especialista, servicio, consultorio));        
     }
     
     /**
-     * 
-     * @param idActual
-     * @param nuevoID
-     * @param dia
-     * @param mes
-     * @param anio
-     * @param horas
-     * @param minutos
-     * @param afiliado
-     * @param especialista
-     * @param servicio
-     * @param consultorio 
+     * Modifica los datos de una cita de la lista
+     * @param idActual El id que tiene la cita actualmente (String)
+     * @param afiliadoActual El nombre completo del afiliado actual que participa en la cita (String)
+     * @param especialistaActual El nombre completo especialista actual que participa en la cita (String)
+     * @param nuevoID El NUEVO id quetiee la nueva  cita
+     * @param dia El NUEVO dia en el que se efectua la cita (String)
+     * @param mes El NUEVO mes en el que se efectua la cita (String)
+     * @param anio El NUEVO año en el que se efectua la cita (String)
+     * @param horas La NUEVA hora en la que se efectua la cita sin considerar minutos (String)
+     * @param minutos Los NUEVOS minutos en el que se efectua la cita en la hora escogida (String)
+     * @param afiliado El NUEVO nombre completo del afiliado que participa en la cita (String)
+     * @param especialista El NUEVO nombre completo del servicio que participa en la cita (String)
+     * @param servicio El NUEVO nombre del servicio que se efectua en la cita (String)
+     * @param consultorio El NUEVO numero de consultorio donde se llevará a cabo la cita (String)
      */
     public void modCita(String idActual, String afiliadoActual, String especialistaActual, String nuevoID, String dia, String mes, String anio, String horas, String minutos, String afiliado, String especialista, String servicio, String consultorio) {
         // DESARROLLADOR
@@ -661,8 +710,10 @@ public class BDManager {
     }
 
     /**
-     * 
-     * @param id 
+     * Elimina una cita de la lista
+     * @param id El id de la cita (String)
+     * @param afiliado El nombre completo del afiliado que participa en la cita (String)
+     * @param especialista El nombre completo del servicio que participa en la cita (String)
      */
     public void delCita(String id, String afiliado, String especialista) {
         // DESARROLLADOR
@@ -679,99 +730,98 @@ public class BDManager {
     }    
     
     /**
-     * 
-     * @param indice
-     * @return 
-     */
+     * Obtiene el Id de una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El Id de la cita en el arreglo (String)
+     */ 
     public String getIdCita(int indice) {
         return citas.get(indice).getId();
     }
     
     /**
-     * 
-     * @param indice
-     * @return 
+     * Obtiene el año de una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El Año de la cita en el arreglo (String)
      */
     public String getAnioCita(int indice) {
         return citas.get(indice).getAnio();
     }
     
     /**
-     * 
-     * 
-     * @param indice
-     * @return 
+     * Obtiene el Mes de una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El Mes de la cita en el arreglo (String)
      */
     public String getMesCita(int indice) {
         return citas.get(indice).getMes();
     }
     
     /**
-     * 
-     * @param indice
-     * @return 
+     * Obtiene el dia de una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El dia de la cita en el arreglo (String)
      */
     public String getDiaCita(int indice) {
         return citas.get(indice).getDia();
     }
     
     /**
-     * 
-     * @param indice
-     * @return 
+     * Obtiene las horas de una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return Las horas sin considerar minutos de la cita en el arreglo (String)
      */
     public String getHorasCita(int indice) {
         return citas.get(indice).getHoras();
     }
     
     /**
-     * 
-     * @param indice
-     * @return 
+     * Obtiene los minutos de la hora de una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return Los minutos de la cita en el arreglo (String)
      */
     public String getMinutosCita(int indice) {
         return citas.get(indice).getMinutos();
     }
 
     /**
-     * 
-     * @param indice
-     * @return 
+     * Obtiene el afiliado que participa en una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El afiliado de la cita en el arreglo (String)
      */
     public String getAfiliadoCita(int indice) {
         return citas.get(indice).getAfiliado();
     }
 
     /**
-     * 
-     * @param indice
-     * @return 
+     * Obtiene el especialista que participa en una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El especialista de la cita en el arreglo (String)
      */
     public String getEspecialistaCita(int indice) {
         return citas.get(indice).getEspecialista();
     }
 
     /**
-     * 
-     * @param indice
-     * @return 
+     * Obtiene el servicio ofrecido en una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El servicio de la cita en el arreglo (String)
      */
     public String getServicioCita(int indice) {
         return citas.get(indice).getServicio();
     }
     
-    /**
-     * 
-     * @param indice
-     * @return 
+     /**
+     * Obtiene el numero de consultorio donde se llevara a cabo una cita en una posicion del arreglo
+     * @param indice El indice o posicion de la cita en el arreglo (int)
+     * @return El numero de consultorio de la cita en el arreglo (String)
      */
     public String getConsultorioCita(int indice) {
         return citas.get(indice).getConsultorio();
     }
 
     /**
-     * 
-     * @return 
+     * Obtiene la cantidad de citas total registradas
+     * @return El numero de citas en total (int)
      */
     public int getCantidadCitas() {
         return citas.size();
