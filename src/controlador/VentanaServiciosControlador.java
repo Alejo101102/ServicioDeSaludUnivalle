@@ -2,7 +2,7 @@ package controlador;
 
 /**
  *    Fundamentos de programación orientada a eventos 750014C-01  
- *    Laboratorio # 
+ *    Laboratorio # 3
  *    Profesor: Luis Romo Portilla 
  *
  *    Archivo:  VentanaServiciosControlador.java
@@ -75,6 +75,42 @@ public class VentanaServiciosControlador {
         }
     }
 
+    
+    //              MODOS DE OPERACION               //
+    /**
+     * Habilita y deshabilita elementos en la interfaz para REGISTRAR nuevos servicios
+     */
+    public void modoRegistrar() {
+        vista.setGuiaModificar();
+        vista.deshabilitarLimpiar();
+        vista.deshabilitarModificar();
+        vista.deshabilitarEliminar();
+        vista.habilitarAgregar();
+    }
+
+    /**
+     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES en servicios (Modificar y eliminar)
+     */
+    public void modoModificar() {
+        vista.setGuiaRegistrar();
+        vista.deshabilitarAgregar();
+        vista.habilitarModificar();
+        vista.habilitarEliminar();
+        vista.habilitarLimpiar();
+    }
+    
+    /**
+     * Recarga algunos elementos y datos de la interfaz
+     */
+    public void reinicioLimpio(){
+        vista.limpiarCampos();
+        vista.limpiarTabla();
+        modoRegistrar();
+        cargarServicios();
+    }
+    
+    
+    //              FUNCIONES VARIADAS               //
     /**
      * Elimina el servicio seleccionado en la tabla
      */
@@ -94,31 +130,9 @@ public class VentanaServiciosControlador {
         VentanaPrincipalControlador vpc = new VentanaPrincipalControlador(vpm, vpv);
         vista.cerrar();
     }
-
-    /**
-     * Habilita y deshabilita elementos en la interfaz para REGISTRAR NUEVOS
-     * AFILIADOS
-     */
-    public void modoRegistrar() {
-        vista.setGuiaModificar();
-        vista.deshabilitarLimpiar();
-        vista.deshabilitarModificar();
-        vista.deshabilitarEliminar();
-        vista.habilitarAgregar();
-    }
-
-    /**
-     * Habilita y deshabilita elementos en la interfaz para HACER MODIFICACIONES
-     * EN AFILIADOS EXISTENTES (Modificar datos y eliminar)
-     */
-    public void modoModificar() {
-        vista.setGuiaRegistrar();
-        vista.deshabilitarAgregar();
-        vista.habilitarModificar();
-        vista.habilitarEliminar();
-        vista.habilitarLimpiar();
-    }
-
+    
+    
+    //              LISTENERS               //
     /**
      * Registra un nuevo servicio
      */
@@ -126,11 +140,15 @@ public class VentanaServiciosControlador {
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
+                
                 id = Integer.parseInt(vista.getId());
-                if (vista.getNombre().isBlank()) {
+                
+                if (vista.getNombre().isBlank())
                     JOptionPane.showMessageDialog(null, "Error: El campo de nombre no puede quedar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
+                else {
+                    
                     nombre = vista.getNombre();
+                    
                     if (modelo.existeServicioConId(id)) {
                         String mensaje = "Error: Ya existe un servicio con este ID";
                         JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
@@ -139,8 +157,8 @@ public class VentanaServiciosControlador {
                         modelo.setId(id);
                         modelo.setNombre(nombre);
                         modelo.agregarServicio();
-                        vista.nuevaFilaServicio(id, nombre);
-                        vista.limpiarCampos();
+                        
+                        reinicioLimpio();
                     }
                 }
 
@@ -149,14 +167,6 @@ public class VentanaServiciosControlador {
             }
         }
     };
-    
-    public void limpiarTodo(){
-        vista.limpiarCampos();
-        vista.limpiarTabla();
-
-        modoRegistrar();
-        cargarServicios();
-    }
     
     /**
      * Modifica un servicio seleccionado que ya debe existir
@@ -178,6 +188,7 @@ public class VentanaServiciosControlador {
                         JOptionPane.WARNING_MESSAGE);
                 
                 switch (eleccion) {
+                    
                     case JOptionPane.YES_OPTION:
                         id = Integer.parseInt(vista.getId());
                         if (vista.getNombre().isBlank()) {
@@ -197,9 +208,8 @@ public class VentanaServiciosControlador {
                             }
                         }                        
                         break;
-                }    
-                
-                limpiarTodo();
+                }   
+                reinicioLimpio();
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error: Debe digirar numeros en el campo  de ID", "Error", JOptionPane.ERROR_MESSAGE);
@@ -225,7 +235,7 @@ public class VentanaServiciosControlador {
     ActionListener oyenteLimpiar = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            limpiarTodo();  
+            reinicioLimpio();  
         }
     };
 
@@ -255,7 +265,7 @@ public class VentanaServiciosControlador {
                         eliminarServicio();
                         break;
                     case JOptionPane.NO_OPTION:
-                        limpiarTodo();
+                        reinicioLimpio();
                         break;
                 }
                 
