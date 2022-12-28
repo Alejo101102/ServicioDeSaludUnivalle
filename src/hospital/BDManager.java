@@ -842,12 +842,11 @@ public class BDManager {
                 pw.print(Id);
                 pw.println("; "+afiliadoActual.getNombre()+"\r\n");
                 pw.close();
-                JOptionPane.showMessageDialog(null, "Se exportaron con éxito los datos");
             }catch(Exception x){
                 JOptionPane.showMessageDialog(null, "No se ha podido exportar");
             }
-            
         }
+        JOptionPane.showMessageDialog(null, "Se exportaron con éxito los datos");
     }
     
     /**
